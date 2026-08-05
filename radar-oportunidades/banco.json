@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "10/07/2026",
+  "atualizadoEm": "05/08/2026",
   "oportunidades": [
     {
       "status": "PRAZO PRÓXIMO",
@@ -125,6 +125,117 @@
       "local": "",
       "_cat": "premiacoes",
       "dataCadastro": "10/07/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Extensão",
+      "titulo": "Edital de Chamada Interna PROEX/CGAEX/PAEX nº 03/2026 — Insumos e Serviços",
+      "link": "https://agifes.ifes.edu.br/wp-content/uploads/2026/08/Edital_03_PAEX-insumos_2026.docx.pdf",
+      "resumo": "O Edital de Chamada Interna PROEX/CGAEX/PAEX nº 03/2026 — Insumos e Serviços apoia a aquisição de materiais de consumo e a contratação de serviços para programas e projetos de extensão institucionalizados e em execução no Ifes. Cada ação contemplada poderá receber até R$ 1.000,00.",
+      "prazo": "21/08/2026",
+      "valor": "Até R$ 1.000 por ação",
+      "publico": "Servidores coordenadores de ações de extensão do Ifes",
+      "imagem": "",
+      "_cat": "extensao",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Núcleo de Incubação",
+      "titulo": "Chamada CNPq/MinC nº 17/2026 — Apoio ao Funcionamento de Incubadoras Voltadas à Economia Criativa",
+      "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-17-2026",
+      "resumo": "A Chamada CNPq/MinC nº 17/2026 — Apoio ao Funcionamento de Incubadoras Voltadas à Economia Criativa apoia projetos de pesquisa e inovação que fortaleçam incubadoras e empreendimentos culturais e criativos. A chamada disponibiliza R$ 2,55 milhões, com aporte de até R$ 170 mil por projeto.",
+      "prazo": "10/08/2026",
+      "valor": "Até R$ 170 mil por projeto",
+      "publico": "Pesquisadores e responsáveis por incubadoras",
+      "imagem": "",
+      "local": "",
+      "_cat": "pesquisa",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Núcleo de Rel. Internacionais",
+      "titulo": "Chamada Pública CNPq/MCTI nº 15/2026 — ProÁfrica",
+      "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-15-2026",
+      "resumo": "A Chamada Pública CNPq/MCTI nº 15/2026 — ProÁfrica apoia projetos colaborativos e redes de pesquisa entre instituições brasileiras e africanas, destinados a equipes coordenadas por pesquisador com doutorado e vínculo com a instituição executora. Os projetos poderão receber até R$ 400 mil ou R$ 1 milhão, conforme a modalidade.",
+      "prazo": "31/08/2026",
+      "valor": "Até R$ 1 milhão por projeto",
+      "publico": "Pesquisadores doutores e equipes de pesquisa",
+      "imagem": "",
+      "local": "",
+      "_cat": "internac",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Núcleo de Rel. Internacionais",
+      "titulo": "Programa CAPES/Universidade em Buffalo — Professor Visitante (Edital nº 19/2026)",
+      "link": "https://www.gov.br/capes/pt-br/acesso-a-informacao/acoes-e-programas/bolsas/bolsas-e-auxilios-internacionais/encontre-aqui/paises/estados-unidos/programa-capes-universidade-em-buffalo-capes-ub-professor-visitante",
+      "resumo": "O Programa CAPES/Universidade em Buffalo — Professor Visitante (Edital nº 19/2026) oferece até 20 vagas para pesquisadores brasileiros desenvolverem atividades acadêmicas nos Estados Unidos. As candidaturas devem ser apresentadas pelo Sistema de Inscrições da CAPES.",
+      "prazo": "31/08/2026",
+      "valor": "Conforme edital",
+      "publico": "Pesquisadores e docentes elegíveis",
+      "imagem": "",
+      "local": "",
+      "_cat": "internac",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Pós-Graduação",
+      "titulo": "Curso Geral de Propriedade Intelectual DL-101P BR — INPI/OMPI",
+      "link": "https://www.gov.br/inpi/pt-br/central-de-conteudo/noticias/curso-geral-de-pi-a-distancia-abre-inscricoes-no-dia-13-7",
+      "resumo": "O Curso Geral de Propriedade Intelectual DL-101P BR — INPI/OMPI oferece formação gratuita e on-line sobre direitos autorais, patentes, marcas, indicações geográficas e desenhos industriais, destinada ao público interessado em propriedade intelectual. A formação conta com tutoria e emissão de certificado.",
+      "prazo": "07/08/2026",
+      "valor": "Gratuito",
+      "publico": "Público geral",
+      "imagem": "",
+      "local": "On-line",
+      "_cat": "evento",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Pesquisa",
+      "titulo": "Prêmio Jovem Cientista 2026 — Inteligência Artificial para o Bem Comum",
+      "link": "https://www.gov.br/cnpq/pt-br/assuntos/noticias/premios/premio-jovem-cientista-2026-inscricoes-foram-prorrogadas-para-14-de-agosto",
+      "resumo": "O Prêmio Jovem Cientista 2026 — Inteligência Artificial para o Bem Comum reconhece projetos que utilizem inteligência artificial para reduzir desigualdades e promover o desenvolvimento sustentável, destinado a estudantes e jovens pesquisadores de todo o país. Os vencedores receberão bolsas do CNPq, equipamentos e prêmios em dinheiro.",
+      "prazo": "14/08/2026",
+      "valor": "De R$ 5 mil a R$ 40 mil",
+      "publico": "Estudantes, mestres, doutores e jovens pesquisadores",
+      "imagem": "",
+      "local": "",
+      "_cat": "premiacoes",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Pesquisa",
+      "titulo": "19º Prêmio MERCOSUL de Ciência, Tecnologia e Inovação — Edição 2026",
+      "link": "https://www.gov.br/cnpq/pt-br/acesso-a-informacao/acoes-e-programas/premios/edital/",
+      "resumo": "O 19º Prêmio MERCOSUL de Ciência, Tecnologia e Inovação — Edição 2026 reconhece trabalhos sobre descarbonização e transição energética para um mundo mais sustentável, destinado a estudantes, jovens pesquisadores e equipes dos países membros e associados do bloco. A premiação contempla cinco categorias.",
+      "prazo": "31/08/2026",
+      "valor": "Conforme edital",
+      "publico": "Estudantes, jovens pesquisadores e equipes de pesquisa",
+      "imagem": "",
+      "local": "",
+      "_cat": "premiacoes",
+      "dataCadastro": "05/08/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Extensão",
+      "titulo": "Edital de Chamada Interna PROEX/CGAEX nº 02/2026 — Banca de Avaliadores de Ações de Extensão",
+      "link": "https://proex.ifes.edu.br/editais?start=1",
+      "resumo": "O Edital de Chamada Interna PROEX/CGAEX nº 02/2026 — Banca de Avaliadores de Ações de Extensão credencia servidores efetivos do Ifes para avaliar programas e projetos de extensão, destinado a profissionais em exercício com graduação e experiência, formação ou capacitação na área. O credenciamento não possui limite de vagas nem gera remuneração adicional.",
+      "prazo": "18/08/2026",
+      "valor": "Sem remuneração adicional",
+      "publico": "Servidores efetivos do Ifes",
+      "imagem": "",
+      "local": "",
+      "_cat": "extensao",
+      "dataCadastro": "05/08/2026"
     }
   ]
 }
