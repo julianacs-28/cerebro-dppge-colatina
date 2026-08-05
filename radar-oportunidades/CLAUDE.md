@@ -336,7 +336,8 @@ Portal web com GitHub Pages:
 - **Rodapé** verde com links de navegação
 
 **URL pública:** `https://julianacs-28.github.io/cerebro-dppge-colatina/radar-oportunidades/`  
-**Sistema interno:** `https://julianacs-28.github.io/cerebro-dppge-colatina/radar-oportunidades/radar_sistema_dppge.html`
+**Sistema interno:** `https://julianacs-28.github.io/cerebro-dppge-colatina/radar-oportunidades/radar_sistema_dppge.html`  
+**URL curta (com métricas de acesso) — usar sempre no boletim e na mensagem de WhatsApp:** `https://links.ifes.edu.br/radar` (redireciona para a URL pública acima; constante `SITE_URL` em `radar_sistema_dppge.html`)
 
 ---
 
