@@ -146,7 +146,9 @@ section{padding:72px 0}
 .oport-titulo{font-size:19px;font-weight:700;color:var(--preto);margin-bottom:8px;line-height:1.3}
 .oport-titulo a{color:inherit;text-decoration:none}
 .oport-titulo a:hover{text-decoration:underline}
-.oport-resumo{font-size:15px;color:var(--ct);line-height:1.7;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.oport-resumo{font-size:15px;color:var(--ct);line-height:1.7;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.oport-resumo a{color:var(--verde);border-bottom:1px solid transparent;transition:border-color .15s}
+.oport-resumo a:hover{border-bottom-color:var(--verde)}
 .oport-dados{display:flex;gap:20px;flex-wrap:wrap}
 .oport-dado{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--cs)}
 .oport-dado img{width:14px;height:14px;opacity:.7}
@@ -802,7 +804,7 @@ function filtrarCat() {
         ${o.origem?`<span class="oport-origem">${o.origem.toUpperCase()}</span>`:''}
       </div>
       <div class="oport-titulo">${o.link?`<a href="${o.link}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
-      <div class="oport-resumo" style="-webkit-line-clamp:3">${resumoLinkado(o)}</div>
+      <div class="oport-resumo" style="-webkit-line-clamp:4">${resumoLinkado(o)}</div>
       <div class="oport-dados">
         ${o.prazo&&o._urgencia!=='FLUXO CONTÍNUO'?`<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${o.prazo}</strong></span>`:''}
         ${o.valor?`<span class="oport-dado"><img src="${IC.din}" alt=""><strong>${o.valor}</strong></span>`:''}
