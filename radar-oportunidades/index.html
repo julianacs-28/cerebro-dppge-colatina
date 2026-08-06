@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Oportunidades — DPPGE · Ifes Campus Colatina</title>
+<meta name="description" content="Portal de oportunidades acadêmicas da DPPGE do Ifes Campus Colatina.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --verde:#0c420b;--verde-m:#196d1e;--preto:#111;--ct:#555;--cs:#888;
+  --fundo:#f9f9f7;--branco:#fff;--borda:#e8e8e4;
+  --roxo-bg:#EBE9F4;--roxo:#4A368F;
+  --azul-bg:#DDE8FA;--azul:#0149AF;
+  --rosa-bg:#F4CEDD;--rosa:#C2195A;
+  --laranja-bg:#FCE5D5;--laranja:#A03B11;
+  --dourado-bg:#F5EFD7;--dourado:#7A5B00;
+  --teal-bg:#D7F6F1;--teal:#006A5C;
+  --f:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --max:1100px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f);background:var(--fundo);color:var(--preto);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;border:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+
+/* HEADER */
+header{background:var(--verde);border-bottom:1px solid rgba(255,255,255,.15);position:sticky;top:0;z-index:200}
+.hdr{max-width:var(--max);margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.logo img{width:42px;height:42px}
+.logo-t{font-size:15px;font-weight:800;color:#ffffff;letter-spacing:-.2px;line-height:1.25;display:inline-block}
+nav{display:flex;align-items:center;gap:4px}
+nav a{font-size:13px;font-weight:500;color:rgba(255,255,255,.8);padding:7px 13px;border-radius:6px;transition:background .15s,color .15s;cursor:pointer}
+nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+nav a.active{color:#fff;font-weight:700}
+.nav-cta{background:rgba(255,255,255,.18)!important;color:#fff!important;border-radius:6px;border:1px solid rgba(255,255,255,.3)!important}
+.nav-cta:hover{background:rgba(255,255,255,.28)!important}
+
+/* PÁGINAS */
+.page{display:none;min-height:calc(100vh - 64px)}
+.page.active{display:block}
+
+/* ── PÁGINA INICIAL ── */
+/* HERO */
+.hero{background:var(--verde);color:#fff;padding:72px 0 80px}
+.hero-in{max-width:var(--max);margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:48px}
+.hero-txt{flex:1}
+.hero-ey{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#7ec87e;margin-bottom:16px}
+.hero h1{font-size:clamp(32px,4vw,48px);font-weight:800;line-height:1.1;letter-spacing:-1px}
+.hero-title-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.hero-title-icon{height:clamp(70px,8.8vw,106px);width:auto}
+
+.hero p{font-size:17px;color:#c8e6c8;line-height:1.65;max-width:480px;margin-bottom:32px}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap}
+.btn-h{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:600;transition:all .18s;cursor:pointer;border:none;font-family:var(--f)}
+.btn-h-p{background:#fff;color:var(--verde)}.btn-h-p:hover{background:#f0faf0}
+.btn-h-s{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}.btn-h-s:hover{background:rgba(255,255,255,.2)}
+.hero-img{flex-shrink:0;width:320px;opacity:.14;align-self:stretch;display:flex;align-items:center}.hero-img img{width:100%;filter:brightness(0) invert(1)}
+
+/* STATS */
+.stats-bar{background:var(--branco);border-bottom:1px solid var(--borda);padding:18px 0}
+.stats-in{max-width:var(--max);margin:0 auto;padding:0 32px;display:flex;gap:32px;align-items:center;flex-wrap:wrap}
+.stat{display:flex;align-items:baseline;gap:6px}
+.stat-n{font-size:22px;font-weight:800;color:var(--verde);letter-spacing:-1px}
+.stat-l{font-size:13px;color:var(--cs)}
+.sdiv{width:1px;height:24px;background:var(--borda)}
+.stat-up{margin-left:auto;font-size:12px;color:var(--cs)}
+.stat-hint{font-size:11px;color:var(--cs);margin-top:2px;font-style:italic}
+
+/* SEÇÃO */
+section{padding:72px 0}
+.sec-lb{font-size:16px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--verde-m);margin-bottom:2px}
+.sec-ti{font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.5px;color:var(--preto);margin-bottom:10px}
+.sec-de{font-size:16px;color:var(--ct);max-width:520px;line-height:1.65}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap}
+
+/* BUSCA */
+#home-busca{background:var(--branco);padding:32px 0;border-bottom:1px solid var(--borda)}
+.busca-inner{max-width:var(--max);margin:0 auto;padding:0 32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.busca-campo{flex:1;min-width:240px;display:flex;align-items:center;gap:10px;background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:10px 16px;transition:border-color .2s}
+.busca-campo:focus-within{border-color:var(--verde)}
+.busca-campo input{border:none;background:none;font-family:var(--f);font-size:15px;color:var(--preto);width:100%;outline:none}
+.busca-campo input::placeholder{color:var(--cs)}
+.busca-campo span{color:var(--cs);font-size:16px}
+.busca-select{padding:10px 14px;border:1.5px solid var(--borda);border-radius:8px;font-family:var(--f);font-size:14px;color:var(--ct);background:var(--fundo);outline:none;cursor:pointer;transition:border-color .2s}
+.busca-select:focus{border-color:var(--verde)}
+.busca-btn{padding:10px 20px;background:var(--verde);color:#fff;border:none;border-radius:8px;font-family:var(--f);font-size:14px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.busca-btn:hover{opacity:.88}
+.busca-btn-limpar{padding:10px 18px;background:transparent;color:var(--cs);border:1.5px solid var(--borda);border-radius:8px;font-family:var(--f);font-size:14px;font-weight:500;cursor:pointer;transition:all .18s}
+.busca-btn-limpar:hover{border-color:var(--ct);color:var(--ct);background:var(--fundo)}
+
+/* CATEGORIAS */
+#categorias{background:var(--branco)}
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cat-card{padding:32px 24px 28px;border-radius:10px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.09)}
+.cat-icon{width:44px;height:44px;margin-bottom:18px}
+.cat-nome{font-size:20px;font-weight:800;letter-spacing:-.3px;margin-bottom:8px;line-height:1.2}
+.cat-count{font-size:13px;opacity:.65;font-weight:500}
+.cat-arr{position:absolute;top:24px;right:24px;font-size:16px;opacity:.3;transition:opacity .2s,transform .2s}
+.cat-card:hover .cat-arr{opacity:.6;transform:translateX(3px)}
+
+/* OPORTUNIDADES (HOME) */
+#recentes{background:var(--fundo)}
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+
+/* BADGE STATUS — padrão boletim */
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 8px;border-radius:14px;font-size:11px;font-weight:700;letter-spacing:.5px;white-space:nowrap;border:1.5px solid}
+.status-badge img{width:11px;height:11px}
+.s-novo{background:#e8f5e8;border-color:#1B5E20;color:#1B5E20}
+.s-prazo{background:#fff8e1;border-color:#F57F17;color:#F57F17}
+.s-ultimos{background:#ffebee;border-color:#C41E3A;color:#C41E3A}
+.s-fluxo{background:#e3f2fd;border-color:#1565C0;color:#1565C0}
+.s-encerrado{background:#f5f5f5;border-color:#9E9E9E;color:#616161}
+
+.filtro-btn{padding:5px 14px 5px 8px;border-radius:20px;border:1.5px solid var(--borda);background:var(--branco);font-size:12px;font-weight:600;cursor:pointer;color:var(--ct);transition:all .15s;font-family:var(--f);display:inline-flex;align-items:center;gap:6px}
+.filtro-btn img{width:11px;height:11px}
+.filtro-btn:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.filtro-btn.ativo{color:#fff}
+.filtro-btn.ativo img{filter:brightness(0) invert(1)}
+/* Cores individuais por status */
+.filtro-btn[data-f="todos"]{border-color:var(--verde);color:var(--verde)}
+.filtro-btn[data-f="todos"].ativo{background:var(--verde);color:#fff}
+.filtro-btn[data-f="novo"]{border-color:#1B5E20;color:#1B5E20;background:#e8f5e8}
+.filtro-btn[data-f="novo"].ativo{background:#1B5E20;color:#fff}
+.filtro-btn[data-f="PRAZO PRÓXIMO"]{border-color:#F57F17;color:#F57F17;background:#fff8e1}
+.filtro-btn[data-f="PRAZO PRÓXIMO"].ativo{background:#F57F17;color:#fff}
+.filtro-btn[data-f="ÚLTIMOS DIAS"]{border-color:#C41E3A;color:#C41E3A;background:#ffebee}
+.filtro-btn[data-f="ÚLTIMOS DIAS"].ativo{background:#C41E3A;color:#fff}
+.filtro-btn[data-f="FLUXO CONTÍNUO"]{border-color:#1565C0;color:#1565C0;background:#e3f2fd}
+.filtro-btn[data-f="FLUXO CONTÍNUO"].ativo{background:#1565C0;color:#fff}
+.filtro-btn[data-f="ENCERRADO"]{border-color:#9E9E9E;color:#616161;background:#f5f5f5}
+.filtro-btn[data-f="ENCERRADO"].ativo{background:#9E9E9E;color:#fff}
+
+.oports-lista{display:flex;flex-direction:column;gap:10px}
+.oport-item{background:var(--branco);border-radius:10px;padding:26px 28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;transition:box-shadow .18s;border:1px solid transparent}
+.oport-item.oport-encerrado{opacity:.6}
+.oport-item:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);border-color:var(--borda)}
+.oport-topo{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.oport-cat-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.oport-cat-icon{width:13px;height:13px}
+.oport-origem{font-size:11px;color:var(--cs);font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.oport-titulo{font-size:19px;font-weight:700;color:var(--preto);margin-bottom:8px;line-height:1.3}
+.oport-titulo a{color:inherit;text-decoration:none}
+.oport-titulo a:hover{text-decoration:underline}
+.oport-resumo{font-size:15px;color:var(--ct);line-height:1.7;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.oport-dados{display:flex;gap:20px;flex-wrap:wrap}
+.oport-dado{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--cs)}
+.oport-dado img{width:14px;height:14px;opacity:.7}
+.oport-dado strong{color:var(--preto);font-weight:600}
+.oport-link{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:1.5px solid var(--borda);border-radius:7px;font-size:13px;font-weight:600;color:var(--verde);white-space:nowrap;transition:all .18s;flex-shrink:0}
+.oport-link:hover{background:var(--verde);color:#fff;border-color:var(--verde)}
+.btn-carregar-mais{display:block;margin:8px auto 0;padding:11px 26px;background:var(--branco);color:var(--verde);border:1.5px solid var(--verde);border-radius:8px;font-family:var(--f);font-size:14px;font-weight:600;cursor:pointer;transition:all .18s}
+.btn-carregar-mais:hover{background:var(--verde);color:#fff}
+
+/* SOBRE */
+#sobre{background:var(--branco)}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.sobre-txt p{font-size:15px;color:var(--ct);line-height:1.75;margin-bottom:16px}
+.sobre-txt strong{color:var(--preto);font-weight:600}
+.sobre-info{display:flex;flex-direction:column;gap:14px}
+.info-card{padding:18px 20px;border-radius:10px;background:var(--fundo);border:1px solid var(--borda)}
+.info-lbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cs);margin-bottom:6px}
+.info-val{font-size:15px;font-weight:600;color:var(--preto);line-height:1.5}
+.info-val a{color:var(--verde);border-bottom:1px solid transparent;transition:border-color .15s}
+.info-val a:hover{border-bottom-color:var(--verde)}
+
+/* ── PÁGINA CATEGORIA ── */
+.page-cat-header{background:var(--branco);border-bottom:1px solid var(--borda);padding:24px 0}
+.page-cat-header-in{max-width:var(--max);margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--ct);cursor:pointer;padding:8px 14px;border-radius:6px;transition:background .15s;border:1.5px solid var(--borda);background:var(--branco)}
+.back-btn:hover{background:var(--fundo)}
+.page-cat-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border-radius:10px}
+.page-cat-badge img{width:28px;height:28px}
+.page-cat-nome{font-size:20px;font-weight:800}
+.page-cat-count{font-size:13px;font-weight:500;color:var(--cs);margin-left:auto}
+.page-cat-body{max-width:var(--max);margin:0 auto;padding:32px 32px}
+.cat-busca-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;align-items:center}
+.cat-busca-campo{flex:1;min-width:220px;display:flex;align-items:center;gap:10px;background:var(--branco);border:1.5px solid var(--borda);border-radius:8px;padding:10px 16px;transition:border-color .2s}
+.cat-busca-campo:focus-within{border-color:var(--verde)}
+.cat-busca-campo input{border:none;background:none;font-family:var(--f);font-size:15px;color:var(--preto);width:100%;outline:none}
+.cat-busca-campo input::placeholder{color:var(--cs)}
+.cat-periodo{padding:10px 14px;border:1.5px solid var(--borda);border-radius:8px;font-family:var(--f);font-size:14px;color:var(--ct);background:var(--branco);outline:none;cursor:pointer}
+.cat-lista{display:flex;flex-direction:column;gap:10px}
+
+/* ── PÁGINA DASHBOARD ── */
+.dash-body{max-width:var(--max);margin:0 auto;padding:40px 32px}
+.dash-titulo{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+.dash-sub{font-size:15px;color:var(--ct);margin-bottom:20px}
+.periodo-filtro{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.periodo-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--borda);background:var(--branco);font-size:13px;font-weight:600;cursor:pointer;color:var(--ct);transition:all .15s;font-family:var(--f)}
+.periodo-btn:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.periodo-btn.ativo{background:var(--verde);color:#fff;border-color:var(--verde)}
+.kpi-row{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
+.kpi{background:var(--branco);border-radius:10px;padding:20px 22px;flex:1;min-width:150px;border:1px solid var(--borda)}
+.kpi-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--cs);margin-bottom:8px}
+.kpi-val{font-size:30px;font-weight:800;color:var(--verde);line-height:1}
+.kpi-sub{font-size:12px;color:var(--cs);margin-top:4px}
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.chart-card{background:var(--branco);border-radius:10px;padding:22px;border:1px solid var(--borda)}
+.chart-card h3{font-size:14px;font-weight:700;color:var(--preto);margin-bottom:16px}
+.chart-wrap{position:relative;height:210px}
+
+/* RODAPÉ */
+footer{background:var(--verde);color:#fff;padding:48px 0 28px}
+.footer-in{max-width:var(--max);margin:0 auto;padding:0 32px}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.15);flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.footer-logo img{width:42px;height:42px;filter:brightness(0) invert(1)}
+.footer-logo-t{font-size:15px;font-weight:800;letter-spacing:-.2px;line-height:1.25;display:inline-block}
+.footer-desc{font-size:13px;color:#7ec87e;line-height:1.6;max-width:280px}
+.footer-ifes{width:100%;max-width:280px;height:auto;display:block;opacity:.9;margin-top:16px}
+
+.hdr-left{display:flex;align-items:center}
+.logo-divider{width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 16px;flex-shrink:0}
+.logo-ifes{height:48px;width:auto;display:block;opacity:.9;flex-shrink:0}
+@media(max-width:560px){.logo-divider,.logo-ifes{display:none}}
+.footer-links{display:flex;flex-direction:column;gap:8px}
+.footer-links h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7ec87e;margin-bottom:4px}
+.footer-links a{font-size:13px;color:#a8d8a8;transition:color .15s;cursor:pointer}
+.footer-links a:hover{color:#fff}
+.footer-bot{padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-copy{font-size:12px;color:#5aaa5a}
+
+/* UTILITÁRIOS */
+.empty{text-align:center;padding:60px 20px;color:var(--cs)}
+.empty-ico{font-size:36px;margin-bottom:12px}
+.empty p{font-size:15px}
+.loading{display:flex;align-items:center;justify-content:center;gap:8px;padding:48px;color:var(--cs);font-size:14px}
+.spinner{width:18px;height:18px;border:2px solid var(--borda);border-top-color:var(--verde);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .wrap,.hdr,.hero-in,.stats-in,.footer-in{padding-left:20px;padding-right:20px}
+  .cats-grid{grid-template-columns:repeat(2,1fr)}
+  .sobre-grid{grid-template-columns:1fr;gap:36px}
+  .hero-img{display:none}
+  .oport-item{grid-template-columns:1fr}
+  nav a:not(.nav-cta){display:none}
+  .charts-grid{grid-template-columns:1fr}
+  .page-cat-body{padding:20px}
+  .busca-inner{flex-direction:column;align-items:stretch}
+}
+@media(max-width:480px){
+  .cats-grid{grid-template-columns:1fr}
+  section{padding:48px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="logo" onclick="irPara('home')">
+        <img src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/radar-oportunidades.png?raw=true" alt="Radar">
+        <div>
+          <span class="logo-t">Radar de<br>Oportunidades</span>
+        </div>
+      </div>
+      <span class="logo-divider"></span>
+      <img class="logo-ifes" src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/colatina-horizontal-branco.png?raw=true" alt="Ifes Campus Colatina">
+    </div>
+    <nav>
+      <a onclick="irPara('home');scrollToSecao('#categorias')" id="nav-cats">Categorias</a>
+      <a onclick="irPara('home');scrollToSecao('#recentes')" id="nav-oports">Oportunidades</a>
+      <a onclick="irPara('dashboard')" id="nav-dash">Dashboard</a>
+      <a onclick="irPara('home');scrollToSecao('#sobre')" id="nav-sobre">Sobre</a>
+      <a href="mailto:pesquisa.col@ifes.edu.br" class="nav-cta" title="Entre em contato pelo e-mail pesquisa.col@ifes.edu.br">Fale conosco</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════ PÁGINA: HOME ═══════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-in">
+      <div class="hero-txt">
+        <p class="hero-ey">DPPGE · Ifes Campus Colatina</p>
+        <div class="hero-title-row">
+          <img class="hero-title-icon" src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/radar-oportunidades.png?raw=true" alt="">
+          <h1>Radar de<br>Oportunidades</h1>
+        </div>
+        <p>Editais, bolsas, fomento e oportunidades acadêmicas reunidos em um só lugar — atualizados pela Diretoria de Pesquisa, Pós-Graduação e Extensão.</p>
+        <div class="hero-acts">
+          <button class="btn-h btn-h-p" onclick="document.getElementById('recentes').scrollIntoView({behavior:'smooth'})">Ver oportunidades</button>
+          <button class="btn-h btn-h-s" onclick="document.getElementById('categorias').scrollIntoView({behavior:'smooth'})">Explorar categorias</button>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/radar-oportunidades.png?raw=true" alt="">
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stats-in">
+      <div class="stat"><span class="stat-n" id="s-total">—</span><span class="stat-l">oportunidades</span></div>
+      <div class="sdiv"></div>
+      <div class="stat"><span class="stat-n" id="s-novas">—</span><span class="stat-l">novas (últimos 20 dias)</span></div>
+      <div class="sdiv"></div>
+      <div class="stat"><span class="stat-n" id="s-urgentes">—</span><span class="stat-l">encerram em menos de 20 dias</span></div>
+
+      <span class="stat-up" id="s-up"></span>
+    </div>
+  </div>
+
+  <!-- BUSCA -->
+  <div id="home-busca">
+    <div class="busca-inner">
+      <div class="busca-campo">
+        <span>🔍</span>
+        <input type="text" id="busca-kw" placeholder="Buscar por palavra-chave (ex: Fapes, bolsa, publicação...)" oninput="buscarHome()">
+      </div>
+      <select class="busca-select" id="busca-inst" onchange="buscarHome()">
+        <option value="">Todas as instituições</option>
+      </select>
+      <select class="busca-select" id="busca-cat" onchange="buscarHome()">
+        <option value="">Todas as categorias</option>
+      </select>
+      <button class="busca-btn" onclick="buscarHome()">Buscar</button>
+      <button class="busca-btn-limpar" onclick="limparBusca()">Limpar</button>
+    </div>
+  </div>
+
+  <section id="categorias" style="background:var(--branco)">
+    <div class="wrap">
+      <div class="sec-hdr">
+        <div>
+          <p class="sec-lb">Explorar</p>
+          <h2 class="sec-ti">Categorias</h2>
+          <p class="sec-de">Clique em uma categoria para ver todas as oportunidades disponíveis.</p>
+        </div>
+      </div>
+      <div class="cats-grid" id="cats-grid"><div class="loading"><div class="spinner"></div> Carregando...</div></div>
+    </div>
+  </section>
+
+  <section id="recentes" style="background:var(--fundo)">
+    <div class="wrap">
+      <div class="sec-hdr">
+        <div>
+          <p class="sec-lb">Oportunidades</p>
+          <h2 class="sec-ti">Mais recentes</h2>
+          <p class="sec-de">Ordenadas pelo status. Prazos calculados automaticamente.</p>
+        </div>
+      </div>
+      <div class="filtros" id="filtros">
+        <button class="filtro-btn ativo" data-f="todos">Todas</button>
+        <button class="filtro-btn s-novo" data-f="novo"><img id="fic-novo" src="" alt="">Novo</button>
+        <button class="filtro-btn s-prazo" data-f="PRAZO PRÓXIMO"><img id="fic-prazo" src="" alt="">Prazo próximo</button>
+        <button class="filtro-btn s-ultimos" data-f="ÚLTIMOS DIAS"><img id="fic-ultimos" src="" alt="">Últimos dias</button>
+        <button class="filtro-btn s-fluxo" data-f="FLUXO CONTÍNUO"><img id="fic-fluxo" src="" alt="">Fluxo contínuo</button>
+        <button class="filtro-btn s-encerrado" data-f="ENCERRADO"><img id="fic-encerrado" src="" alt="">Encerrado</button>
+      </div>
+      <div class="oports-lista" id="oports-lista"><div class="loading"><div class="spinner"></div> Carregando...</div></div>
+      <p style="font-size:12px;color:var(--cs);margin-top:20px;font-style:italic" id="status-hint">
+        <strong>Novo</strong> = adicionado ao site nos últimos 20 dias · <strong>Prazo próximo</strong> = mais de 20 dias para encerrar · <strong>Últimos dias</strong> = menos de 20 dias para encerrar · <strong>Fluxo contínuo</strong> = sem prazo fixo · <strong>Encerrado</strong> = prazo já passou
+      </p>
+    </div>
+  </section>
+
+  <section id="sobre" style="background:var(--branco)">
+    <div class="wrap">
+      <div class="sobre-grid">
+        <div class="sobre-txt">
+          <p class="sec-lb">Quem somos</p>
+          <h2 class="sec-ti" style="margin-bottom:24px">DPPGE<br>Ifes Campus Colatina</h2>
+          <p>A <strong>Diretoria de Pesquisa, Pós-Graduação e Extensão (DPPGE)</strong> do Ifes Campus Colatina é responsável por fomentar e coordenar as atividades de pesquisa científica, tecnológica e de inovação, os programas de pós-graduação e as ações de extensão do campus.</p>
+          <p>O Radar de Oportunidades é uma iniciativa da DPPGE para centralizar e divulgar editais, bolsas, eventos e oportunidades relevantes para toda a comunidade acadêmica.</p>
+          <p>Conhece uma oportunidade que deveria estar aqui? <strong>Entre em contato conosco.</strong></p>
+        </div>
+        <div class="sobre-info">
+          <div class="info-card"><div class="info-lbl">E-mail</div><div class="info-val"><a href="mailto:pesquisa.col@ifes.edu.br">pesquisa.col@ifes.edu.br</a></div></div>
+          <div class="info-card"><div class="info-lbl">Site institucional</div><div class="info-val"><a href="https://ifes.edu.br/colatina" target="_blank">ifes.edu.br/colatina</a></div></div>
+          <div class="info-card"><div class="info-lbl">Localização</div><div class="info-val" style="font-size:14px;font-weight:500">Ifes Campus Colatina<br>Espírito Santo — Brasil</div></div>
+          <div class="info-card"><div class="info-lbl">Coordenadorias e Núcleos</div><div class="info-val" style="font-size:13px;font-weight:400;color:var(--ct);line-height:1.8">Coord. de Pesquisa · Coord. de Pós-Graduação · Coord. de Extensão<br>Coord. de Laboratórios · Coord. de Rel. Institucionais<br>Núcleo de Rel. Internacionais · Núcleo de Arte e Cultura<br>Núcleo de Ed. Ambiental · Núcleo de Incubação</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ═══════════════ PÁGINA: CATEGORIA ═══════════════ -->
+<div class="page" id="page-cat">
+  <div class="page-cat-header">
+    <div class="page-cat-header-in">
+      <button class="back-btn" onclick="history.back()">← Voltar</button>
+      <div class="page-cat-badge" id="cat-badge">
+        <img id="cat-pg-icon" src="" alt="">
+        <span class="page-cat-nome" id="cat-pg-nome"></span>
+      </div>
+      <span class="page-cat-count" id="cat-pg-count"></span>
+    </div>
+  </div>
+  <div class="page-cat-body">
+    <div class="cat-busca-row">
+      <div class="cat-busca-campo">
+        <span style="color:var(--cs)">🔍</span>
+        <input type="text" id="cat-kw" placeholder="Buscar nesta categoria..." oninput="filtrarCat()">
+      </div>
+      <select class="cat-periodo" id="cat-status" onchange="filtrarCat()">
+        <option value="">Todos os status</option>
+        <option value="NOVO">Novo</option>
+        <option value="PRAZO PRÓXIMO">Prazo próximo</option>
+        <option value="ÚLTIMOS DIAS">Últimos dias</option>
+        <option value="FLUXO CONTÍNUO">Fluxo contínuo</option>
+        <option value="ENCERRADO">Encerrado</option>
+      </select>
+      <select class="cat-periodo" id="cat-origem-f" onchange="filtrarCat()">
+        <option value="">Todas as origens</option>
+      </select>
+    </div>
+    <div class="cat-lista" id="cat-lista"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ PÁGINA: DASHBOARD ═══════════════ -->
+<div class="page" id="page-dashboard">
+  <div class="dash-body">
+    <p class="sec-lb">Análise</p>
+    <h2 class="dash-titulo">Dashboard de Oportunidades</h2>
+    <p class="dash-sub" id="dash-sub"></p>
+    <div class="periodo-filtro" id="dash-periodo">
+      <button class="periodo-btn ativo" data-p="3">3 meses</button>
+      <button class="periodo-btn" data-p="6">6 meses</button>
+      <button class="periodo-btn" data-p="9">9 meses</button>
+      <button class="periodo-btn" data-p="12">12 meses</button>
+      <button class="periodo-btn" data-p="ano">Este ano</button>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Total de oportunidades</div><div class="kpi-val" id="d-total">—</div><div class="kpi-sub">no período</div></div>
+      <div class="kpi"><div class="kpi-lbl">Novas</div><div class="kpi-val" id="d-novas">—</div><div class="kpi-sub">inseridas há menos de 20 dias</div></div>
+      <div class="kpi"><div class="kpi-lbl">Encerram em breve</div><div class="kpi-val" id="d-urgentes">—</div><div class="kpi-sub">prazo em menos de 20 dias</div></div>
+      <div class="kpi"><div class="kpi-lbl">Categoria mais ativa</div><div class="kpi-val" style="font-size:15px" id="d-top-cat">—</div><div class="kpi-sub" id="d-top-cat-n"></div></div>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card"><h3>Oportunidades por Categoria</h3><div class="chart-wrap"><canvas id="ch-cat"></canvas></div></div>
+      <div class="chart-card"><h3>Evolução mensal de publicações</h3><div class="chart-wrap"><canvas id="ch-evolucao"></canvas></div></div>
+      <div class="chart-card"><h3>Por Coordenadoria / Núcleo</h3><div class="chart-wrap"><canvas id="ch-origem"></canvas></div></div>
+      <div class="chart-card"><h3>Distribuição por Status</h3><div class="chart-wrap"><canvas id="ch-status"></canvas></div></div>
+      <div class="chart-card"><h3>Fluxo contínuo vs Prazo definido</h3><div class="chart-wrap"><canvas id="ch-fluxo"></canvas></div></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/radar-oportunidades.png?raw=true" alt="">
+          <span class="footer-logo-t">Radar de<br>Oportunidades</span>
+        </div>
+        <p class="footer-desc">Oportunidades acadêmicas reunidas e divulgadas pela DPPGE do Ifes Campus Colatina.</p>
+        <img class="footer-ifes" src="https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/colatina-horizontal-branco.png?raw=true" alt="Ifes Campus Colatina">
+      </div>
+      <div class="footer-links">
+        <h4>Categorias</h4>
+        <a onclick="irCat('pesquisa')">Pesquisa &amp; Fomento</a>
+        <a onclick="irCat('internac')">Internacionalização</a>
+        <a onclick="irCat('bolsas')">Bolsas &amp; Auxílios</a>
+        <a onclick="irCat('evento')">Eventos &amp; Capacitações</a>
+        <a onclick="irCat('premiacoes')">Premiações</a>
+        <a onclick="irCat('extensao')">Extensão &amp; Comunidade</a>
+      </div>
+      <div class="footer-links">
+        <h4>Links</h4>
+        <a href="https://ifes.edu.br" target="_blank">Ifes</a>
+        <a href="mailto:pesquisa.col@ifes.edu.br" title="Entre em contato pelo e-mail pesquisa.col@ifes.edu.br">Fale conosco</a>
+        <a onclick="irPara('dashboard')">Dashboard</a>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <span class="footer-copy">© DPPGE · Ifes Campus Colatina</span>
+      <span class="footer-copy" id="f-up"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONSTANTES
+// ═══════════════════════════════════════════════
+const GH='https://github.com/julianacs-28/radar-oportunidades-imagens/blob/main/';
+const R='?raw=true';
+const IC={
+  cal:GH+'calendario.png'+R, din:GH+'dinheiro.png'+R,
+  pub:GH+'publico-alvo.png'+R, loc:GH+'localizacao.png'+R,
+  pesquisa:GH+'pesquisa-fomento.png'+R, internac:GH+'internacionalizacao.png'+R,
+  bolsas:GH+'bolsas-auxilio.png'+R, evento:GH+'evento-capacitacao.png'+R,
+  premiacoes:GH+'premiacoes.png'+R, extensao:GH+'comunidade_extensao.png'+R,
+  novo:GH+'novo.png'+R, prazo:GH+'circulo-laranja.png'+R,
+  ultimos:GH+'ultimos-dias.png'+R,
+  fluxoAzul:GH+'circulo-azul.png'+R, encerradoCinza:GH+'circulo-cinza.png'+R,
+};
+const CATS={
+  pesquisa:{label:'Pesquisa & Fomento',bg:'#EBE9F4',cor:'#4A368F',ic:'pesquisa'},
+  internac:{label:'Internacionalização',bg:'#DDE8FA',cor:'#0149AF',ic:'internac'},
+  bolsas:{label:'Bolsas & Auxílios',bg:'#F4CEDD',cor:'#C2195A',ic:'bolsas'},
+  evento:{label:'Eventos & Capacitações',bg:'#FCE5D5',cor:'#A03B11',ic:'evento'},
+  premiacoes:{label:'Premiações',bg:'#F5EFD7',cor:'#7A5B00',ic:'premiacoes'},
+  extensao:{label:'Extensão & Comunidade',bg:'#D7F6F1',cor:'#006A5C',ic:'extensao'},
+};
+const SMAP={
+  'NOVO':{cls:'s-novo',ic:'novo',cor:'#1B5E20'},
+  'PRAZO PRÓXIMO':{cls:'s-prazo',ic:'prazo',cor:'#F57F17'},
+  'ÚLTIMOS DIAS':{cls:'s-ultimos',ic:'ultimos',cor:'#C41E3A'},
+  'FLUXO CONTÍNUO':{cls:'s-fluxo',ic:'fluxoAzul',cor:'#1565C0'},
+  'ENCERRADO':{cls:'s-encerrado',ic:'encerradoCinza',cor:'#9E9E9E'},
+};
+
+// ═══════════════════════════════════════════════
+// STATUS AUTOMÁTICO — dois eixos independentes
+// ═══════════════════════════════════════════════
+
+// Eixo 1: NOVIDADE — baseado em dataCadastro (primeiros 20 dias no site)
+function calcNovidade(o) {
+  if (!o.dataCadastro) return false;
+  const pts = o.dataCadastro.split('/');
+  if (pts.length !== 3) return false;
+  const cad = new Date(+pts[2], +pts[1]-1, +pts[0]);
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const diff = Math.round((hoje - cad) / 86400000);
+  return diff <= 20;
+}
+
+// Eixo 2: URGÊNCIA — baseado no prazo de submissão
+function calcUrgencia(o) {
+  const p = o.prazo || '';
+  const vazio = !p || p==='' || p==='DD/MM/AAAA' || p.toLowerCase().includes('contínuo') || p.toLowerCase().includes('continuo') || p.toLowerCase().includes('fluxo');
+  if (vazio) return 'FLUXO CONTÍNUO';
+  const pts = p.split('/');
+  if (pts.length !== 3) return 'FLUXO CONTÍNUO';
+  const prazoDate = new Date(+pts[2], +pts[1]-1, +pts[0]);
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const diff = Math.round((prazoDate - hoje) / 86400000);
+  if (diff < 0) return 'ENCERRADO';
+  if (diff <= 20) return 'ÚLTIMOS DIAS';
+  return 'PRAZO PRÓXIMO';
+}
+
+// ═══════════════════════════════════════════════
+// DADOS
+// ═══════════════════════════════════════════════
+// O site lê banco.json: o acumulado real de todas as oportunidades já
+// publicadas (gerado por scripts/merge_edicao.py a cada nova edição do
+// boletim). Nada de localStorage aqui — o mesmo banco.json é a fonte
+// única para todo mundo que visita o site.
+let dados=null, catAtiva=null, filtroHome='todos', charts={};
+
+async function init() {
+  try {
+    const res = await fetch('banco.json?t='+Date.now());
+    if (!res.ok) throw 0;
+    dados = await res.json();
+  } catch { dados = demo(); }
+  renderTudo();
+  iniciarIcons();
+  history.replaceState({page:'home'}, '', location.pathname+location.search);
+}
+
+function todas() {
+  const lista = (dados?.oportunidades || []).map(o => ({...o}));
+  lista.forEach(o => {
+    o._urgencia = calcUrgencia(o);
+    o._nova = calcNovidade(o);
+  });
+  return lista;
+}
+
+function iniciarIcons() {
+  document.getElementById('fic-novo').src=IC.novo;
+  document.getElementById('fic-prazo').src=IC.prazo;
+  document.getElementById('fic-ultimos').src=IC.ultimos;
+  document.getElementById('fic-fluxo').src=IC.fluxoAzul;
+  document.getElementById('fic-encerrado').src=IC.encerradoCinza;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER PRINCIPAL
+// ═══════════════════════════════════════════════
+function renderTudo() {
+  const t = todas();
+  const ativas = t.filter(o=>o._urgencia!=='ENCERRADO');
+  const novas = ativas.filter(o=>o._nova).length;
+  const urgentes = ativas.filter(o=>o._urgencia==='ÚLTIMOS DIAS'||o._urgencia==='PRAZO PRÓXIMO').length;
+  document.getElementById('s-total').textContent = ativas.length;
+  document.getElementById('s-novas').textContent = novas;
+  document.getElementById('s-urgentes').textContent = urgentes;
+  const up = dados?.atualizadoEm ? 'Atualizado em '+dados.atualizadoEm : '';
+  document.getElementById('s-up').textContent = up;
+  document.getElementById('f-up').textContent = up;
+  renderCats(ativas);
+  renderOports('todos');
+  popularFiltros(ativas);
+}
+
+function popularFiltros(t) {
+  // Instituições — extrai da origem e título
+  const insts = new Set();
+  const instKw = ['fapes','cnpq','mec','capes','ifes','finep','faperj','fapemig','cnpj','aneel'];
+  t.forEach(o=>{
+    const txt = ((o.titulo||'')+(o.resumo||'')+(o.origem||'')).toLowerCase();
+    instKw.forEach(kw=>{ if(txt.includes(kw)) insts.add(kw.toUpperCase()); });
+  });
+  const selInst = document.getElementById('busca-inst');
+  selInst.innerHTML = '<option value="">Todas as instituições</option>';
+  [...insts].sort().forEach(i=>{ const op=document.createElement('option'); op.value=i.toLowerCase(); op.textContent=i; selInst.appendChild(op); });
+
+  const selCat = document.getElementById('busca-cat');
+  selCat.innerHTML = '<option value="">Todas as categorias</option>';
+  Object.entries(CATS).forEach(([k,c])=>{ const op=document.createElement('option'); op.value=k; op.textContent=c.label; selCat.appendChild(op); });
+}
+
+// ═══════════════════════════════════════════════
+// CATEGORIAS
+// ═══════════════════════════════════════════════
+function renderCats(t) {
+  document.getElementById('cats-grid').innerHTML = Object.entries(CATS).map(([k,c])=>{
+    const n = t.filter(o=>o._cat===k&&o._urgencia!=='ENCERRADO').length;
+    return `<div class="cat-card" style="background:${c.bg};color:${c.cor};" onclick="irCat('${k}')">
+      <img class="cat-icon" src="${IC[c.ic]}" alt="${c.label}">
+      <div class="cat-nome">${c.label}</div>
+      <div class="cat-count">${n} oportunidade${n!==1?'s':''}</div>
+      <span class="cat-arr">→</span>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════
+// BADGE STATUS
+// ═══════════════════════════════════════════════
+function badgeHTML(status) {
+  const s = SMAP[status] || SMAP['FLUXO CONTÍNUO'];
+  return `<span class="status-badge ${s.cls}"><img src="${IC[s.ic]}" alt="">${status}</span>`;
+}
+
+// ═══════════════════════════════════════════════
+// OPORTUNIDADES HOME
+// ═══════════════════════════════════════════════
+function ordenarComEncerradoNoFim(lista) {
+  return [...lista].sort((a,b)=>(a._urgencia==='ENCERRADO')-(b._urgencia==='ENCERRADO'));
+}
+
+// Insere o link do edital dentro do texto do resumo (mesma lógica do boletim)
+function resumoLinkado(o) {
+  if (o.link && o.titulo && o.resumo && o.resumo.includes(o.titulo)) {
+    return o.resumo.replace(o.titulo, `<a href="${o.link}" target="_blank" rel="noopener">${o.titulo}</a>`);
+  }
+  return o.resumo || '';
+}
+
+const ITENS_POR_PAGINA_HOME = 10;
+let listaHomeAtual = [];
+let paginaHome = 1;
+
+function renderOports(filtro) {
+  filtroHome = filtro;
+  let t = todas();
+  if (filtro==='novo') t = t.filter(o=>o._nova);
+  else if (filtro==='todos') t = t.filter(o=>o._urgencia!=='ENCERRADO');
+  else t = t.filter(o=>o._urgencia===filtro);
+  t = ordenarComEncerradoNoFim(t);
+  listaHomeAtual = t;
+  paginaHome = 1;
+  renderPaginaHome();
+}
+
+function renderPaginaHome() {
+  const el = document.getElementById('oports-lista');
+  if (!listaHomeAtual.length) { el.innerHTML='<div class="empty"><div class="empty-ico">🔍</div><p>Nenhuma oportunidade encontrada.</p></div>'; return; }
+  const visiveis = listaHomeAtual.slice(0, paginaHome*ITENS_POR_PAGINA_HOME);
+  const temMais = listaHomeAtual.length > visiveis.length;
+  el.innerHTML = visiveis.map(o=>oportCard(o)).join('') + (temMais ? '<button class="btn-carregar-mais" id="btn-carregar-mais">Carregar mais</button>' : '');
+}
+
+document.getElementById('oports-lista').addEventListener('click', e=>{
+  if (e.target.id==='btn-carregar-mais') { paginaHome++; renderPaginaHome(); }
+});
+
+function oportCard(o) {
+  const c = CATS[o._cat]||CATS.pesquisa;
+  return `<div class="oport-item${o._urgencia==='ENCERRADO'?' oport-encerrado':''}">
+    <div>
+      <div class="oport-topo">
+        <span class="oport-cat-badge" style="background:${c.bg};color:${c.cor};">
+          <img class="oport-cat-icon" src="${IC[c.ic]}" alt=""> ${c.label}
+        </span>
+        ${o._nova ? badgeHTML('NOVO') : ''}
+        ${o._urgencia ? badgeHTML(o._urgencia) : ''}
+        ${o.origem?`<span class="oport-origem">${o.origem.toUpperCase()}</span>`:''}
+      </div>
+      <div class="oport-titulo">${o.link?`<a href="${o.link}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
+      <div class="oport-resumo">${resumoLinkado(o)}</div>
+      <div class="oport-dados">
+        ${o.prazo&&o._urgencia!=='FLUXO CONTÍNUO'?`<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${o.prazo}</strong></span>`:''}
+        ${o.valor?`<span class="oport-dado"><img src="${IC.din}" alt=""><strong>${o.valor}</strong></span>`:''}
+        ${o.publico?`<span class="oport-dado"><img src="${IC.pub}" alt=""><strong>${o.publico}</strong></span>`:''}
+      </div>
+    </div>
+    ${o.link?`<a href="${o.link}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════
+// BUSCA HOME
+// ═══════════════════════════════════════════════
+function buscarHome() {
+  const kw = (document.getElementById('busca-kw').value||'').toLowerCase();
+  const inst = (document.getElementById('busca-inst').value||'').toLowerCase();
+  const cat = document.getElementById('busca-cat').value||'';
+  let t = todas();
+  if (kw) t = t.filter(o=>((o.titulo||'')+(o.resumo||'')+(o.origem||'')).toLowerCase().includes(kw));
+  if (inst) t = t.filter(o=>((o.titulo||'')+(o.resumo||'')+(o.origem||'')).toLowerCase().includes(inst));
+  if (cat) t = t.filter(o=>o._cat===cat);
+  t = ordenarComEncerradoNoFim(t);
+  // Remove filtro de status se buscando
+  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('ativo'));
+  document.querySelector('.filtro-btn[data-f="todos"]').classList.add('ativo');
+  listaHomeAtual = t;
+  paginaHome = 1;
+  if (!t.length) { document.getElementById('oports-lista').innerHTML='<div class="empty"><div class="empty-ico">🔍</div><p>Nenhum resultado encontrado para esta busca.</p></div>'; return; }
+  renderPaginaHome();
+}
+
+function limparBusca() {
+  document.getElementById('busca-kw').value='';
+  document.getElementById('busca-inst').value='';
+  document.getElementById('busca-cat').value='';
+  renderOports('todos');
+  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('ativo'));
+  document.querySelector('.filtro-btn[data-f="todos"]').classList.add('ativo');
+}
+
+// FILTROS HOME
+document.getElementById('filtros').addEventListener('click',e=>{
+  const b=e.target.closest('.filtro-btn'); if(!b) return;
+  document.querySelectorAll('.filtro-btn').forEach(x=>x.classList.remove('ativo'));
+  b.classList.add('ativo');
+  limparBuscaKw();
+  renderOports(b.dataset.f);
+});
+function limparBuscaKw(){document.getElementById('busca-kw').value='';document.getElementById('busca-inst').value='';document.getElementById('busca-cat').value='';}
+
+// ═══════════════════════════════════════════════
+// PÁGINA CATEGORIA
+// ═══════════════════════════════════════════════
+function irCat(k, fromPopstate) {
+  catAtiva=k;
+  const c=CATS[k]; if(!c) return;
+  const items=todas().filter(o=>o._cat===k);
+  document.getElementById('cat-pg-icon').src=IC[c.ic];
+  document.getElementById('cat-pg-icon').style.background=c.bg;
+  document.getElementById('cat-pg-nome').textContent=c.label;
+  document.getElementById('cat-pg-nome').style.color=c.cor;
+  document.getElementById('cat-badge').style.background=c.bg;
+
+  // Popular filtro de origens
+  const origens=new Set(items.map(o=>o.origem).filter(Boolean));
+  const selOr=document.getElementById('cat-origem-f');
+  selOr.innerHTML='<option value="">Todas as origens</option>';
+  [...origens].forEach(or=>{ const op=document.createElement('option');op.value=or;op.textContent=or;selOr.appendChild(op); });
+
+  document.getElementById('cat-kw').value='';
+  document.getElementById('cat-status').value='';
+  document.getElementById('cat-origem-f').value='';
+  filtrarCat();
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-cat').classList.add('active');
+  resetScroll();
+  if (!fromPopstate) {
+    history.pushState({page:'cat', cat:k}, '', location.pathname+location.search+'#cat-'+k);
+  }
+}
+
+function filtrarCat() {
+  if (!catAtiva) return;
+  const kw=(document.getElementById('cat-kw').value||'').toLowerCase();
+  const st=document.getElementById('cat-status').value||'';
+  const or=document.getElementById('cat-origem-f').value||'';
+  let t=todas().filter(o=>o._cat===catAtiva);
+  if(kw) t=t.filter(o=>((o.titulo||'')+(o.resumo||'')).toLowerCase().includes(kw));
+  if(st==='NOVO') t=t.filter(o=>o._nova);
+  else if(st) t=t.filter(o=>o._urgencia===st);
+  if(or) t=t.filter(o=>o.origem===or);
+  t=ordenarComEncerradoNoFim(t);
+  document.getElementById('cat-pg-count').textContent=t.length+' oportunidade'+(t.length!==1?'s':'');
+  const el=document.getElementById('cat-lista');
+  if(!t.length){el.innerHTML='<div class="empty"><div class="empty-ico">🔍</div><p>Nenhuma oportunidade encontrada para este filtro.</p></div>';return;}
+  el.innerHTML=t.map(o=>`<div class="oport-item${o._urgencia==='ENCERRADO'?' oport-encerrado':''}" style="background:var(--branco)">
+    <div>
+      <div class="oport-topo">
+        ${o._nova ? badgeHTML('NOVO') : ''}
+        ${o._urgencia ? badgeHTML(o._urgencia) : ''}
+        ${o.origem?`<span class="oport-origem">${o.origem.toUpperCase()}</span>`:''}
+      </div>
+      <div class="oport-titulo">${o.link?`<a href="${o.link}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
+      <div class="oport-resumo" style="-webkit-line-clamp:3">${resumoLinkado(o)}</div>
+      <div class="oport-dados">
+        ${o.prazo&&o._urgencia!=='FLUXO CONTÍNUO'?`<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${o.prazo}</strong></span>`:''}
+        ${o.valor?`<span class="oport-dado"><img src="${IC.din}" alt=""><strong>${o.valor}</strong></span>`:''}
+        ${o.publico?`<span class="oport-dado"><img src="${IC.pub}" alt=""><strong>${o.publico}</strong></span>`:''}
+      </div>
+    </div>
+    ${o.link?`<a href="${o.link}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
+  </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════
+let dashPeriodo = 3;
+
+function filtrarPorPeriodo(lista, periodo) {
+  if (periodo === 'ano') {
+    const anoAtual = new Date().getFullYear();
+    return lista.filter(o=>{
+      const p=(o.dataCadastro||'').split('/');
+      return p.length===3 && +p[2]===anoAtual;
+    });
+  }
+  const cutoff = new Date();
+  cutoff.setMonth(cutoff.getMonth()-periodo);
+  return lista.filter(o=>{
+    const p=(o.dataCadastro||'').split('/');
+    if(p.length!==3) return true;
+    const d=new Date(+p[2],+p[1]-1,+p[0]);
+    return d>=cutoff;
+  });
+}
+
+document.getElementById('dash-periodo').addEventListener('click', e=>{
+  const b=e.target.closest('.periodo-btn'); if(!b) return;
+  document.querySelectorAll('#dash-periodo .periodo-btn').forEach(x=>x.classList.remove('ativo'));
+  b.classList.add('ativo');
+  dashPeriodo = b.dataset.p==='ano' ? 'ano' : +b.dataset.p;
+  renderDash();
+});
+
+function renderDash() {
+  const base=todas().filter(o=>o._urgencia!=='ENCERRADO');
+  const t=filtrarPorPeriodo(base, dashPeriodo);
+  document.getElementById('d-total').textContent=t.length;
+  document.getElementById('d-novas').textContent=t.filter(o=>o._nova).length;
+  document.getElementById('d-urgentes').textContent=t.filter(o=>o._urgencia==='ÚLTIMOS DIAS'||o._urgencia==='PRAZO PRÓXIMO').length;
+  document.getElementById('dash-sub').textContent=dados?.atualizadoEm ? 'Atualizado em '+dados.atualizadoEm+' · '+t.length+' oportunidades no período selecionado' : '';
+
+  const byCat={}; Object.keys(CATS).forEach(k=>byCat[k]=0);
+  const byStatus={'NOVO':0,'PRAZO PRÓXIMO':0,'ÚLTIMOS DIAS':0,'FLUXO CONTÍNUO':0};
+  const byOrigem={};
+  const byMonth={};
+  t.forEach(o=>{
+    if(byCat[o._cat]!==undefined) byCat[o._cat]++;
+    const statusUnico = o._nova ? 'NOVO' : o._urgencia;
+    if(byStatus[statusUnico]!==undefined) byStatus[statusUnico]++;
+    if(o.origem){ byOrigem[o.origem]=(byOrigem[o.origem]||0)+1; }
+    const p=(o.dataCadastro||'').split('/');
+    if(p.length===3){ const key=p[1]+'/'+p[2]; byMonth[key]=(byMonth[key]||0)+1; }
+  });
+
+  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
+  if(topCat&&topCat[1]>0){
+    document.getElementById('d-top-cat').textContent=CATS[topCat[0]]?.label||topCat[0];
+    document.getElementById('d-top-cat-n').textContent=topCat[1]+' oportunidade(s)';
+  }
+
+  const catColors=['#4A368F','#0149AF','#C2195A','#A03B11','#7A5B00','#006A5C'];
+  rc('ch-cat','doughnut',Object.keys(CATS).map(k=>CATS[k].label),Object.values(byCat),catColors);
+  rc('ch-status','bar',Object.keys(byStatus),Object.values(byStatus),['#1B5E20','#F57F17','#C41E3A','#1565C0']);
+  const orKeys=Object.keys(byOrigem).sort((a,b)=>byOrigem[b]-byOrigem[a]).slice(0,8);
+  rc('ch-origem','bar',orKeys,orKeys.map(k=>byOrigem[k]),['#196d1e'],true);
+  const monthKeys=Object.keys(byMonth).sort();
+  rc('ch-evolucao','bar',monthKeys,monthKeys.map(k=>byMonth[k]),['#196d1e']);
+  const fluxo=t.filter(o=>!o._nova && o._urgencia==='FLUXO CONTÍNUO').length;
+  rc('ch-fluxo','doughnut',['Fluxo contínuo','Prazo definido'],[fluxo,t.length-fluxo],['#1565C0','#0c420b']);
+}
+
+function rc(id,type,labels,data,colors,horiz=false){
+  if(charts[id]) charts[id].destroy();
+  const ctx=document.getElementById(id).getContext('2d');
+  charts[id]=new Chart(ctx,{
+    type,
+    data:{labels,datasets:[{data,backgroundColor:colors.length===data.length?colors:colors[0],borderWidth:0}]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      indexAxis:horiz?'y':'x',
+      plugins:{legend:{display:type==='doughnut',position:'bottom',labels:{font:{size:11},boxWidth:12}}},
+      scales:type!=='doughnut'?{
+        x:{ticks:{font:{size:10},maxRotation:horiz?0:40},grid:{display:false}},
+        y:{ticks:{font:{size:10}},grid:{color:'#f0f0f0'}}
+      }:{},
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+// NAVEGAÇÃO
+// ═══════════════════════════════════════════════
+function resetScroll() {
+  // Define scrollTop diretamente (sempre instantâneo, ignora o CSS
+  // scroll-behavior:smooth do <html>, que faria window.scrollTo(0,0) animar
+  // em vez de saltar — e a animação podia ser interrompida no meio do caminho).
+  const jump = () => {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+  jump();
+  requestAnimationFrame(() => { jump(); requestAnimationFrame(jump); });
+}
+
+function irPara(p, fromPopstate) {
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+(p==='cat'?'cat':p)).classList.add('active');
+  if(p==='dashboard') renderDash();
+  resetScroll();
+  if (!fromPopstate) {
+    const hash = p==='home' ? '' : '#'+p;
+    history.pushState({page:p}, '', location.pathname+location.search+hash);
+  }
+}
+
+window.addEventListener('popstate', e => {
+  const st = e.state;
+  if (!st || st.page==='home') irPara('home', true);
+  else if (st.page==='cat') irCat(st.cat, true);
+  else irPara(st.page, true);
+});
+
+function scrollToSecao(id) {
+  setTimeout(()=>{
+    const el=document.querySelector(id);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },100);
+}
+
+// ═══════════════════════════════════════════════
+// DEMO
+// ═══════════════════════════════════════════════
+function demo(){
+  const hoje=new Date();
+  const d=(n)=>{ const d=new Date(hoje); d.setDate(d.getDate()+n); return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`; };
+  return {
+    atualizadoEm: d(0),
+    oportunidades: [
+      {_cat:'pesquisa',status:'NOVO',origem:'Coord. de Pesquisa',titulo:'Edital PRPPG 10/2024 — Prociência',link:'#',
+       resumo:'O Edital PRPPG 10/2024 — Prociência apoia projetos de pesquisa institucionais no âmbito do Ifes. As propostas devem ser submetidas pelo sistema SIGPESq.',
+       prazo:d(45),valor:'Até R$ 250.000',publico:'Docentes e Técnicos',dataCadastro:d(0)},
+      {_cat:'pesquisa',status:'PRAZO PRÓXIMO',origem:'Coord. de Pesquisa',titulo:'Publicação de Artigos Técnico-Científicos — Fapes',link:'#',
+       resumo:'Auxílio financeiro para publicação em periódicos acadêmicos de alta qualidade.',prazo:d(6),valor:'Até US$ 1.500',publico:'Pesquisadores e Estudantes',dataCadastro:d(0)},
+      {_cat:'pesquisa',status:'NOVO',origem:'Coord. de Pesquisa',titulo:'Chamada MCTI/CNPq Nº 16/2024',link:'#',
+       resumo:'Fomenta projetos internacionais de pesquisa científica, tecnológica e de inovação.',prazo:d(50),valor:'R$ 215 milhões',publico:'Pesquisadores',dataCadastro:d(0)},
+      {_cat:'internac',status:'NOVO',origem:'Núcleo de Rel. Internacionais',titulo:'Programa de Mobilidade Internacional',link:'#',
+       resumo:'Bolsas para intercâmbio acadêmico em instituições parceiras no exterior.',prazo:d(60),valor:'A definir',publico:'Estudantes',dataCadastro:d(0)},
+      {_cat:'bolsas',status:'FLUXO CONTÍNUO',origem:'Coord. de Pesquisa',titulo:'Bolsa de Iniciação Científica — CNPq/Ifes',link:'#',
+       resumo:'Apoio financeiro mensal a estudantes de graduação em projetos de pesquisa.',prazo:'',valor:'R$ 700/mês',publico:'Estudantes de graduação',dataCadastro:d(0)},
+      {_cat:'evento',status:'NOVO',origem:'DPPGE',titulo:'Semana de Ciência e Tecnologia 2026',link:'#',
+       resumo:'Programação especial com palestras, oficinas e exposições sobre inovação.',prazo:d(3),valor:'',publico:'Comunidade acadêmica',local:'Ifes Colatina',dataCadastro:d(0)},
+      {_cat:'premiacoes',status:'NOVO',origem:'DPPGE',titulo:'Prêmio LED 2025 — Educação Transformadora',link:'#',
+       resumo:'Aberto a educadores, estudantes e empreendedores com iniciativas inovadoras.',prazo:d(40),valor:'R$ 1,2 milhão',publico:'Educadores e Estudantes',dataCadastro:d(0)},
+    ]
+  };
+}
+
+init();
+</script>
+</body>
+</html>

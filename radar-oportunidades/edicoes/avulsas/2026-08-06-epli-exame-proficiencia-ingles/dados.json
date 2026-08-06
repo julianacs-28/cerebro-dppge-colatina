@@ -1,0 +1,21 @@
+{
+  "data": "06/08/2026",
+  "motivo": "Comunicado do NRI recebido após o fechamento da edição 02 — recomendação de divulgação imediata devido às inscrições em andamento.",
+  "edicaoMaisProxima": "ed-02 → ed-03",
+  "categorias": {
+    "internac": [
+      {
+        "status": "NOVO",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "EPLI — Exame de Proficiência em Língua Inglesa da Rede Federal",
+        "link": "https://forms.gle/2mSA5udnGz9rYgtY8",
+        "resumo": "O EPLI — Exame de Proficiência em Língua Inglesa da Rede Federal oferece aos estudantes do Ifes, de todas as modalidades, uma avaliação gratuita do nível de inglês, em iniciativa conjunta das instituições da Rede Federal. O exame será aplicado entre agosto e novembro de 2026, em datas a serem divulgadas pelo campus; interessados devem preencher o formulário de manifestação de interesse e buscar orientações no Núcleo de Relações Internacionais (NRI).",
+        "prazo": "",
+        "valor": "Gratuito",
+        "publico": "Estudantes do Ifes matriculados em todas as modalidades",
+        "imagem": "",
+        "local": ""
+      }
+    ]
+  }
+}
