@@ -302,11 +302,9 @@ footer{background:var(--verde);color:#fff;padding:48px 0 28px}
 
   <div class="stats-bar">
     <div class="stats-in">
-      <div class="stat"><span class="stat-n" id="s-total">—</span><span class="stat-l">oportunidades</span></div>
+      <div class="stat"><span class="stat-n" id="s-total">—</span><span class="stat-l">oportunidades com prazo vigente</span></div>
       <div class="sdiv"></div>
-      <div class="stat"><span class="stat-n" id="s-novas">—</span><span class="stat-l">novas (últimos 20 dias)</span></div>
-      <div class="sdiv"></div>
-      <div class="stat"><span class="stat-n" id="s-urgentes">—</span><span class="stat-l">encerram em menos de 20 dias</span></div>
+      <div class="stat"><span class="stat-n" id="s-encerradas">—</span><span class="stat-l">oportunidades com prazo encerrado</span></div>
 
       <span class="stat-up" id="s-up"></span>
     </div>
@@ -562,7 +560,14 @@ async function init() {
     const res = await fetch('banco.json?t='+Date.now());
     if (!res.ok) throw 0;
     dados = await res.json();
-  } catch { dados = demo(); }
+  } catch (erro) {
+    console.error('Não foi possível carregar banco.json:', erro);
+    document.getElementById('s-total').textContent = '—';
+    document.getElementById('s-encerradas').textContent = '—';
+    document.getElementById('s-up').textContent = 'Não foi possível carregar os dados. Atualize a página ou confira o servidor local.';
+    iniciarIcons();
+    return;
+  }
   renderTudo();
   iniciarIcons();
   history.replaceState({page:'home'}, '', location.pathname+location.search);
@@ -591,11 +596,9 @@ function iniciarIcons() {
 function renderTudo() {
   const t = todas();
   const ativas = t.filter(o=>o._urgencia!=='ENCERRADO');
-  const novas = ativas.filter(o=>o._nova).length;
-  const urgentes = ativas.filter(o=>o._urgencia==='ÚLTIMOS DIAS'||o._urgencia==='PRAZO PRÓXIMO').length;
+  const encerradas = t.filter(o=>o._urgencia==='ENCERRADO');
   document.getElementById('s-total').textContent = ativas.length;
-  document.getElementById('s-novas').textContent = novas;
-  document.getElementById('s-urgentes').textContent = urgentes;
+  document.getElementById('s-encerradas').textContent = encerradas.length;
   const up = dados?.atualizadoEm ? 'Atualizado em '+dados.atualizadoEm : '';
   document.getElementById('s-up').textContent = up;
   document.getElementById('f-up').textContent = up;
@@ -851,7 +854,7 @@ function renderDash() {
   const t=filtrarPorPeriodo(base, dashPeriodo);
   document.getElementById('d-total').textContent=t.length;
   document.getElementById('d-novas').textContent=t.filter(o=>o._nova).length;
-  document.getElementById('d-urgentes').textContent=t.filter(o=>o._urgencia==='ÚLTIMOS DIAS'||o._urgencia==='PRAZO PRÓXIMO').length;
+  document.getElementById('d-urgentes').textContent=t.filter(o=>o._urgencia==='ÚLTIMOS DIAS').length;
   document.getElementById('dash-sub').textContent=dados?.atualizadoEm ? 'Atualizado em '+dados.atualizadoEm+' · '+t.length+' oportunidades no período selecionado' : '';
 
   const byCat={}; Object.keys(CATS).forEach(k=>byCat[k]=0);
