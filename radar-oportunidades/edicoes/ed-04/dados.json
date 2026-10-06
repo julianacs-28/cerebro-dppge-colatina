@@ -1,0 +1,104 @@
+{
+  "numero": "04",
+  "mes": "Outubro 2026",
+  "dataEnvio": "06/10/2026",
+  "destaque": {
+    "status": "NOVO",
+    "categoria": "extensao",
+    "origem": "Coord. de Extensão",
+    "titulo": "Programa de Apoio a Eventos no País para a Educação Básica (PAEP-EB) — CAPES (Edital nº 27/2026)",
+    "link": "https://www.gov.br/capes/pt-br/assuntos/noticias-defeso-eleitoral/edital-seleciona-propostas-de-eventos-voltados-a-formacao-de-professores",
+    "resumo": "Programa de Apoio a Eventos no País para a Educação Básica (PAEP-EB) — CAPES (Edital nº 27/2026) apoia eventos acadêmicos, científicos, tecnológicos e de extensão, destinado a instituições que promovam a formação de professores da educação básica. As inscrições ocorrerão de 13 a 30 de outubro de 2026.",
+    "prazo": "30/10/2026",
+    "valor": "Até R$ 160.000 por projeto, conforme modalidade",
+    "publico": "Instituições elegíveis que promovam eventos voltados à formação de professores da educação básica",
+    "imagem": "",
+    "ctaTexto": "Acessar Edital CAPES 27/2026 →",
+    "institucional": false
+  },
+  "categorias": {
+    "pesquisa": [
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Pós-Graduação",
+        "titulo": "Chamada Pública CNPq/CAPES Nº 30/2026 – Programa de Mestrado e Doutorado Acadêmico para Inovação – MAI/DAI",
+        "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-30-2026/chamada-publica-cnpq-N-30-2026",
+        "resumo": "Chamada Pública CNPq/CAPES Nº 30/2026 – Programa de Mestrado e Doutorado Acadêmico para Inovação – MAI/DAI apoia projetos de pós-graduação desenvolvidos por universidades e instituições de pesquisa, destinado a parcerias com empresas, órgãos públicos e organizações do terceiro setor. As propostas podem ser apresentadas até 11 de dezembro de 2026.",
+        "prazo": "11/12/2026",
+        "valor": "Bolsas e recursos conforme edital",
+        "publico": "Universidades e instituições de pesquisa em parceria com empresas, órgãos públicos ou entidades do terceiro setor",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Núcleo de Incubação",
+        "titulo": "Chamada Pública CNPq/SETEC/SETAD/MCTI/FNDCT Nº 29/2026 – RHAE IA – Recursos Humanos em Áreas Estratégicas – Pesquisador na Empresa – Inteligência Artificial",
+        "link": "https://www.gov.br/cnpq/pt-br/assuntos/defeso-eleitoral/programa-rhae-ia-esta-com-inscricoes-abertas-ate-9-10",
+        "resumo": "Chamada Pública CNPq/SETEC/SETAD/MCTI/FNDCT Nº 29/2026 – RHAE IA – Recursos Humanos em Áreas Estratégicas – Pesquisador na Empresa – Inteligência Artificial apoia projetos de inteligência artificial, destinado a startups e empresas de pequeno e médio porte. Pesquisadores do Ifes podem participar por meio de parcerias com as empresas proponentes, com inscrições até 9 de outubro de 2026.",
+        "prazo": "09/10/2026",
+        "valor": "Até R$ 300.000 em bolsas por projeto",
+        "publico": "Startups e empresas de pequeno e médio porte, com possibilidade de parceria com pesquisadores do Ifes",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Pesquisa",
+        "titulo": "EDITAL FAPES Nº 28/2025 - PUBLICAÇÃO DE ARTIGOS TÉCNICO-CIENTÍFICOS — 4ª chamada",
+        "link": "https://fapes.es.gov.br/?mobile=&width=320",
+        "resumo": "EDITAL FAPES Nº 28/2025 - PUBLICAÇÃO DE ARTIGOS TÉCNICO-CIENTÍFICOS — 4ª chamada apoia a publicação de artigos técnico-científicos, destinado a pesquisadores vinculados a instituições de ensino superior ou pesquisa do Espírito Santo. A quarta chamada recebe propostas até 26 de outubro de 2026.",
+        "prazo": "26/10/2026",
+        "valor": "Conforme edital",
+        "publico": "Pesquisadores vinculados a instituições de ensino superior ou pesquisa do Espírito Santo",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "internac": [
+      {
+        "status": "NOVO",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "Chamada Pública MCTI/CNPq/ANR N° 32/2026",
+        "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-32-2026",
+        "resumo": "Chamada Pública MCTI/CNPq/ANR N° 32/2026 apoia projetos conjuntos de pesquisa entre Brasil e França, destinado a pesquisadores nas áreas de Saúde Única e Contínuo Digital, incluindo inteligência artificial, computação de alto desempenho e tecnologias quânticas. As propostas podem ser apresentadas até 31 de março de 2027.",
+        "prazo": "31/03/2027",
+        "valor": "Conforme edital",
+        "publico": "Pesquisadores brasileiros em cooperação com pesquisadores franceses nas áreas contempladas",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "bolsas": [
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Pós-Graduação",
+        "titulo": "Programa de Desenvolvimento Acadêmico Indígena (PDAI) — CAPES (Edital nº 23/2026)",
+        "link": "https://www.gov.br/capes/pt-br/acesso-a-informacao/acoes-e-programas/bolsas/programas-estrategicos/desenvolvimento-regional/programa-de-desenvolvimento-academico-indigena-pdai",
+        "resumo": "Programa de Desenvolvimento Acadêmico Indígena (PDAI) — CAPES (Edital nº 23/2026) oferece bolsas de mestrado e doutorado, destinado a pessoas pertencentes a povos indígenas reconhecidos no Brasil. As inscrições seguem até 26 de outubro de 2026, observadas as instituições e os programas participantes.",
+        "prazo": "26/10/2026",
+        "valor": "Até 300 bolsas de mestrado e doutorado",
+        "publico": "Pessoas pertencentes a povos indígenas reconhecidos no Brasil, conforme os requisitos do edital",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "evento": [],
+    "premiacoes": [],
+    "extensao": [
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Núcleo de Incubação",
+        "titulo": "Chamada Pública MCTI/FINEP/FNDCT – Programa Nacional de Incubadoras Tecnológicas de Cooperativas Populares (PRONINC)",
+        "link": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/economia-solidaria/editais-e-chamamentos-publicos",
+        "resumo": "Chamada Pública MCTI/FINEP/FNDCT – Programa Nacional de Incubadoras Tecnológicas de Cooperativas Populares (PRONINC) apoia o desenvolvimento ou a adaptação de tecnologias aplicáveis a empreendimentos econômicos solidários, destinado a Instituições Científicas, Tecnológicas e de Inovação. O cadastro institucional deve ser concluído até 9 de outubro de 2026 e a proposta pode ser enviada até 14 de janeiro de 2027.",
+        "prazo": "09/10/2026",
+        "valor": "Conforme chamada pública",
+        "publico": "Instituições Científicas, Tecnológicas e de Inovação",
+        "imagem": "",
+        "local": ""
+      }
+    ]
+  },
+  "informes": []
+}
