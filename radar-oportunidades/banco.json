@@ -1,5 +1,5 @@
 {
-  "atualizadoEm": "06/10/2026",
+  "atualizadoEm": "07/10/2026",
   "oportunidades": [
     {
       "status": "PRAZO PRÓXIMO",
@@ -500,6 +500,20 @@
       "local": "",
       "_cat": "extensao",
       "dataCadastro": "06/10/2026"
+    },
+    {
+      "status": "NOVO",
+      "origem": "Coord. de Pesquisa",
+      "titulo": "Imersão Científica 2027 - FUTURAS CIENTISTAS",
+      "link": "https://www.gov.br/cetene/pt-br/acesso-a-informacao/editais-cetene/editais-1/imersao-cientifica-2027-futuras-cientistas",
+      "resumo": "Imersão Científica 2027 - FUTURAS CIENTISTAS oferece atividades científicas nas áreas de Ciência, Tecnologia, Engenharia e Matemática, destinadas a estudantes do 2º ano do ensino médio e professoras de escolas públicas estaduais de todo o Brasil. São 470 vagas gratuitas, com atividades entre 4 e 29 de janeiro de 2027 e auxílio financeiro de R$ 300 para as participantes selecionadas.",
+      "prazo": "26/10/2026",
+      "valor": "Auxílio financeiro de R$ 300",
+      "publico": "Estudantes do 2º ano do ensino médio e professoras de escolas públicas estaduais; não contempla as redes federal, municipal ou privada",
+      "imagem": "",
+      "local": "Todo o Brasil — atividades presenciais ou remotas",
+      "_cat": "evento",
+      "dataCadastro": "07/10/2026"
     }
   ]
 }
