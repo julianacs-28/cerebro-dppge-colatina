@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radar de Oportunidades — Sistema DPPGE</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
     --verde-escuro: #0c420b;
@@ -299,58 +298,7 @@
     flex-shrink: 0;
   }
 
-  /* ── DASHBOARD VIEW ── */
-  #view-dashboard {
-    flex-direction: column;
-    overflow-y: auto;
-    padding: 24px;
-    background: var(--cinza-bg);
-  }
-
-  .dashboard-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
   .dashboard-title { font-size: 20px; font-weight: 700; color: var(--verde-escuro); }
-
-  .period-filter { display: flex; gap: 6px; }
-  .period-btn {
-    padding: 7px 16px;
-    border-radius: 20px;
-    border: 1.5px solid var(--cinza-borda);
-    background: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    color: var(--texto-suave);
-    transition: all .15s;
-  }
-  .period-btn.active { background: var(--verde-escuro); color: #fff; border-color: var(--verde-escuro); }
-
-  .kpi-row { display: flex; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
-  .kpi-card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 18px 20px;
-    flex: 1;
-    min-width: 150px;
-    border: 1px solid var(--cinza-borda);
-  }
-  .kpi-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--texto-suave); margin-bottom: 8px; }
-  .kpi-value { font-size: 30px; font-weight: 700; color: var(--verde-escuro); line-height: 1; }
-  .kpi-sub { font-size: 12px; color: var(--texto-suave); margin-top: 4px; }
-
-  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
-  .chart-card {
-    background: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    border: 1px solid var(--cinza-borda);
-  }
-  .chart-card h3 { font-size: 14px; font-weight: 700; color: var(--texto); margin-bottom: 16px; }
-  .chart-wrap { position: relative; height: 200px; }
 
   /* ── HISTÓRICO VIEW ── */
   #view-historico {
@@ -381,6 +329,25 @@
   .edicao-titulo { font-size: 15px; font-weight: 700; color: var(--texto); }
   .edicao-meta { font-size: 13px; color: var(--texto-suave); margin-top: 4px; }
   .edicao-actions { display: flex; gap: 8px; }
+  .hist-secao { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--verde-escuro); margin: 24px 0 10px; }
+  .hist-secao:first-child { margin-top: 0; }
+  .hist-secao span { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--texto-suave); margin-left: 6px; }
+  .hist-aviso { font-size: 13px; color: var(--texto-suave); margin: 0 0 12px; }
+
+  /* Avisos de título (curadoria) */
+  .aviso-titulo { display: none; margin-top: 6px; font-size: 12px; line-height: 1.45; }
+  .aviso-titulo > span { display: block; padding: 6px 9px; border-radius: 4px; margin-top: 4px; }
+  .aviso-info { background: #eef5ee; color: #1B5E20; }
+  .aviso-alerta { background: #fff8e1; color: #6d4c00; border-left: 3px solid #F57F17; }
+  .aviso-titulo a { color: inherit; font-weight: 700; }
+
+  /* Revisar edição */
+  .revisao-item { padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; border-left: 4px solid; }
+  .revisao-item strong { display: block; margin-bottom: 2px; }
+  .revisao-erro { background: #ffebee; border-color: #C41E3A; color: #6b0f1f; }
+  .revisao-alerta { background: #fff8e1; border-color: #F57F17; color: #6d4c00; }
+  .revisao-sugestao { background: #f5f5f5; border-color: #9E9E9E; color: #444; }
+  .revisao-ok { background: #e8f5e8; border-color: #1B5E20; color: #1B5E20; }
 
   .empty-state {
     text-align: center;
@@ -475,9 +442,6 @@
     <div class="nav-item" data-view="historico">
       <span class="icon">📚</span><span>Histórico</span>
     </div>
-    <div class="nav-item" data-view="dashboard">
-      <span class="icon">📊</span><span>Dashboard</span>
-    </div>
     <div class="nav-item" id="nav-importar" style="margin-top:16px; border-top:1px solid rgba(255,255,255,.1); padding-top:16px;">
       <span class="icon">📥</span><span>Importar JSON</span>
     </div>
@@ -499,6 +463,7 @@
       <button class="btn btn-secondary btn-sm" id="btn-nova-edicao">🆕 Nova Edição</button>
       <button class="btn btn-secondary btn-sm" id="btn-exportar-json">⬇ Exportar JSON</button>
       <button class="btn btn-secondary btn-sm" id="btn-salvar">💾 Salvar Edição</button>
+      <button class="btn btn-secondary btn-sm" id="btn-revisar">✔ Revisar edição</button>
       <button class="btn btn-primary btn-sm" id="btn-copiar-html">🚀 Gerar para Outlook</button>
       <button class="btn btn-primary btn-sm" id="btn-copiar-whatsapp">📱 Gerar para WhatsApp</button>
     </div>
@@ -581,6 +546,7 @@
           <div class="field">
             <label>Título</label>
             <input type="text" id="d-titulo" placeholder="Edital PRPPG 10/2024 — Prociência">
+            <div class="aviso-titulo" id="d-aviso-titulo"></div>
           </div>
           <div class="field">
             <label>Link do Edital</label>
@@ -689,62 +655,6 @@
     <div id="historico-list"></div>
   </div>
 
-  <!-- ── VIEW: DASHBOARD ── -->
-  <div id="view-dashboard" class="view">
-    <div class="dashboard-header">
-      <div class="dashboard-title">📊 Dashboard de Comunicação</div>
-      <div class="period-filter">
-        <button class="period-btn active" data-months="3">3 meses</button>
-        <button class="period-btn" data-months="6">6 meses</button>
-        <button class="period-btn" data-months="9">9 meses</button>
-        <button class="period-btn" data-months="12">12 meses</button>
-        <button class="period-btn" data-months="ano">Este ano</button>
-      </div>
-    </div>
-
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <div class="kpi-label">Boletins enviados</div>
-        <div class="kpi-value" id="kpi-boletins">0</div>
-        <div class="kpi-sub">no período</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Oportunidades divulgadas</div>
-        <div class="kpi-value" id="kpi-oportunidades">0</div>
-        <div class="kpi-sub">total de cards</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Categoria mais ativa</div>
-        <div class="kpi-value" style="font-size:18px;" id="kpi-top-cat">—</div>
-        <div class="kpi-sub" id="kpi-top-cat-n"></div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Origem mais ativa</div>
-        <div class="kpi-value" style="font-size:14px;" id="kpi-top-origem">—</div>
-        <div class="kpi-sub" id="kpi-top-origem-n"></div>
-      </div>
-    </div>
-
-    <div class="charts-grid">
-      <div class="chart-card">
-        <h3>Oportunidades por Categoria</h3>
-        <div class="chart-wrap"><canvas id="chart-categoria"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Evolução mensal de publicações</h3>
-        <div class="chart-wrap"><canvas id="chart-evolucao"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Por Coordenadoria / Núcleo</h3>
-        <div class="chart-wrap"><canvas id="chart-origem"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>Distribuição de Status</h3>
-        <div class="chart-wrap"><canvas id="chart-status"></canvas></div>
-      </div>
-    </div>
-  </div>
-
 </div><!-- main -->
 
 <!-- INPUT file oculto para importar JSON -->
@@ -762,6 +672,19 @@
       <button class="btn btn-secondary" id="btn-copiar-prompt">📋 Copiar Prompt</button>
       <button class="btn btn-primary" id="btn-baixar-modelo">⬇ Baixar JSON Modelo</button>
       <button class="btn btn-secondary" id="btn-fechar-modelo">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Revisar edição (checklist de curadoria antes de fechar o boletim) -->
+<div class="modal-overlay" id="modal-revisao">
+  <div class="modal" style="width:720px;">
+    <h2>✔ Revisar edição</h2>
+    <p style="font-size:13px;color:#555;margin:0 0 14px;">Verificação de todos os cards antes de fechar o boletim. Nada aqui bloqueia o envio — a decisão é sempre sua.</p>
+    <div id="revisao-resumo" style="font-size:14px;font-weight:700;margin-bottom:12px;"></div>
+    <div id="revisao-lista"></div>
+    <div style="display:flex;justify-content:flex-end;margin-top:16px;">
+      <button class="btn btn-secondary" id="btn-fechar-revisao">Fechar</button>
     </div>
   </div>
 </div>
@@ -893,8 +816,6 @@ const ORIGENS = [
 
 let cards = { pesquisa: [], internac: [], bolsas: [], evento: [], premiacoes: [], extensao: [] };
 let informes = [];
-let charts = {};
-let currentPeriod = 3;
 
 // ════════════════════════════════════════════════════════
 // UTILITÁRIOS
@@ -942,23 +863,295 @@ function createCardBlock(cat, idx, data = {}) {
     </div>
     <div class="field"><label>Status</label>${statusSelect(data.status)}</div>
     <div class="field"><label>Origem</label>${origemSelect(data.origem)}</div>
-    <div class="field"><label>Título</label><input class="card-titulo" type="text" placeholder="Nome do edital/programa" value="${data.titulo || ''}"></div>
+    <div class="field"><label>Título</label><input class="card-titulo" type="text" placeholder="Nome do edital/programa" value="${data.titulo || ''}"><div class="aviso-titulo"></div></div>
     <div class="field"><label>Link</label><input class="card-link" type="url" placeholder="https://..." value="${data.link || ''}"></div>
     <div class="field"><label>Resumo (o primeiro nome linkado será o título)</label><textarea class="card-resumo" rows="3" placeholder="O [Nome] oferece/apoia...">${data.resumo || ''}</textarea></div>
     <div class="field-row">
-      <div class="field"><label>Prazo / Data</label><input class="card-prazo" type="text" placeholder="DD/MM/AAAA" value="${data.prazo || ''}"></div>
+      <div class="field"><label>${cat === 'evento' ? 'Fim das inscrições' : 'Prazo / Data'}</label><input class="card-prazo" type="text" placeholder="DD/MM/AAAA" value="${data.semInscricao ? '' : (data.prazo || '')}"${data.semInscricao ? ' disabled' : ''}></div>
       <div class="field"><label>Valor</label><input class="card-valor" type="text" placeholder="R$ ..." value="${data.valor || ''}"></div>
     </div>
+    ${cat === 'evento' ? `
+    <div class="field">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:normal;">
+        <input type="checkbox" class="card-sem-inscricao" style="width:auto;"${data.semInscricao ? ' checked' : ''}>
+        Não é necessária inscrição (evento de acesso livre)
+      </label>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Data do evento</label><input class="card-data-evento" type="text" placeholder="DD/MM/AAAA ou 23 a 25/09/2026" value="${data.dataEvento || ''}"></div>
+      <div class="field"><label>Local</label><input class="card-local" type="text" placeholder="Auditório, Online..." value="${data.local || ''}"></div>
+    </div>
+    <div class="card-aviso-evento" style="display:none;font-size:12px;color:#C41E3A;margin:-4px 0 10px;"></div>` : ''}
     <div class="field"><label>Público-alvo</label><input class="card-publico" type="text" placeholder="Docentes, Estudantes..." value="${data.publico || ''}"></div>
     <div class="field"><label>Imagem (URL GitHub — opcional)</label><input class="card-imagem" type="url" placeholder="https://github.com/...?raw=true" value="${data.imagem || ''}"></div>
-    ${cat === 'evento' ? `<div class="field"><label>Local</label><input class="card-local" type="text" placeholder="Auditório, Online..." value="${data.local || ''}"></div>` : ''}
   `;
   div.querySelector('.card-block-remove').addEventListener('click', () => {
     div.remove();
     updatePreview();
   });
   div.querySelectorAll('input, select, textarea').forEach(el => el.addEventListener('input', updatePreview));
+  if (cat === 'evento') configurarCardEvento(div);
+  ligarVerificacaoTitulo(div.querySelector('.card-titulo'), div.querySelector('.card-resumo'), div.querySelector('.aviso-titulo'));
   return div;
+}
+
+// ════════════════════════════════════════════════════════
+// VERIFICAÇÃO DE TÍTULOS (curadoria)
+// ════════════════════════════════════════════════════════
+// 1) Maiúsculas: título todo/quase todo em CAIXA ALTA é corrigido sozinho ao sair do campo
+//    (siglas preservadas); o mesmo trecho é corrigido no resumo, que precisa conter o título exato.
+// 2) Semelhança: compara com o banco publicado — título idêntico = republicação (ℹ),
+//    título parecido = possível mesmo edital escrito de outro jeito (⚠). Nunca bloqueia.
+
+const SIGLAS = {
+  fapes: 'Fapes', cnpq: 'CNPq', capes: 'CAPES', inpe: 'INPE', inpi: 'INPI', mcti: 'MCTI', fndct: 'FNDCT',
+  finep: 'FINEP', sbpc: 'SBPC', confap: 'CONFAP', ifes: 'Ifes', ufes: 'Ufes', proex: 'PROEX', prppg: 'PRPPG',
+  cgaex: 'CGAEX', paex: 'PAEX', paep: 'PAEP', setec: 'SETEC', setad: 'SETAD', mec: 'MEC', ompi: 'OMPI',
+  minc: 'MinC', erc: 'ERC', wbi: 'WBI', cdti: 'CDTI', mercosul: 'MERCOSUL', rhae: 'RHAE', pdai: 'PDAI',
+  epli: 'EPLI', ia: 'IA', es: 'ES', ppp: 'PPP', pibic: 'PIBIC', pibiti: 'PIBITI', fapesp: 'Fapesp',
+  fapemig: 'Fapemig', ifsp: 'IFSP', anr: 'ANR', mir: 'MIR', mpi: 'MPI', eb: 'EB', worcap: 'WorCAP',
+  stem: 'STEM', proninc: 'PRONINC', sigpesq: 'SIGPESq', 'proáfrica': 'ProÁfrica',
+};
+const PALAVRAS_MINUSCULAS = new Set(['de', 'da', 'do', 'das', 'dos', 'e', 'em', 'no', 'na', 'nos', 'nas', 'para',
+  'a', 'o', 'as', 'os', 'com', 'por', 'ao', 'aos', 'à', 'às', 'ou', 'sem', 'sob', 'entre']);
+
+// Considera só palavras comuns (4+ letras, fora da lista de siglas): "PAEP — CAPES" não é "título em maiúsculas"
+function tituloEmMaiusculas(t) {
+  const palavras = ((t || '').match(/\p{L}{4,}/gu) || []).filter(p => !SIGLAS[p.toLowerCase()]);
+  if (palavras.length < 2) return false;
+  const emCaixaAlta = palavras.filter(p => p === p.toUpperCase()).length;
+  return emCaixaAlta / palavras.length >= 0.7;
+}
+
+function corrigirCaixa(t) {
+  let primeira = true;
+  return t.replace(/[\p{L}\p{N}ºª°]+/gu, palavra => {
+    const min = palavra.toLowerCase();
+    let saida;
+    if (SIGLAS[min]) saida = SIGLAS[min];
+    else if (/^n[º°]$/.test(min)) saida = 'Nº';
+    else if (!primeira && PALAVRAS_MINUSCULAS.has(min)) saida = min;
+    else saida = min.charAt(0).toUpperCase() + min.slice(1);
+    primeira = false;
+    return saida;
+  });
+}
+
+// Mesma regra de scripts/merge_edicao.py (titulos_parecidos). Se mudar aqui, mude lá.
+const PALAVRAS_GENERICAS = new Set(['edital', 'chamada', 'chamadas', 'publica', 'programa', 'apoio', 'para', 'com',
+  'dos', 'das', 'nos', 'nas', 'por', 'sobre', 'entre', 'edicao', 'ciencia', 'tecnologia', 'inovacao', 'pesquisa',
+  'desenvolvimento', 'premio', 'nacional', 'brasil']);
+const ORGAOS = new Set(['fapes', 'cnpq', 'capes', 'mcti', 'fndct', 'confap', 'inpe', 'inpi', 'finep', 'sbpc', 'ifes',
+  'proex', 'setec', 'setad', 'mec', 'fapesp', 'fapemig', 'ompi', 'minc', 'mir', 'mmulheres', 'mpi', 'anr', 'cgaex',
+  'paex', 'erc']);
+
+function chaveTitulo(t) { return (t || '').trim().toLowerCase().replace(/\s+/g, ' '); }
+
+function analisarTitulo(t) {
+  let s = (t || '').toLowerCase().normalize('NFD').replace(/\p{Mn}/gu, '');
+  const numeros = new Set(s.match(/\d{1,3}\/\d{4}/g) || []);
+  s = s.replace(/\d{1,3}\/\d{4}/g, ' ');
+  const palavras = new Set(s.match(/[a-z0-9]+/g) || []);
+  const orgaos = new Set([...palavras].filter(w => ORGAOS.has(w)));
+  const conteudo = new Set([...palavras].filter(w => w.length >= 3 && !PALAVRAS_GENERICAS.has(w) && !ORGAOS.has(w) && !/^\d+$/.test(w)));
+  return { conteudo, numeros, orgaos };
+}
+
+function titulosParecidos(a, b) {
+  const A = analisarTitulo(a), B = analisarTitulo(b);
+  const temComum = (x, y) => [...x].some(v => y.has(v));
+  if (temComum(A.numeros, B.numeros) && temComum(A.orgaos, B.orgaos)) return true;
+  const comuns = [...A.conteudo].filter(w => B.conteudo.has(w)).length;
+  const menor = Math.min(A.conteudo.size, B.conteudo.size);
+  return A.conteudo.size > 0 && B.conteudo.size > 0 && comuns >= Math.min(2, menor) && comuns / menor >= 0.6;
+}
+
+// Situação de um título frente ao banco publicado: { identico, parecidos[] }
+function situacaoNoBanco(titulo) {
+  const ops = bancoPublicado?.oportunidades || [];
+  const ch = chaveTitulo(titulo);
+  if (!ch) return { identico: null, parecidos: [] };
+  const identico = ops.find(o => chaveTitulo(o.titulo) === ch) || null;
+  const parecidos = identico ? [] : ops.filter(o => titulosParecidos(titulo, o.titulo));
+  return { identico, parecidos };
+}
+
+function quandoDivulgado(o) {
+  const ed = o.primeiraEdicao === 'avulsa' ? 'inclusão avulsa' : (o.primeiraEdicao ? 'Edição #' + o.primeiraEdicao : '');
+  return [ed, o.primeiraDivulgacao || o.dataCadastro].filter(Boolean).join(', ');
+}
+
+function mostrarAvisoTitulo(input, aviso) {
+  if (!aviso) return;
+  const institucional = input.id === 'd-titulo' && document.getElementById('d-institucional')?.checked;
+  const partes = [];
+  if (aviso.dataset.desfazer) {
+    partes.push(`<span class="aviso-info">✔ Formatação do título ajustada automaticamente (maiúsculas). <a href="#" data-desfazer>Desfazer</a></span>`);
+  }
+  if (!institucional && bancoPublicado && input.value.trim()) {
+    const { identico, parecidos } = situacaoNoBanco(input.value);
+    if (identico) {
+      partes.push(`<span class="aviso-info">ℹ Já divulgado (${escHist(quandoDivulgado(identico))}). Ao publicar, será atualizado e manterá a data original.</span>`);
+    }
+    parecidos.slice(0, 3).forEach(o => partes.push(
+      `<span class="aviso-alerta">⚠ Parecido com: <strong>${escHist(o.titulo)}</strong> (${escHist(quandoDivulgado(o))}). ` +
+      `Se for o mesmo edital, copie esse título exatamente igual. Se for outra chamada ou programa, pode manter.</span>`));
+  }
+  aviso.innerHTML = partes.join('');
+  aviso.style.display = partes.length ? 'block' : 'none';
+}
+
+// Corrige maiúsculas no título e no resumo; guarda o original para o "Desfazer"
+function autoCorrigirTitulo(input, resumo, aviso) {
+  const original = input.value;
+  if (!tituloEmMaiusculas(original)) return false;
+  const corrigido = corrigirCaixa(original);
+  if (corrigido === original) return false;
+  input.value = corrigido;
+  if (resumo && resumo.value.includes(original)) resumo.value = resumo.value.split(original).join(corrigido);
+  if (aviso) {
+    aviso.dataset.desfazer = JSON.stringify({ titulo: original, corrigido });
+  }
+  return true;
+}
+
+function ligarVerificacaoTitulo(input, resumo, aviso) {
+  if (!input) return;
+  let espera;
+  input.addEventListener('input', () => {
+    if (aviso) delete aviso.dataset.desfazer;
+    clearTimeout(espera);
+    espera = setTimeout(() => mostrarAvisoTitulo(input, aviso), 400);
+  });
+  input.addEventListener('blur', () => {
+    if (autoCorrigirTitulo(input, resumo, aviso)) updatePreview();
+    mostrarAvisoTitulo(input, aviso);
+  });
+  aviso?.addEventListener('click', ev => {
+    if (!ev.target.matches('[data-desfazer]')) return;
+    ev.preventDefault();
+    const { titulo, corrigido } = JSON.parse(aviso.dataset.desfazer || '{}');
+    if (titulo) {
+      input.value = titulo;
+      if (resumo && resumo.value.includes(corrigido)) resumo.value = resumo.value.split(corrigido).join(titulo);
+    }
+    delete aviso.dataset.desfazer;
+    mostrarAvisoTitulo(input, aviso);
+    updatePreview();
+  });
+  mostrarAvisoTitulo(input, aviso);
+}
+
+function verificarTodosTitulos() {
+  mostrarAvisoTitulo(document.getElementById('d-titulo'), document.getElementById('d-aviso-titulo'));
+  document.querySelectorAll('.card-block .card-titulo').forEach(inp => mostrarAvisoTitulo(inp, inp.parentElement.querySelector('.aviso-titulo')));
+}
+
+// ── Revisar edição: checklist de todos os cards ─────────────────
+function revisarEdicao() {
+  const d = collectData();
+  const achados = [];
+  const add = (nivel, onde, msg) => achados.push({ nivel, onde, msg });
+
+  if (!d.numero) add('erro', 'Edição', 'Número da edição vazio.');
+  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(d.dataEnvio || '')) add('erro', 'Edição', 'Data de envio vazia ou fora do formato DD/MM/AAAA — ela é gravada como a data do primeiro anúncio de cada oportunidade (antecedência).');
+
+  const cards = [];
+  if (d.destaque?.titulo && !d.destaque.institucional) cards.push({ onde: 'Destaque', c: d.destaque, cat: d.destaque.categoria });
+  Object.entries(d.categorias).forEach(([cat, arr]) => arr.forEach((c, i) => cards.push({ onde: `${CATEGORIAS[cat].label} · card ${i + 1}`, c, cat })));
+  if (!cards.length) add('alerta', 'Edição', 'Nenhuma oportunidade na edição.');
+
+  cards.forEach(({ onde, c, cat }) => {
+    const titulo = (c.titulo || '').trim();
+    const local = titulo ? `${onde} — ${titulo}` : onde;
+    if (!titulo) { add('erro', onde, 'Card sem título.'); return; }
+    if (!c.resumo) add('erro', local, 'Resumo vazio.');
+    else if (!c.resumo.includes(c.titulo)) add('erro', local, 'O resumo não contém o título exato — o link no meio do texto não vai aparecer (boletim e site). Copie o título, sem alterar nada, para dentro da primeira frase do resumo.');
+    if (!c.link) add('erro', local, 'Link vazio — o card fica sem botão de acesso e sem contagem de cliques.');
+    else if (/ir\.html\?|links\.ifes\.edu\.br/i.test(c.link)) add('erro', local, 'O link deve ser o endereço ORIGINAL do edital, não um link encurtado nem do Radar — o sistema gera sozinho o link rastreável.');
+    if (tituloEmMaiusculas(titulo)) add('alerta', local, 'Título em maiúsculas. Clique no campo do título e saia dele para corrigir automaticamente.');
+
+    const { identico, parecidos } = bancoPublicado ? situacaoNoBanco(titulo) : { identico: null, parecidos: [] };
+    if (identico) add('sugestao', local, `Já divulgado (${quandoDivulgado(identico)}). Será atualizado no site e manterá a data original.`);
+    parecidos.slice(0, 3).forEach(o => add('alerta', local, `Parecido com “${o.titulo}” (${quandoDivulgado(o)}). Se for o mesmo edital, use exatamente aquele título; se for outra chamada ou programa, pode manter.`));
+    if (!identico && /\s-\s/.test(titulo)) add('sugestao', local, 'O título usa hífen " - " como separador; o padrão do Radar é o travessão " — ".');
+
+    if (cat === 'evento') {
+      if (!c.semInscricao && !c.prazo) add('erro', local, 'Evento sem fim das inscrições e sem a caixa "Não é necessária inscrição" marcada.');
+      if (c.semInscricao && !c.dataEvento) add('erro', local, 'Evento sem inscrição precisa da data do evento.');
+      if (c.dataEvento && !inicioDoEvento(c.dataEvento)) add('alerta', local, 'Data do evento fora do formato (use DD/MM/AAAA ou um intervalo como 23 a 25/09/2026).');
+    }
+  });
+
+  if (!bancoPublicado) add('sugestao', 'Geral', erroPublicados || 'O banco publicado ainda está carregando — a comparação com oportunidades já divulgadas não foi feita. Tente de novo em instantes.');
+
+  const ordem = { erro: 0, alerta: 1, sugestao: 2 };
+  achados.sort((a, b) => ordem[a.nivel] - ordem[b.nivel]);
+  const conta = n => achados.filter(a => a.nivel === n).length;
+  const rotulo = { erro: 'Corrigir', alerta: 'Atenção', sugestao: 'Informação' };
+
+  document.getElementById('revisao-resumo').innerHTML = (conta('erro') || conta('alerta'))
+    ? `${cards.length} oportunidade(s) revisada(s) · <span style="color:#C41E3A">${conta('erro')} para corrigir</span> · <span style="color:#b26a00">${conta('alerta')} de atenção</span> · ${conta('sugestao')} informação(ões)`
+    : `${cards.length} oportunidade(s) revisada(s) · nada para corrigir`;
+  document.getElementById('revisao-lista').innerHTML = achados.length
+    ? achados.map(a => `<div class="revisao-item revisao-${a.nivel}"><strong>${rotulo[a.nivel]} · ${escHist(a.onde)}</strong>${escHist(a.msg)}</div>`).join('')
+    : `<div class="revisao-item revisao-ok"><strong>Tudo certo</strong>Nenhum problema encontrado.</div>`;
+  document.getElementById('modal-revisao').classList.add('open');
+}
+
+document.getElementById('btn-revisar').addEventListener('click', revisarEdicao);
+document.getElementById('btn-fechar-revisao').addEventListener('click', () => document.getElementById('modal-revisao').classList.remove('open'));
+
+// Ao importar um JSON (ex.: gerado pela IA): corrige maiúsculas de todos os títulos e avisa o que mudou
+function autoCorrigirTodosTitulos() {
+  const ajustados = [];
+  const pares = [[document.getElementById('d-titulo'), document.getElementById('d-resumo'), document.getElementById('d-aviso-titulo')],
+    ...[...document.querySelectorAll('.card-block')].map(b => [b.querySelector('.card-titulo'), b.querySelector('.card-resumo'), b.querySelector('.aviso-titulo')])];
+  pares.forEach(([inp, res, av]) => {
+    if (!inp) return;
+    const antes = inp.value;
+    if (autoCorrigirTitulo(inp, res, av)) ajustados.push(`"${antes}" → "${inp.value}"`);
+  });
+  verificarTodosTitulos();
+  return ajustados;
+}
+
+// Cards de Eventos: "Não é necessária inscrição" bloqueia o fim das inscrições, e o aviso
+// aparece quando falta informação — um evento nunca deve ficar sem prazo e sem a caixa marcada.
+function configurarCardEvento(div) {
+  const prazo = div.querySelector('.card-prazo');
+  const semInscricao = div.querySelector('.card-sem-inscricao');
+  const dataEvento = div.querySelector('.card-data-evento');
+  const aviso = div.querySelector('.card-aviso-evento');
+  const validar = () => {
+    const msgs = [];
+    if (!semInscricao.checked && !prazo.value.trim()) msgs.push('Preencha o fim das inscrições ou marque "Não é necessária inscrição".');
+    if (semInscricao.checked && !dataEvento.value.trim()) msgs.push('Sem inscrição, a data do evento é obrigatória.');
+    if (dataEvento.value.trim() && !inicioDoEvento(dataEvento.value)) msgs.push('Data do evento: use DD/MM/AAAA ou um intervalo como 23 a 25/09/2026.');
+    aviso.innerHTML = msgs.map(m => '⚠ ' + m).join('<br>');
+    aviso.style.display = msgs.length ? '' : 'none';
+  };
+  semInscricao.addEventListener('change', () => {
+    if (semInscricao.checked) prazo.value = '';
+    prazo.disabled = semInscricao.checked;
+    validar();
+    updatePreview();
+  });
+  [prazo, dataEvento].forEach(el => el.addEventListener('input', validar));
+  validar();
+}
+
+// Data de início de um evento: "DD/MM/AAAA", "DD/MM a DD/MM/AAAA" ou "DD a DD/MM/AAAA".
+// Mesma regra usada no dashboard para a antecedência até o evento.
+function inicioDoEvento(texto) {
+  const t = (texto || '').trim();
+  let m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+  m = /^(\d{1,2})\/(\d{1,2})\s*(?:a|até|-|–|e)\s*\d{1,2}\/\d{1,2}\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+  m = /^(\d{1,2})\s*(?:a|até|-|–|e)\s*\d{1,2}\/(\d{1,2})\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2] - 1, +m[1]);
+  return null;
 }
 
 function addCard(cat, data = {}) {
@@ -1031,16 +1224,28 @@ function badgesRow(status, origem) {
   </table>`;
 }
 
-function dadosRow(prazo, valor, publico, local) {
+// Texto do prazo e da data de realização. Nos cards de Eventos (evento = o próprio card), o prazo é
+// sempre o fim das inscrições; com "semInscricao" o boletim informa que não é preciso se inscrever.
+function textosPrazoEvento(prazo, evento) {
+  if (!evento) return { prazo, realizacao: '' };
+  return {
+    prazo: evento.semInscricao ? 'Não é necessária inscrição' : (prazo ? `Inscrições até ${prazo}` : ''),
+    realizacao: evento.dataEvento ? `Realização: ${evento.dataEvento}` : '',
+  };
+}
+
+function dadosRow(prazo, valor, publico, local, evento = null) {
   const ico = (url, txt) => txt ? `<table cellpadding="0" cellspacing="0" border="0" style="display:inline-table;margin-right:14px;">
     <tr>
       <td style="vertical-align:middle;padding-right:6px;"><img src="${url}" width="14" height="14" alt="" style="display:block;border:0;"></td>
       <td style="vertical-align:middle;"><span style="font-size:13px;font-weight:600;color:#333333;font-family:'Segoe UI',Arial,sans-serif;">${txt}</span></td>
     </tr>
   </table>` : '';
+  const tx = textosPrazoEvento(prazo, evento);
   return `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:12px;"><tr>
     <td style="vertical-align:middle;">
-      ${ico(ICONS.calendario, prazo)}
+      ${ico(ICONS.calendario, tx.prazo)}
+      ${ico(ICONS.calendario, tx.realizacao)}
       ${ico(ICONS.dinheiro, valor)}
       ${local ? ico(ICONS.localizacao, local) : ico(ICONS.publico, publico)}
       ${local ? ico(ICONS.publico, publico) : ''}
@@ -1064,7 +1269,8 @@ function sectionHeader(catKey) {
 
 function cardHTML(d, catKey, isLast) {
   const linkStyle = `color:#004aad;text-decoration:underline;font-weight:600;`;
-  const resumoLinkado = d.link ? d.resumo.replace(d.titulo, `<a href="${d.link}" style="${linkStyle}">${d.titulo}</a>`) : d.resumo;
+  const linkRastreado = linkEdital(d, 'boletim');
+  const resumoLinkado = d.link ? d.resumo.replace(d.titulo, `<a href="${linkRastreado}" style="${linkStyle}">${d.titulo}</a>`) : d.resumo;
   const ctaText = d.link ? `Acessar ${d.titulo} →` : '';
   const isEvento = catKey === 'evento';
 
@@ -1075,10 +1281,10 @@ function cardHTML(d, catKey, isLast) {
         <p style="margin:0 0 6px 0;font-size:18px;font-weight:bold;color:#1a1a1a;font-family:'Segoe UI',Arial,sans-serif;line-height:32px;mso-line-height-rule:exactly;">${d.titulo}</p>
         ${d.imagem ? `<img src="${d.imagem}" width="556" height="200" alt="Imagem" style="display:block;width:100%;max-width:556px;height:auto;border-radius:4px;border:0;margin-bottom:12px;">` : ''}
         <p style="margin:0 0 12px 0;font-size:16px;color:#333333;font-family:'Segoe UI',Arial,sans-serif;line-height:36px;mso-line-height-rule:exactly;">${resumoLinkado}</p>
-        ${dadosRow(d.prazo, d.valor, d.publico, d.local || '')}
+        ${dadosRow(d.prazo, d.valor, d.publico, d.local || '', isEvento ? d : null)}
         <table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
           <td></td>
-          <td align="right">${d.link ? `<a href="${d.link}" style="display:inline-block;color:#004aad;font-size:14px;font-weight:bold;font-family:'Segoe UI',Arial,sans-serif;text-decoration:none;white-space:nowrap;">${ctaText}</a>` : ''}</td>
+          <td align="right">${d.link ? `<a href="${linkRastreado}" style="display:inline-block;color:#004aad;font-size:14px;font-weight:bold;font-family:'Segoe UI',Arial,sans-serif;text-decoration:none;white-space:nowrap;">${ctaText}</a>` : ''}</td>
         </tr></table>
       </td></tr>
       ${!isLast ? '<tr><td style="border-top:1px solid #eeeeee;"></td></tr>' : ''}
@@ -1100,6 +1306,31 @@ function informeHTML(inf) {
 }
 
 const SITE_URL = 'https://links.ifes.edu.br/radar';
+
+// ── Links rastreáveis dos editais ──────────────────────────────
+// Cada edital do boletim/WhatsApp aponta para ir.html (no site do Radar), que registra
+// o clique na planilha de métricas e redireciona para o edital. O edital precisa já estar
+// publicado no banco.json (merge + push) antes do envio — é lá que ir.html acha o link.
+const RADAR_BASE_URL = 'https://julianacs-28.github.io/cerebro-dppge-colatina/radar-oportunidades/';
+let EDICAO_EM_GERACAO = ''; // número da edição sendo gerada (preenchido por generateHTML/generateWhatsApp)
+
+// Mesma função de index.html e ir.html — não alterar sem alterar as três.
+function codigoEdital(titulo) {
+  const s = (titulo || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(36);
+}
+
+// canal: 'boletim' | 'whatsapp'. Destaque institucional e card sem título/link ficam com o link original.
+function linkEdital(item, canal) {
+  if (!item.link || !item.titulo || item.institucional) return item.link;
+  const ed = /^\d+$/.test(EDICAO_EM_GERACAO) ? `&ed=${EDICAO_EM_GERACAO}` : '';
+  return `${RADAR_BASE_URL}ir.html?e=${codigoEdital(item.titulo)}&de=${canal}${ed}`;
+}
 
 function siteBanner() {
   return `<tr><td style="padding:14px 32px;border-top:1px solid #eeeeee;border-bottom:1px solid #eeeeee;text-align:center;">
@@ -1134,7 +1365,7 @@ function collectData() {
   ['pesquisa','internac','bolsas','evento','premiacoes','extensao'].forEach(cat => {
     cats[cat] = [];
     document.querySelectorAll(`#cards-${cat} .card-block`).forEach(block => {
-      cats[cat].push({
+      const card = {
         status: block.querySelector('.card-status')?.value ?? '',
         origem: block.querySelector('.card-origem')?.value || 'DPPGE',
         titulo: block.querySelector('.card-titulo')?.value || '',
@@ -1145,7 +1376,13 @@ function collectData() {
         publico: block.querySelector('.card-publico')?.value || '',
         imagem: block.querySelector('.card-imagem')?.value || '',
         local: block.querySelector('.card-local')?.value || '',
-      });
+      };
+      if (cat === 'evento') {
+        card.semInscricao = block.querySelector('.card-sem-inscricao')?.checked || false;
+        card.dataEvento = block.querySelector('.card-data-evento')?.value || '';
+        if (card.semInscricao) card.prazo = '';
+      }
+      cats[cat].push(card);
     });
   });
 
@@ -1162,10 +1399,12 @@ function collectData() {
 }
 
 function generateHTML(d) {
+  EDICAO_EM_GERACAO = String(d.numero || '');
   const dData = d.destaque;
   const catDest = dData.categoria ? CATEGORIAS[dData.categoria] : null;
   const linkStyle = `color:#004aad;text-decoration:underline;font-weight:600;`;
-  const resumoDestLinkado = dData.link ? dData.resumo.replace(dData.titulo, `<a href="${dData.link}" style="${linkStyle}">${dData.titulo}</a>`) : dData.resumo;
+  const linkDestaque = linkEdital(dData, 'boletim');
+  const resumoDestLinkado = dData.link ? dData.resumo.replace(dData.titulo, `<a href="${linkDestaque}" style="${linkStyle}">${dData.titulo}</a>`) : dData.resumo;
 
   let sectionsHTML = '';
   Object.entries(d.categorias).forEach(([catKey, cardsArr]) => {
@@ -1250,7 +1489,7 @@ ${siteBanner()}
       ${dadosRow(dData.prazo, dData.valor, dData.publico, '')}
       <table cellpadding="0" cellspacing="0" border="0"><tr>
         <td style="background-color:#0c420b;padding:10px 24px;">
-          <a href="${dData.link || '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:bold;font-family:'Segoe UI',Arial,sans-serif;text-decoration:none;">${dData.ctaTexto || 'Acessar Edital →'}</a>
+          <a href="${linkDestaque || '#'}" style="display:inline-block;color:#ffffff;font-size:13px;font-weight:bold;font-family:'Segoe UI',Arial,sans-serif;text-decoration:none;">${dData.ctaTexto || 'Acessar Edital →'}</a>
         </td>
       </tr></table>
     </td>
@@ -1306,20 +1545,24 @@ function resumoSemTitulo(resumo, titulo) {
   return texto;
 }
 
-function whatsLinhaOportunidade(c, bullet = '') {
+function whatsLinhaOportunidade(c, bullet = '', isEvento = false) {
   let linha = `${bullet}*${c.titulo}*`;
   const resumo = resumoSemTitulo(c.resumo, c.titulo);
   if (resumo) linha += `\n${resumo}`;
-  if (c.prazo) {
-    linha += `\nPrazo: ${c.prazo}`;
+  if (isEvento && c.semInscricao) {
+    linha += `\nNão é necessária inscrição`;
+  } else if (c.prazo) {
+    linha += isEvento ? `\nInscrições até: ${c.prazo}` : `\nPrazo: ${c.prazo}`;
   } else if (c.status === 'FLUXO CONTÍNUO') {
     linha += `\nFluxo contínuo — sem prazo fixo`;
   }
-  if (c.link) linha += `\n🔗 ${c.link}`;
+  if (isEvento && c.dataEvento) linha += `\nRealização: ${c.dataEvento}`;
+  if (c.link) linha += `\n🔗 ${linkEdital(c, 'whatsapp')}`;
   return linha;
 }
 
 function generateWhatsApp(d) {
+  EDICAO_EM_GERACAO = String(d.numero || '');
   const linhas = [];
 
   linhas.push(`Edição #${d.numero || '—'}${d.mes ? ' · ' + d.mes : ''}`);
@@ -1339,7 +1582,7 @@ function generateWhatsApp(d) {
     const emoji = WHATS_CAT_EMOJI[catKey] || '📌';
     linhas.push(`${emoji} *${cat.label}*`);
     arr.forEach(c => {
-      linhas.push(whatsLinhaOportunidade(c, '— '));
+      linhas.push(whatsLinhaOportunidade(c, '— ', catKey === 'evento'));
       linhas.push('');
     });
   });
@@ -1405,21 +1648,69 @@ function salvarEdicao() {
   localStorage.setItem('radar_historico', JSON.stringify(hist));
   toast(`Edição #${d.numero} salva com sucesso!`);
   renderHistorico();
-  updateDashboard();
+}
+
+// Dados publicados no site (GitHub Pages): índice das edições (gerado pelo merge) e banco de oportunidades.
+// Usados pelo Histórico e pela verificação de títulos. Aberto como arquivo local (file://), o sistema não
+// consegue lê-los — o editor continua funcionando, só sem a lista publicada e sem a verificação de títulos.
+let indicePublicado = null, bancoPublicado = null, erroPublicados = '';
+
+async function carregarDadosPublicados() {
+  try {
+    const [ri, rb] = await Promise.all([fetch('edicoes/indice.json?t=' + Date.now()), fetch('banco.json?t=' + Date.now())]);
+    if (!ri.ok || !rb.ok) throw 0;
+    indicePublicado = await ri.json();
+    bancoPublicado = await rb.json();
+    erroPublicados = '';
+  } catch (e) {
+    erroPublicados = 'Não foi possível ler as edições publicadas. Abra o sistema pelo endereço do site (GitHub Pages), não pelo arquivo no computador.';
+  }
+  renderHistorico();
+  verificarTodosTitulos();
+}
+
+function escHist(s) {
+  return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
 
 function renderHistorico() {
-  const hist = getHistorico();
   const el = document.getElementById('historico-list');
-  if (!hist.length) {
-    el.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>Nenhuma edição salva ainda.<br>Use o Editor para criar e salvar boletins.</p></div>`;
-    return;
-  }
-  el.innerHTML = hist.map(e => `
+  let html = `<div class="hist-secao">Edições publicadas <span>lidas do site · iguais para todos, em qualquer computador</span></div>`;
+  if (erroPublicados) {
+    html += `<p class="hist-aviso">${escHist(erroPublicados)}</p>`;
+  } else if (!indicePublicado) {
+    html += `<p class="hist-aviso">Carregando…</p>`;
+  } else {
+    html += indicePublicado.edicoes.map(e => `
     <div class="edicao-card">
       <div class="edicao-info">
-        <div class="edicao-titulo">Edição #${e.numero} — ${e.mes}</div>
-        <div class="edicao-meta">Salvo em ${e._savedAt} · ${countCards(e)} oportunidade(s)</div>
+        <div class="edicao-titulo">Edição #${escHist(e.numero)} — ${escHist(e.mes)}</div>
+        <div class="edicao-meta">Enviada em ${escHist(e.data)} · ${e.oportunidades} oportunidade(s)</div>
+      </div>
+      <div class="edicao-actions">
+        <button class="btn btn-secondary btn-sm" data-acao="abrir" data-pasta="${escHist(e.pasta)}" data-numero="${escHist(e.numero)}">✏️ Abrir no editor</button>
+        <button class="btn btn-secondary btn-sm" data-acao="html" data-pasta="${escHist(e.pasta)}">📋 HTML</button>
+      </div>
+    </div>`).join('') || `<p class="hist-aviso">Nenhuma edição publicada ainda.</p>`;
+    if (indicePublicado.avulsas.length) {
+      html += `<div class="hist-secao">Inclusões avulsas <span>publicadas no site fora de uma edição</span></div>`;
+      html += indicePublicado.avulsas.map(a => `
+      <div class="edicao-card">
+        <div class="edicao-info">
+          <div class="edicao-titulo">${escHist(a.titulos.join(' · '))}</div>
+          <div class="edicao-meta">Publicada em ${escHist(a.data)} · ${escHist(a.pasta)}</div>
+        </div>
+      </div>`).join('');
+    }
+  }
+
+  const hist = getHistorico();
+  html += `<div class="hist-secao">Rascunhos salvos neste navegador <span>só aparecem neste computador · a cópia oficial é o arquivo edicoes/ed-XX/dados.json</span></div>`;
+  html += hist.length ? hist.map(e => `
+    <div class="edicao-card">
+      <div class="edicao-info">
+        <div class="edicao-titulo">Edição #${escHist(e.numero)} — ${escHist(e.mes)}</div>
+        <div class="edicao-meta">Salvo em ${escHist(e._savedAt)} · ${countCards(e)} oportunidade(s)</div>
       </div>
       <div class="edicao-actions">
         <button class="btn btn-secondary btn-sm" onclick="carregarEdicao(${e._id})">✏️ Editar</button>
@@ -1427,9 +1718,35 @@ function renderHistorico() {
         <button class="btn btn-secondary btn-sm" onclick="exportarEdicao(${e._id})">⬇ JSON</button>
         <button class="btn btn-danger btn-sm" onclick="deletarEdicao(${e._id})">✕</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('') : `<p class="hist-aviso">Nenhum rascunho salvo neste navegador.</p>`;
+  el.innerHTML = html;
 }
+
+async function lerEdicaoPublicada(pasta) {
+  const r = await fetch(`${pasta}/dados.json?t=${Date.now()}`);
+  if (!r.ok) throw new Error('não encontrada');
+  return r.json();
+}
+
+// Botões das edições publicadas (delegação: a lista é redesenhada a cada renderHistorico)
+document.getElementById('historico-list').addEventListener('click', async ev => {
+  const btn = ev.target.closest('button[data-acao]');
+  if (!btn) return;
+  try {
+    const d = await lerEdicaoPublicada(btn.dataset.pasta);
+    if (btn.dataset.acao === 'abrir') {
+      if (!confirm(`Abrir a Edição #${btn.dataset.numero} vai substituir o que está no editor agora. Continuar?`)) return;
+      loadData(d);
+      switchView('editor');
+      toast(`Edição #${btn.dataset.numero} aberta no editor.`);
+    } else {
+      document.getElementById('html-output').value = generateHTML(d);
+      document.getElementById('modal-html').classList.add('open');
+    }
+  } catch (e) {
+    toast('Não foi possível abrir esta edição.');
+  }
+});
 
 function countCards(e) {
   let n = 0;
@@ -1466,12 +1783,13 @@ function deletarEdicao(id) {
   const hist = getHistorico().filter(e => e._id !== id);
   localStorage.setItem('radar_historico', JSON.stringify(hist));
   renderHistorico();
-  updateDashboard();
   toast('Edição removida.');
 }
 
 function proximoNumeroEdicao() {
-  const nums = getHistorico().map(e => parseInt(e.numero, 10)).filter(n => !isNaN(n));
+  // Considera as edições publicadas (índice) e os rascunhos deste navegador
+  const publicadas = (indicePublicado?.edicoes || []).map(e => e.numero);
+  const nums = [...publicadas, ...getHistorico().map(e => e.numero)].map(n => parseInt(n, 10)).filter(n => !isNaN(n));
   const next = nums.length ? Math.max(...nums) + 1 : 1;
   return String(next).padStart(2, '0');
 }
@@ -1518,6 +1836,7 @@ function novaEdicao() {
   document.getElementById('tab-edicao').classList.add('active');
 
   switchView('editor');
+  verificarTodosTitulos();
   updatePreview();
   toast(`Nova edição iniciada — Edição #${document.getElementById('edicao-numero').value}`);
 }
@@ -1552,124 +1871,9 @@ function loadData(d) {
   document.getElementById('informes-list').innerHTML = '';
   if (d.informes) d.informes.forEach(inf => addInforme(inf));
 
+  delete document.getElementById('d-aviso-titulo').dataset.desfazer;
+  verificarTodosTitulos();
   updatePreview();
-}
-
-// ════════════════════════════════════════════════════════
-// DASHBOARD
-// ════════════════════════════════════════════════════════
-
-function filterByPeriod(hist, months) {
-  if (months === 'ano') {
-    const anoAtual = new Date().getFullYear();
-    return hist.filter(e => {
-      const parts = (e.dataEnvio || '').split('/');
-      return parts.length === 3 && +parts[2] === anoAtual;
-    });
-  }
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth() - months);
-  return hist.filter(e => {
-    const parts = (e.dataEnvio || '').split('/');
-    if (parts.length === 3) {
-      const d = new Date(+parts[2], +parts[1]-1, +parts[0]);
-      return d >= cutoff;
-    }
-    return true;
-  });
-}
-
-function updateDashboard() {
-  const allHist = getHistorico();
-  const hist = filterByPeriod(allHist, currentPeriod);
-
-  let totalCards = 0;
-  const byCat = { pesquisa:0, internac:0, bolsas:0, evento:0, premiacoes:0, extensao:0 };
-  const byOrigem = {};
-  const byStatus = { 'NOVO':0, 'PRAZO PRÓXIMO':0, 'ÚLTIMOS DIAS':0, 'FLUXO CONTÍNUO':0 };
-  const byMonth = {};
-
-  hist.forEach(e => {
-    if (e.categorias) {
-      Object.entries(e.categorias).forEach(([cat, arr]) => {
-        byCat[cat] = (byCat[cat] || 0) + arr.length;
-        totalCards += arr.length;
-        arr.forEach(c => {
-          byOrigem[c.origem] = (byOrigem[c.origem] || 0) + 1;
-          byStatus[c.status] = (byStatus[c.status] || 0) + 1;
-        });
-      });
-    }
-    const parts = (e.dataEnvio || '').split('/');
-    if (parts.length === 3) {
-      const key = `${parts[1]}/${parts[2]}`;
-      byMonth[key] = (byMonth[key] || 0) + 1;
-    }
-  });
-
-  document.getElementById('kpi-boletins').textContent = hist.length;
-  document.getElementById('kpi-oportunidades').textContent = totalCards;
-
-  const topCat = Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
-  if (topCat && topCat[1] > 0) {
-    document.getElementById('kpi-top-cat').textContent = CATEGORIAS[topCat[0]]?.label || topCat[0];
-    document.getElementById('kpi-top-cat-n').textContent = `${topCat[1]} oportunidade(s)`;
-  } else {
-    document.getElementById('kpi-top-cat').textContent = '—';
-    document.getElementById('kpi-top-cat-n').textContent = '';
-  }
-
-  const topOrigem = Object.entries(byOrigem).sort((a,b)=>b[1]-a[1])[0];
-  if (topOrigem) {
-    document.getElementById('kpi-top-origem').textContent = topOrigem[0];
-    document.getElementById('kpi-top-origem-n').textContent = `${topOrigem[1]} publicação(ões)`;
-  } else {
-    document.getElementById('kpi-top-origem').textContent = '—';
-    document.getElementById('kpi-top-origem-n').textContent = '';
-  }
-
-  const catLabels = Object.keys(CATEGORIAS).map(k => CATEGORIAS[k].label);
-  const catValues = Object.keys(CATEGORIAS).map(k => byCat[k] || 0);
-  const catColors = ['#4A368F','#0149AF','#C2195A','#A03B11','#7A5B00','#006A5C'];
-
-  renderChart('chart-categoria', 'doughnut', catLabels, catValues, catColors);
-  renderChart('chart-status', 'bar',
-    Object.keys(byStatus), Object.values(byStatus),
-    ['#1B5E20','#F57F17','#C41E3A','#9E9E9E']
-  );
-
-  const monthKeys = Object.keys(byMonth).sort();
-  renderChart('chart-evolucao', 'bar', monthKeys, monthKeys.map(k => byMonth[k]), ['#196d1e']);
-
-  const origemKeys = Object.keys(byOrigem).slice(0, 8);
-  const origemVals = origemKeys.map(k => byOrigem[k]);
-  renderChart('chart-origem', 'bar', origemKeys, origemVals, ['#0c420b'], true);
-}
-
-function renderChart(id, type, labels, data, colors, horizontal = false) {
-  if (charts[id]) charts[id].destroy();
-  const ctx = document.getElementById(id).getContext('2d');
-  charts[id] = new Chart(ctx, {
-    type,
-    data: {
-      labels,
-      datasets: [{
-        data,
-        backgroundColor: colors.length === data.length ? colors : colors[0],
-        borderWidth: 0,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      indexAxis: horizontal ? 'y' : 'x',
-      plugins: { legend: { display: type === 'doughnut', position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } },
-      scales: type !== 'doughnut' ? {
-        x: { ticks: { font: { size: 10 }, maxRotation: horizontal ? 0 : 40 }, grid: { display: false } },
-        y: { ticks: { font: { size: 10 } }, grid: { color: '#f0f0f0' } }
-      } : {},
-    }
-  });
 }
 
 // ════════════════════════════════════════════════════════
@@ -1706,6 +1910,8 @@ REGRAS DE ESCRITA DO RESUMO:
 - Estrutura: "[Nome do edital/programa] visa/oferece/apoia [ação principal], destinado a [público-alvo]. [Detalhe operacional relevante, se houver]."
 - Máximo de 3 frases
 - Linguagem clara e objetiva
+- LINK: no campo "link", sempre o endereço ORIGINAL do edital (página ou PDF da instituição). Nunca usar link encurtado nem link do Radar (ir.html, links.ifes.edu.br) — o sistema gera sozinho o link rastreável de cada edital.
+- TÍTULO: nunca em MAIÚSCULAS. Use maiúsculas só no início das palavras principais e nas siglas (Fapes, CNPq, CAPES, INPE...). Padrão recomendado: "[Nome do programa] — [Instituição] (Edital NN/AAAA[, Nª chamada])", com travessão " — " como separador. Se a oportunidade já foi divulgada antes, repita o título EXATAMENTE como da primeira vez.
 - CRÍTICO: o texto do resumo deve reproduzir o nome do edital/programa EXATAMENTE como está no campo "titulo" (mesmos caracteres, incluindo sufixos como "— Fapes" ou "(Edital X/2026)") — copie e cole o título, não o parafraseie. O link dentro do resumo (no boletim) e o link do título (no site) são inseridos por correspondência exata de texto; um título parafraseado ou abreviado faz o link falhar silenciosamente.
 
 STATUS disponíveis: "NOVO" | "PRAZO PRÓXIMO" | "ÚLTIMOS DIAS" | "FLUXO CONTÍNUO" | "" (sem status — só para destaque institucional, ver abaixo)
@@ -1713,6 +1919,12 @@ STATUS disponíveis: "NOVO" | "PRAZO PRÓXIMO" | "ÚLTIMOS DIAS" | "FLUXO CONTÍ
 CATEGORIAS disponíveis: "pesquisa" | "internac" | "bolsas" | "evento" | "premiacoes" | "extensao" | "" (sem categoria — só para destaque institucional, ver abaixo)
 
 Se o destaque for um texto institucional (boas-vindas, aviso etc.) e não uma oportunidade real, marque "institucional": true e deixe "status" e "categoria" como string vazia "".
+
+CARDS DE EVENTOS (categoria "evento") — campos extras:
+- "prazo": SEMPRE o fim das inscrições (DD/MM/AAAA), nunca a data do evento
+- "dataEvento": quando o evento acontece — "DD/MM/AAAA" ou intervalo como "23 a 25/09/2026" ou "28/09 a 02/10/2026"
+- "local": onde acontece (ou "On-line")
+- "semInscricao": true SOMENTE se o evento for de acesso livre, sem nenhuma inscrição; nesse caso "prazo" fica "". Evento gratuito NÃO significa sem inscrição — na dúvida, use false e informe o prazo de inscrição.
 
 ORIGENS disponíveis: "Coord. de Pesquisa" | "Coord. de Pós-Graduação" | "Coord. de Extensão" | "Coord. de Laboratórios" | "Coord. de Rel. Institucionais" | "Núcleo de Rel. Internacionais" | "Núcleo de Arte e Cultura" | "Núcleo de Ed. Ambiental" | "Núcleo de Incubação" | "DPPGE"
 
@@ -1746,7 +1958,22 @@ const MODELO_JSON = {
       publico: "Público-alvo",
       imagem: ""
     }],
-    internac: [], bolsas: [], evento: [], premiacoes: [], extensao: []
+    internac: [], bolsas: [],
+    evento: [{
+      status: "NOVO",
+      origem: "Coord. de Extensão",
+      titulo: "Nome do Evento",
+      link: "https://link",
+      resumo: "O Nome do Evento oferece... destinado a...",
+      prazo: "DD/MM/AAAA",
+      semInscricao: false,
+      dataEvento: "23 a 25/09/2026",
+      local: "Auditório / On-line",
+      valor: "",
+      publico: "Público-alvo",
+      imagem: ""
+    }],
+    premiacoes: [], extensao: []
   },
   informes: [{
     titulo: "Título do Informe",
@@ -1767,10 +1994,9 @@ function switchView(name) {
   const navEl = document.querySelector(`.nav-item[data-view="${name}"]`);
   if (navEl) navEl.classList.add('active');
 
-  const titles = { editor: '✏️ Editor de Boletim', historico: '📚 Histórico de Edições', dashboard: '📊 Dashboard de Comunicação' };
+  const titles = { editor: '✏️ Editor de Boletim', historico: '📚 Histórico de Edições' };
   document.getElementById('topbar-title').textContent = titles[name] || '';
 
-  if (name === 'dashboard') updateDashboard();
   if (name === 'historico') renderHistorico();
 }
 
@@ -1907,7 +2133,11 @@ document.getElementById('file-input').addEventListener('change', e => {
     try {
       const data = JSON.parse(ev.target.result);
       loadData(data);
-      toast('JSON importado com sucesso!');
+      const ajustados = autoCorrigirTodosTitulos();
+      if (ajustados.length) updatePreview();
+      toast(ajustados.length
+        ? `JSON importado. ${ajustados.length} título(s) em maiúsculas ajustado(s) automaticamente — confira os avisos nos cards.`
+        : 'JSON importado com sucesso!');
       switchView('editor');
     } catch { toast('Erro ao ler o arquivo JSON.'); }
   };
@@ -1932,16 +2162,6 @@ document.getElementById('btn-baixar-modelo').addEventListener('click', () => {
   toast('Modelo JSON baixado!');
 });
 
-// Period filter
-document.querySelectorAll('.period-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentPeriod = btn.dataset.months === 'ano' ? 'ano' : +btn.dataset.months;
-    updateDashboard();
-  });
-});
-
 // Fechar modais clicando fora
 document.querySelectorAll('.modal-overlay').forEach(overlay => {
   overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
@@ -1950,8 +2170,11 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 // ════════════════════════════════════════════════════════
 // INICIALIZAÇÃO
 // ════════════════════════════════════════════════════════
+ligarVerificacaoTitulo(document.getElementById('d-titulo'), document.getElementById('d-resumo'), document.getElementById('d-aviso-titulo'));
+document.getElementById('d-institucional').addEventListener('change', verificarTodosTitulos);
 updatePreview();
 renderHistorico();
+carregarDadosPublicados();
 </script>
 </body>
 </html>

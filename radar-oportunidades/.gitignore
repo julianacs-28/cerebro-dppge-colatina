@@ -1,1 +1,7 @@
 .DS_Store
+
+# Cache do Python
+__pycache__/
+
+# Planilha de métricas (atalho do Google Drive; os dados ficam na conta institucional)
+metricas/

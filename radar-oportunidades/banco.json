@@ -12,7 +12,10 @@
       "publico": "Docentes e Pesquisadores",
       "imagem": "",
       "_cat": "pesquisa",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "03/08/2026"
     },
     {
       "status": "PRAZO PRÓXIMO",
@@ -26,7 +29,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "25/08/2026"
     },
     {
       "status": "PRAZO PRÓXIMO",
@@ -40,7 +46,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "04/08/2026"
     },
     {
       "status": "ÚLTIMOS DIAS",
@@ -54,7 +63,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "10/07/2026"
     },
     {
       "status": "NOVO",
@@ -68,7 +80,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "04/09/2026"
     },
     {
       "status": "ÚLTIMOS DIAS",
@@ -82,7 +97,10 @@
       "imagem": "",
       "local": "",
       "_cat": "bolsas",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "30/09/2026"
     },
     {
       "status": "PRAZO PRÓXIMO",
@@ -96,7 +114,10 @@
       "imagem": "",
       "local": "",
       "_cat": "bolsas",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "10/08/2026"
     },
     {
       "status": "PRAZO PRÓXIMO",
@@ -110,7 +131,10 @@
       "imagem": "",
       "local": "Niterói/RJ — UFF (Campus Gragoatá)",
       "_cat": "evento",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "26/07 a 01/08/2026"
     },
     {
       "status": "PRAZO PRÓXIMO",
@@ -124,7 +148,10 @@
       "imagem": "",
       "local": "",
       "_cat": "premiacoes",
-      "dataCadastro": "10/07/2026"
+      "dataCadastro": "10/07/2026",
+      "primeiraDivulgacao": "10/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "24/07/2026 (Jornalismo: 15/09/2026)"
     },
     {
       "status": "NOVO",
@@ -137,7 +164,10 @@
       "publico": "Servidores coordenadores de ações de extensão do Ifes",
       "imagem": "",
       "_cat": "extensao",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "26/08/2026"
     },
     {
       "status": "NOVO",
@@ -151,7 +181,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "10/08/2026"
     },
     {
       "status": "NOVO",
@@ -165,7 +198,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "31/08/2026"
     },
     {
       "status": "NOVO",
@@ -179,7 +215,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "31/08/2026"
     },
     {
       "status": "NOVO",
@@ -193,7 +232,10 @@
       "imagem": "",
       "local": "On-line",
       "_cat": "evento",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "07/08/2026"
     },
     {
       "status": "NOVO",
@@ -207,7 +249,10 @@
       "imagem": "",
       "local": "",
       "_cat": "premiacoes",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "14/08/2026"
     },
     {
       "status": "NOVO",
@@ -221,7 +266,10 @@
       "imagem": "",
       "local": "",
       "_cat": "premiacoes",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "31/08/2026"
     },
     {
       "status": "NOVO",
@@ -235,7 +283,10 @@
       "imagem": "",
       "local": "",
       "_cat": "extensao",
-      "dataCadastro": "05/08/2026"
+      "dataCadastro": "05/08/2026",
+      "primeiraDivulgacao": "05/08/2026",
+      "primeiraEdicao": "02",
+      "prazoOriginal": "18/08/2026"
     },
     {
       "status": "NOVO",
@@ -249,7 +300,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "06/08/2026"
+      "dataCadastro": "06/08/2026",
+      "primeiraDivulgacao": "06/08/2026",
+      "primeiraEdicao": "avulsa",
+      "prazoOriginal": ""
     },
     {
       "status": "NOVO",
@@ -262,7 +316,10 @@
       "publico": "Pesquisadores doutores em início de carreira vinculados a instituições do Espírito Santo",
       "imagem": "",
       "_cat": "pesquisa",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "30/09/2026"
     },
     {
       "status": "NOVO",
@@ -276,7 +333,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "15/10/2026"
     },
     {
       "status": "NOVO",
@@ -290,7 +350,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "18/09/2026"
     },
     {
       "status": "NOVO",
@@ -304,7 +367,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "30/09/2026"
     },
     {
       "status": "NOVO",
@@ -318,7 +384,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "30/09/2026"
     },
     {
       "status": "NOVO",
@@ -332,7 +401,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "08/10/2026"
     },
     {
       "status": "NOVO",
@@ -346,7 +418,10 @@
       "imagem": "",
       "local": "",
       "_cat": "bolsas",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "31/10/2026"
     },
     {
       "status": "NOVO",
@@ -360,7 +435,10 @@
       "imagem": "",
       "local": "Brasil — eventos entre 01/01/2027 e 30/06/2027",
       "_cat": "evento",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "18/09/2026"
     },
     {
       "status": "NOVO",
@@ -374,7 +452,10 @@
       "imagem": "",
       "local": "Brasil — presencial ou semipresencial, de 01/02/2027 a 31/12/2027",
       "_cat": "evento",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "20/10/2026"
     },
     {
       "status": "NOVO",
@@ -388,7 +469,10 @@
       "imagem": "",
       "local": "INPE — consultar programação e orientações de participação",
       "_cat": "evento",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "23/09/2026"
     },
     {
       "status": "NOVO",
@@ -402,7 +486,10 @@
       "imagem": "",
       "local": "",
       "_cat": "premiacoes",
-      "dataCadastro": "16/09/2026"
+      "dataCadastro": "16/09/2026",
+      "primeiraDivulgacao": "16/09/2026",
+      "primeiraEdicao": "03",
+      "prazoOriginal": "30/10/2026"
     },
     {
       "status": "NOVO",
@@ -415,7 +502,10 @@
       "publico": "Instituições elegíveis que promovam eventos voltados à formação de professores da educação básica",
       "imagem": "",
       "_cat": "extensao",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "30/10/2026"
     },
     {
       "status": "NOVO",
@@ -429,7 +519,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "11/12/2026"
     },
     {
       "status": "ÚLTIMOS DIAS",
@@ -443,7 +536,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "09/10/2026"
     },
     {
       "status": "NOVO",
@@ -457,7 +553,10 @@
       "imagem": "",
       "local": "",
       "_cat": "pesquisa",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "26/10/2026"
     },
     {
       "status": "NOVO",
@@ -471,7 +570,10 @@
       "imagem": "",
       "local": "",
       "_cat": "internac",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "31/03/2027"
     },
     {
       "status": "NOVO",
@@ -485,7 +587,10 @@
       "imagem": "",
       "local": "",
       "_cat": "bolsas",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "26/10/2026"
     },
     {
       "status": "ÚLTIMOS DIAS",
@@ -499,7 +604,10 @@
       "imagem": "",
       "local": "",
       "_cat": "extensao",
-      "dataCadastro": "06/10/2026"
+      "dataCadastro": "06/10/2026",
+      "primeiraDivulgacao": "06/10/2026",
+      "primeiraEdicao": "04",
+      "prazoOriginal": "09/10/2026"
     },
     {
       "status": "NOVO",
@@ -513,7 +621,10 @@
       "imagem": "",
       "local": "Todo o Brasil — atividades presenciais ou remotas",
       "_cat": "evento",
-      "dataCadastro": "07/10/2026"
+      "dataCadastro": "07/10/2026",
+      "primeiraDivulgacao": "07/10/2026",
+      "primeiraEdicao": "avulsa",
+      "prazoOriginal": "26/10/2026"
     }
   ]
 }

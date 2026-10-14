@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Abrindo oportunidade… — Radar de Oportunidades</title>
+<style>
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+         background:#f9f9f7; color:#0c420b; font-family:'Segoe UI',Arial,sans-serif; text-align:center; }
+  .box { padding:24px; max-width:420px; }
+  .msg { font-size:16px; margin:0 0 6px; }
+  .sub { font-size:13px; color:#555; margin:0; }
+  a { color:#0149AF; }
+</style>
+</head>
+<body>
+<div class="box">
+  <p class="msg">Abrindo a oportunidade…</p>
+  <p class="sub" id="sub">Radar de Oportunidades · DPPGE · Ifes Campus Colatina</p>
+</div>
+
+<noscript>
+  <div class="box"><p class="sub">Este redirecionamento precisa de JavaScript.
+  <a href="./">Acesse o Radar de Oportunidades</a>.</p></div>
+</noscript>
+
+<script>
+// URL do App da Web do Google Apps Script (planilha de cliques).
+const REGISTRO_URL = 'https://script.google.com/macros/s/AKfycbxkXkXr8pj3pIPyE4SuDUThur2S14JMW6GgpobOonmr82qldCwau7r59KZUDt5Yt4Oe7Q/exec';
+
+// Mesma função usada em index.html e radar_sistema_dppge.html — não alterar sem alterar as três.
+function codigoEdital(titulo) {
+  const s = (titulo || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(36);
+}
+
+function linkValido(url) {
+  try { return /^https?:$/.test(new URL(url).protocol); } catch (e) { return false; }
+}
+
+(async function () {
+  const q = new URLSearchParams(location.search);
+  const codigo = (q.get('e') || '').slice(0, 20);
+  const canal = (q.get('de') || 'site').slice(0, 20);
+  const edicao = (q.get('ed') || '').slice(0, 10);
+
+  let destino = './';
+  let titulo = '';
+  let cat = '';
+
+  try {
+    const resp = await fetch('banco.json?_=' + Date.now(), { cache: 'no-store' });
+    const banco = await resp.json();
+    const op = (banco.oportunidades || []).find(o => codigoEdital(o.titulo) === codigo);
+    if (op) {
+      titulo = op.titulo || '';
+      cat = op._cat || '';
+      if (linkValido(op.link)) destino = op.link;
+    }
+  } catch (e) { /* segue para a página inicial */ }
+
+  // Só registra quando o navegador executa este script — robôs de verificação de e-mail não executam.
+  if (codigo) {
+    // "cat", não "c": o parâmetro "c" é reservado pelo Google e faz o Apps Script recusar o pedido (HTTP 400)
+    const params = new URLSearchParams({ e: codigo, t: titulo, de: canal, ed: edicao, cat: cat });
+    const envio = fetch(REGISTRO_URL + '?' + params.toString(), { mode: 'no-cors', keepalive: true }).catch(() => {});
+    // Não deixa o clique esperando a planilha: no máximo 700 ms.
+    await Promise.race([envio, new Promise(r => setTimeout(r, 700))]);
+  }
+
+  if (destino === './') {
+    document.getElementById('sub').innerHTML = 'Não encontrei este edital — levando você ao Radar.';
+  }
+  location.replace(destino);
+})();
+</script>
+</body>
+</html>

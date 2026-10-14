@@ -1,0 +1,50 @@
+{
+  "edicoes": [
+    {
+      "pasta": "edicoes/ed-04",
+      "data": "06/10/2026",
+      "oportunidades": 7,
+      "numero": "04",
+      "mes": "Outubro 2026"
+    },
+    {
+      "pasta": "edicoes/ed-03",
+      "data": "16/09/2026",
+      "oportunidades": 12,
+      "numero": "03",
+      "mes": "Setembro 2026"
+    },
+    {
+      "pasta": "edicoes/ed-02",
+      "data": "05/08/2026",
+      "oportunidades": 8,
+      "numero": "02",
+      "mes": "Agosto 2026"
+    },
+    {
+      "pasta": "edicoes/ed-01",
+      "data": "10/07/2026",
+      "oportunidades": 9,
+      "numero": "01",
+      "mes": "Julho 2026"
+    }
+  ],
+  "avulsas": [
+    {
+      "pasta": "edicoes/avulsas/2026-10-07-futuras-cientistas-2027",
+      "data": "07/10/2026",
+      "oportunidades": 1,
+      "titulos": [
+        "Imersão Científica 2027 - FUTURAS CIENTISTAS"
+      ]
+    },
+    {
+      "pasta": "edicoes/avulsas/2026-08-06-epli-exame-proficiencia-ingles",
+      "data": "06/08/2026",
+      "oportunidades": 1,
+      "titulos": [
+        "EPLI — Exame de Proficiência em Língua Inglesa da Rede Federal"
+      ]
+    }
+  ]
+}

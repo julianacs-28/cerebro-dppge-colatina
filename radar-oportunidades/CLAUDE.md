@@ -10,6 +10,10 @@ O **Radar de Oportunidades** é um ecossistema de comunicação institucional da
 
 ---
 
+> **🚧 Trabalho em andamento (14/10/2026):** métricas de cliques nos editais e de antecedência de divulgação. Código **escrito e testado localmente, ainda não publicado** (falta atualizar o Apps Script, commit/push e o teste de ponta a ponta). Antes de qualquer tarefa relacionada, ler [`docs/PLANO-metricas-cliques-e-antecedencia.md`](docs/PLANO-metricas-cliques-e-antecedencia.md). Remover este aviso quando o teste de ponta a ponta passar.
+
+---
+
 ## Arquivos e pastas do projeto
 
 | Caminho | Função |
@@ -20,6 +24,12 @@ O **Radar de Oportunidades** é um ecossistema de comunicação institucional da
 | `edicoes/ed-XX/dados.json` | JSON de uma edição específica do boletim (o que foi/será importado no editor) |
 | `edicoes/ed-XX/imagens/` | Imagens exclusivas daquela edição (referenciadas com caminho relativo à raiz de `radar-oportunidades/`, ex: `edicoes/ed-03/imagens/destaque.jpg`) |
 | `scripts/merge_edicao.py` | Funde o `dados.json` de uma edição no `banco.json` acumulado |
+| `scripts/preencher_historico.py` | Preenche retroativamente `primeiraDivulgacao`/`primeiraEdicao`/`prazoOriginal` (já rodado em 14/10/2026; só precisa de novo se algo for refeito) |
+| `ir.html` | Página de passagem: registra o clique de um edital na planilha de métricas e redireciona para o edital (ver seção "Métricas de cliques") |
+| `apps-script/Codigo.gs` | Código do Google Apps Script que recebe os cliques (copiar/colar no Apps Script da planilha — não roda a partir daqui) |
+| `edicoes/indice.json` | Índice de todas as edições e avulsas publicadas — gerado pelo merge (nunca editar à mão); lido pelo Histórico do sistema e pelo dashboard do site ("Boletins enviados") |
+| `metricas/` | Atalho da planilha Google "RADAR-cliques-nos-editais" (no `.gitignore`; os dados ficam na conta institucional) |
+| `docs/` | Planos e documentação de apoio |
 | `edicoes/avulsas/AAAA-MM-DD-slug/dados.json` | Inclusão avulsa no site, fora do ciclo de uma edição (ver seção própria abaixo) |
 | `edicoes/avulsas/REGISTRO.md` | Log humano de todas as inclusões avulsas já feitas |
 
@@ -35,12 +45,17 @@ O **Radar de Oportunidades** é um ecossistema de comunicação institucional da
 3. Criar o JSON da edição em edicoes/ed-XX/dados.json
    (imagens exclusivas da edição em edicoes/ed-XX/imagens/)
 4. Abrir radar_sistema_dppge.html → Importar JSON → editar/revisar no editor
-5. Salvar/ajustar → Exportar JSON → sobrescrever edicoes/ed-XX/dados.json
-6. Clicar em "Gerar para Outlook" → nova aba abre → Ctrl+A → Ctrl+C → colar no Outlook → enviar e-mail
-7. Atualizar o site: python3 scripts/merge_edicao.py edicoes/ed-XX
+5. Clicar em "✔ Revisar edição" e resolver os itens "Corrigir" (resumo sem título exato,
+   link vazio, título parecido com um já divulgado etc.)
+   Salvar/ajustar → Exportar JSON → sobrescrever edicoes/ed-XX/dados.json
+6. Atualizar o site: python scripts/merge_edicao.py edicoes/ed-XX
    (funde a edição no banco.json acumulado, preservando tudo que já foi publicado)
-8. Commitar e fazer push → site público atualiza automaticamente
+7. Commitar e fazer push → aguardar ~1 minuto até o GitHub Pages publicar
+8. SÓ ENTÃO: "Gerar para Outlook" → nova aba abre → Ctrl+A → Ctrl+C → colar no Outlook → enviar e-mail
+   e "Gerar para WhatsApp" → enviar
 ```
+
+**⚠️ A ordem importa (mudou em out/2026):** os links dos editais no boletim e no WhatsApp passam por `ir.html`, que procura o edital no `banco.json` **publicado**. Se o boletim for enviado antes do merge + push, o clique é registrado, mas a pessoa cai na página inicial do Radar em vez do edital.
 
 ---
 
@@ -117,9 +132,20 @@ Quando surge uma oportunidade urgente **depois** de uma edição já ter sido en
   "valor": "R$ ...",
   "publico": "...",
   "imagem": "https://github.com/...?raw=true (opcional)",
-  "local": "... (só para categoria evento)"
+  "local": "... (só para categoria evento)",
+  "dataEvento": "DD/MM/AAAA ou \"23 a 25/09/2026\" (só para categoria evento)",
+  "semInscricao": "false | true (só para categoria evento)"
 }
 ```
+
+### Cards de Eventos (categoria `evento`)
+
+- **`prazo` é sempre o fim das inscrições**, nunca a data do evento. No boletim, no site e no WhatsApp aparece como "Inscrições até DD/MM/AAAA".
+- **`dataEvento`** = quando o evento acontece: `DD/MM/AAAA`, `23 a 25/09/2026` ou `28/09 a 02/10/2026`. Aparece como "Realização: ...". O editor avisa se o formato não for reconhecido.
+- **`semInscricao: true`** só quando o evento é de acesso livre, sem nenhuma inscrição. O prazo fica vazio e o boletim/site mostram "Não é necessária inscrição". **Gratuito ≠ sem inscrição** — o mais comum é evento gratuito com inscrição.
+- Um card de evento nunca deve ficar com prazo vazio sem `semInscricao` marcado — o editor mostra um aviso em vermelho.
+- No site, evento sem inscrição não tem pílula de urgência; vira "Encerrado" quando a última data de `dataEvento` passa.
+- Itens antigos (antes de out/2026) não têm `dataEvento`; se o `prazo` deles for um intervalo ("26/07 a 01/08/2026"), o dashboard trata como data do evento.
 
 ### Status e categoria vazios ("sem vínculo")
 
@@ -150,11 +176,37 @@ Gerado automaticamente por `scripts/merge_edicao.py` — nunca editar à mão. �
       "valor": "R$ 0.000",
       "publico": "Público-alvo",
       "imagem": "",
-      "dataCadastro": "07/07/2026"
+      "dataCadastro": "07/07/2026",
+      "primeiraDivulgacao": "07/07/2026",
+      "primeiraEdicao": "01",
+      "prazoOriginal": "DD/MM/AAAA"
     }
   ]
 }
 ```
+
+`primeiraDivulgacao` (data de envio da edição, ou `data` da avulsa), `primeiraEdicao` (número ou `"avulsa"`) e `prazoOriginal` (prazo no momento do primeiro anúncio) são gravados pelo merge **só na primeira vez** que o edital aparece e nunca mais mudam — mesmo que o prazo seja prorrogado depois. Servem para medir a antecedência de divulgação (dashboard).
+
+---
+
+## Métricas de cliques nos editais
+
+Os links de cada edital no **site**, no **boletim** e no **WhatsApp** passam por `ir.html`:
+
+```
+.../radar-oportunidades/ir.html?e=CODIGO&de=CANAL&ed=NUMERO_EDICAO
+```
+
+- `e` = código curto do título (função `codigoEdital`, FNV-1a 32 bits em base36 sobre o título normalizado). **A mesma função existe em `index.html`, `ir.html` e `radar_sistema_dppge.html` — se mudar uma, mude as três.**
+- `de` = `site` | `boletim` | `whatsapp`. `ed` = número da edição (não existe nos cliques vindos do site).
+- `ir.html` procura o edital no `banco.json`, envia o registro ao App da Web do Apps Script (em paralelo, sem bloquear) e redireciona para o `link` atual. Se o código não for encontrado, vai para a página inicial do Radar.
+- O destaque **institucional** e cards sem título/link mantêm o link original (não são rastreados).
+- A planilha guarda só data/hora, código, título, edição, categoria e canal — **nenhum dado pessoal**. O dashboard do **site** lê a planilha (`?acao=dados`) e mostra "cliques nos editais" / "indicador de interesse". **Nunca chamar de "pessoas interessadas":** sem identificar o usuário, 100 cliques podem ser menos de 100 pessoas.
+- Antecedência (dashboard do site, pública com tabela e CSV), em dias a partir de `primeiraDivulgacao`, em três blocos:
+  1. **Até o fim das inscrições** — `prazoOriginal` começa por `DD/MM/AAAA` (qualquer categoria, inclusive eventos com inscrição; com dois prazos vale o primeiro). Mostra média e quantos tiveram menos de 7 dias (alerta).
+  2. **Até o evento** — eventos com `semInscricao` (início de `dataEvento`) e itens antigos com prazo em intervalo.
+  3. **Sem prazo de encerramento** — contagem à parte: fluxo contínuo + prazo não definido (ex.: EPLI).
+- A URL do App da Web está em `ir.html` (`REGISTRO_URL`) e em `index.html` (`METRICAS_URL`). Ao mudar o `apps-script/Codigo.gs`, colar na planilha e usar **Implantar → Gerenciar implantações → editar → Nova versão** (assim a URL não muda).
 
 ---
 
@@ -242,6 +294,11 @@ Sufixo obrigatório: `?raw=true`
 **Fórmula padrão:**
 > [Nome do edital/programa, linkado] visa/oferece/apoia [ação principal], destinado a [público-alvo]. [Detalhe operacional relevante].
 
+**Título:**
+- Nunca em MAIÚSCULAS — maiúscula só no início das palavras principais e nas siglas (o editor corrige sozinho)
+- Padrão recomendado (não obrigatório — a ordem é livre): `[Nome do programa] — [Instituição] (Edital NN/AAAA[, Nª chamada])`, com travessão " — " como separador
+- Republicação: repetir o título **exatamente** como na primeira divulgação
+
 **Regras:**
 - Máximo 3 frases
 - O nome do edital aparece linkado dentro do resumo (não apenas no CTA)
@@ -281,10 +338,15 @@ Isso já causou o problema real na ed-01, onde vários resumos mencionavam apena
 - ÚLTIMOS DIAS = prazo em ≤ 20 dias
 - PRAZO PRÓXIMO = prazo em > 20 dias
 - FLUXO CONTÍNUO = sem prazo fixo
+- ENCERRADO = prazo já passou
+- Com mais de uma data no prazo, vale a **última** data completa: "24/07/2026 (Jornalismo: 15/09/2026)" encerra em 15/09; "26/07 a 01/08/2026" encerra em 01/08. (A antecedência usa a **primeira**.)
+- Evento com `semInscricao`: sem pílula de urgência; vira ENCERRADO quando a última data de `dataEvento` passa.
 
 Os dois status aparecem como pílulas lado a lado em cada oportunidade.
 
-**Deduplicação:** ao rodar `scripts/merge_edicao.py`, o título normalizado é usado como chave. Se a oportunidade já existe no `banco.json`, atualiza prazo/link/valor/status mas preserva a `dataCadastro` original (garante que a badge "Novo" não reapareça em itens antigos republicados).
+**Deduplicação:** ao rodar `scripts/merge_edicao.py`, o título normalizado (minúsculas, espaços colapsados) é usado como chave. Se a oportunidade já existe no `banco.json`, atualiza título/prazo/link/valor/status/resumo mas preserva `dataCadastro`, `primeiraDivulgacao`, `primeiraEdicao` e `prazoOriginal` (a badge "Novo" não reaparece e a antecedência não muda). O título também é atualizado porque a chave ignora maiúsculas: "EDITAL FAPES…" corrigido para "Edital Fapes…" é o mesmo item, e o resumo novo precisa continuar contendo o título exato.
+
+**Títulos parecidos:** a verificação principal é no editor (curadoria). O merge repete o aviso no terminal como rede de segurança, sem bloquear. Regra (igual em `merge_edicao.py → titulos_parecidos` e no editor → `titulosParecidos`; mudar nos dois): mesmo número de edital `NN/AAAA` do mesmo órgão, **ou** maioria das palavras de conteúdo em comum (ignorando órgãos, anos e termos genéricos como "edital", "chamada", "pesquisa"). Calibrada em out/2026: 2 pares sinalizados entre 666 do banco (Fapes 28 3ª×4ª chamada; PAEP×PAEP-EB) — ambos legítimos. Chamadas diferentes de um mesmo edital (3ª e 4ª chamada) são itens **distintos** e corretos.
 
 ---
 
@@ -337,11 +399,14 @@ Rodapé (verde escuro #0c420b)
 Aplicação HTML standalone com:
 - **Editor** com 4 abas: Edição, Destaque, Categorias, Informes
 - **Preview em tempo real** ao lado do editor
-- **Histórico** salvo em localStorage do navegador
-- **Dashboard** com gráficos Chart.js e filtros de 3/6/9/12 meses
+- **Verificação de títulos** (curadoria) — abaixo de cada título, compara com o `banco.json` publicado: "ℹ Já divulgado" (republicação) ou "⚠ Parecido com…" (possível mesmo edital escrito de outro jeito). Título em MAIÚSCULAS é corrigido sozinho ao sair do campo (siglas preservadas, mesmo trecho corrigido no resumo, com "Desfazer"); também ao importar um JSON.
+- **✔ Revisar edição** (botão no topo) — checklist de todos os cards antes de fechar o boletim: resumo sem o título exato, link vazio, títulos parecidos/já divulgados, maiúsculas, eventos sem prazo/sem caixa, data de envio. Nunca bloqueia.
+- **Histórico** — "Edições publicadas" (lidas de `edicoes/indice.json`, iguais para todos; botões Abrir no editor e HTML), "Inclusões avulsas" e, à parte, "Rascunhos salvos neste navegador" (localStorage, só naquele computador)
 - **Exportar JSON** → baixa o arquivo para subir no GitHub
 - **Importar JSON** → carrega edição anterior
 - **Modelo + Prompt IA** → prompt completo para gerar JSON via Claude
+- **Não tem mais dashboard** (removido em out/2026) — o dashboard oficial é o do site.
+- O Histórico publicado e a verificação de títulos leem arquivos do site: só funcionam com o sistema aberto pelo endereço do GitHub Pages (ou por um servidor local), não como arquivo `file://`.
 
 ---
 
@@ -355,7 +420,12 @@ Portal web com GitHub Pages:
 - **Busca** por palavra-chave + filtro de instituição + filtro de categoria
 - **Oportunidades recentes** com filtros de status (design igual ao semáforo)
 - **Página de categoria** (tela inteira) com busca, filtro de status e origem
-- **Dashboard** no menu com KPIs e 4 gráficos
+- **Dashboard** (oficial, público) — conta abertas **e** encerradas, filtrado pela data do primeiro anúncio (`primeiraDivulgacao`):
+  - Indicadores: Divulgadas · Abertas agora · Encerradas · Novas · Encerram em breve · Boletins enviados (de `edicoes/indice.json`)
+  - Gráficos de barras com **quantidade e %** escritos: por categoria, por coordenadoria/núcleo (8+ viram "Outras origens"), evolução mensal (só quantidade)
+  - **Cliques nos editais** (planilha via Apps Script): mais clicados, por canal, por categoria, por edição
+  - **Antecedência de divulgação**: 4 indicadores + tabela completa pública + "Baixar tabela (CSV)"
+  - Categorias em **barras com o nome escrito**, não rosca: as cores oficiais Premiações × Eventos e Pesquisa × Internacionalização não se distinguem para daltônicos (validado). Cores dos canais (site/boletim/WhatsApp = verde/azul/magenta) validadas.
 - **Sobre DPPGE** com informações institucionais e contato
 - **Rodapé** verde com links de navegação
 
@@ -398,6 +468,10 @@ ORIGENS: [lista acima]
 
 FÓRMULA DO RESUMO:
 [Nome do edital, que será linkado] visa/oferece/apoia [ação], destinado a [público]. [Detalhe operacional].
+
+LINK: no campo "link", sempre o endereço ORIGINAL do edital. Nunca link
+encurtado nem link do Radar (ir.html, links.ifes.edu.br) — o sistema gera
+sozinho o link rastreável de cada edital no site, no boletim e no WhatsApp.
 
 REGRA CRÍTICA: o texto de "resumo" deve conter o valor de "titulo" REPRODUZIDO
 EXATAMENTE (mesmos caracteres, incluindo sufixos como "— Fapes" ou

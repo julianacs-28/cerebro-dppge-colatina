@@ -192,10 +192,17 @@ section{padding:72px 0}
 .dash-body{max-width:var(--max);margin:0 auto;padding:40px 32px}
 .dash-titulo{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
 .dash-sub{font-size:15px;color:var(--ct);margin-bottom:20px}
-.periodo-filtro{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+/* Painel do período: faixa própria, com borda de destaque, para deixar claro qual recorte os números mostram */
+.periodo-painel{display:flex;align-items:center;gap:14px 18px;flex-wrap:wrap;background:#eef5ee;border:1px solid #cfe3cf;border-left:5px solid var(--verde);border-radius:10px;padding:14px 18px;margin-bottom:28px}
+.periodo-rotulo{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--verde)}
+.periodo-filtro{display:flex;gap:8px;flex-wrap:wrap}
+.periodo-intervalo{font-size:13px;color:var(--ct);margin-left:auto}
+.periodo-intervalo strong{color:var(--verde)}
 .periodo-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--borda);background:var(--branco);font-size:13px;font-weight:600;cursor:pointer;color:var(--ct);transition:all .15s;font-family:var(--f)}
-.periodo-btn:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.periodo-btn.ativo{background:var(--verde);color:#fff;border-color:var(--verde)}
+.periodo-btn:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);border-color:var(--verde-m)}
+.periodo-btn.ativo{background:var(--verde);color:#fff;border-color:var(--verde);font-weight:700;box-shadow:0 0 0 3px #cfe3cf}
+.periodo-btn.ativo::before{content:'✓ '}
+@media(max-width:768px){.periodo-intervalo{margin-left:0;width:100%}}
 .kpi-row{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap}
 .kpi{background:var(--branco);border-radius:10px;padding:20px 22px;flex:1;min-width:150px;border:1px solid var(--borda)}
 .kpi-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--cs);margin-bottom:8px}
@@ -205,6 +212,21 @@ section{padding:72px 0}
 .chart-card{background:var(--branco);border-radius:10px;padding:22px;border:1px solid var(--borda)}
 .chart-card h3{font-size:14px;font-weight:700;color:var(--preto);margin-bottom:16px}
 .chart-wrap{position:relative;height:210px}
+.chart-card.largo{grid-column:1/-1}
+.chart-base{font-size:12px;color:var(--cs);margin:-10px 0 12px}
+.dash-nota{font-size:13px;color:var(--ct);line-height:1.6;max-width:780px;margin:-8px 0 20px}
+.dash-secao{font-size:20px;font-weight:800;letter-spacing:-.3px;color:var(--preto);margin:40px 0 14px;padding-top:28px;border-top:1px solid var(--borda)}
+.dash-status{font-size:13px;color:var(--cs);margin:-10px 0 16px}
+.kpi-val-texto{font-size:14px;line-height:1.35;font-weight:700}
+.dash-acoes{display:flex;justify-content:flex-end;margin:-8px 0 12px}
+.tabela-rolagem{overflow-x:auto;background:var(--branco);border:1px solid var(--borda);border-radius:10px}
+.tabela-antec{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+.tabela-antec th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--cs);padding:12px 14px;border-bottom:1px solid var(--borda)}
+.tabela-antec td{padding:10px 14px;border-bottom:1px solid #f1f1ee;vertical-align:top;color:var(--ct)}
+.tabela-antec tr:last-child td{border-bottom:none}
+.tabela-antec td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tabela-antec .alerta{color:#C41E3A;font-weight:700}
+.tabela-antec tr.sem-ref td{color:var(--cs)}
 
 /* RODAPÉ */
 footer{background:var(--verde);color:#fff;padding:48px 0 28px}
@@ -427,26 +449,62 @@ footer{background:var(--verde);color:#fff;padding:48px 0 28px}
     <p class="sec-lb">Análise</p>
     <h2 class="dash-titulo">Dashboard de Oportunidades</h2>
     <p class="dash-sub" id="dash-sub"></p>
-    <div class="periodo-filtro" id="dash-periodo">
-      <button class="periodo-btn ativo" data-p="3">3 meses</button>
-      <button class="periodo-btn" data-p="6">6 meses</button>
-      <button class="periodo-btn" data-p="9">9 meses</button>
-      <button class="periodo-btn" data-p="12">12 meses</button>
-      <button class="periodo-btn" data-p="ano">Este ano</button>
+    <div class="periodo-painel">
+      <span class="periodo-rotulo">Período de análise</span>
+      <div class="periodo-filtro" id="dash-periodo" role="group" aria-label="Período de análise">
+        <button class="periodo-btn ativo" data-p="ano" aria-pressed="true">Este ano</button>
+        <button class="periodo-btn" data-p="3" aria-pressed="false">3 meses</button>
+        <button class="periodo-btn" data-p="6" aria-pressed="false">6 meses</button>
+        <button class="periodo-btn" data-p="9" aria-pressed="false">9 meses</button>
+        <button class="periodo-btn" data-p="12" aria-pressed="false">12 meses</button>
+      </div>
+      <span class="periodo-intervalo" id="periodo-intervalo"></span>
     </div>
+    <p class="dash-nota">Todos os números consideram as oportunidades <strong>divulgadas no período</strong> (pela data do primeiro anúncio), abertas e encerradas.</p>
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-lbl">Total de oportunidades</div><div class="kpi-val" id="d-total">—</div><div class="kpi-sub">no período</div></div>
-      <div class="kpi"><div class="kpi-lbl">Novas</div><div class="kpi-val" id="d-novas">—</div><div class="kpi-sub">inseridas há menos de 20 dias</div></div>
-      <div class="kpi"><div class="kpi-lbl">Encerram em breve</div><div class="kpi-val" id="d-urgentes">—</div><div class="kpi-sub">prazo em menos de 20 dias</div></div>
-      <div class="kpi"><div class="kpi-lbl">Categoria mais ativa</div><div class="kpi-val" style="font-size:15px" id="d-top-cat">—</div><div class="kpi-sub" id="d-top-cat-n"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Divulgadas</div><div class="kpi-val" id="d-total">—</div><div class="kpi-sub">no período</div></div>
+      <div class="kpi"><div class="kpi-lbl">Abertas agora</div><div class="kpi-val" id="d-abertas">—</div><div class="kpi-sub" id="d-abertas-sub"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Encerradas</div><div class="kpi-val" id="d-encerradas">—</div><div class="kpi-sub" id="d-encerradas-sub"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Novas</div><div class="kpi-val" id="d-novas">—</div><div class="kpi-sub">no site há até 20 dias</div></div>
+      <div class="kpi"><div class="kpi-lbl">Encerram em breve</div><div class="kpi-val" id="d-urgentes">—</div><div class="kpi-sub">prazo em até 20 dias</div></div>
+      <div class="kpi"><div class="kpi-lbl">Boletins enviados</div><div class="kpi-val" id="d-boletins">—</div><div class="kpi-sub" id="d-boletins-sub">no período</div></div>
     </div>
     <div class="charts-grid">
-      <div class="chart-card"><h3>Oportunidades por Categoria</h3><div class="chart-wrap"><canvas id="ch-cat"></canvas></div></div>
-      <div class="chart-card"><h3>Evolução mensal de publicações</h3><div class="chart-wrap"><canvas id="ch-evolucao"></canvas></div></div>
-      <div class="chart-card"><h3>Por Coordenadoria / Núcleo</h3><div class="chart-wrap"><canvas id="ch-origem"></canvas></div></div>
-      <div class="chart-card"><h3>Distribuição por Status</h3><div class="chart-wrap"><canvas id="ch-status"></canvas></div></div>
-      <div class="chart-card"><h3>Fluxo contínuo vs Prazo definido</h3><div class="chart-wrap"><canvas id="ch-fluxo"></canvas></div></div>
+      <div class="chart-card"><h3>Oportunidades por categoria</h3><p class="chart-base" id="b-cat"></p><div class="chart-wrap"><canvas id="ch-cat"></canvas></div></div>
+      <div class="chart-card"><h3>Por coordenadoria / núcleo</h3><p class="chart-base" id="b-origem"></p><div class="chart-wrap"><canvas id="ch-origem"></canvas></div></div>
+      <div class="chart-card largo"><h3>Evolução mensal de divulgações</h3><p class="chart-base" id="b-evolucao"></p><div class="chart-wrap"><canvas id="ch-evolucao"></canvas></div></div>
     </div>
+
+    <!-- Cliques nos editais (planilha de métricas via Apps Script) -->
+    <h3 class="dash-secao">Cliques nos editais</h3>
+    <p class="dash-nota">Cada clique em um edital — pelo site, pelo boletim por e-mail ou pelo WhatsApp — é registrado sem identificar quem clicou.
+      Por isso o número é um <strong>indicador de interesse</strong>, não a quantidade de pessoas: a mesma pessoa pode clicar mais de uma vez.</p>
+    <p class="dash-status" id="cliques-status">Carregando…</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Cliques nos editais</div><div class="kpi-val" id="d-cliques">—</div><div class="kpi-sub">no período</div></div>
+      <div class="kpi"><div class="kpi-lbl">Edital mais clicado</div><div class="kpi-val kpi-val-texto" id="d-cliques-top">—</div><div class="kpi-sub" id="d-cliques-top-n"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Canal com mais cliques</div><div class="kpi-val" style="font-size:20px" id="d-cliques-canal">—</div><div class="kpi-sub" id="d-cliques-canal-n"></div></div>
+    </div>
+    <div class="charts-grid" id="cliques-graficos">
+      <div class="chart-card largo"><h3>Editais mais clicados</h3><p class="chart-base" id="b-cl-editais"></p><div class="chart-wrap"><canvas id="ch-cl-editais"></canvas></div></div>
+      <div class="chart-card"><h3>Cliques por canal</h3><p class="chart-base" id="b-cl-canal"></p><div class="chart-wrap"><canvas id="ch-cl-canal"></canvas></div></div>
+      <div class="chart-card"><h3>Cliques por categoria</h3><p class="chart-base" id="b-cl-cat"></p><div class="chart-wrap"><canvas id="ch-cl-cat"></canvas></div></div>
+      <div class="chart-card largo"><h3>Cliques por edição do boletim (e-mail e WhatsApp)</h3><p class="chart-base" id="b-cl-edicao"></p><div class="chart-wrap"><canvas id="ch-cl-edicao"></canvas></div></div>
+    </div>
+
+    <!-- Antecedência de divulgação -->
+    <h3 class="dash-secao">Antecedência de divulgação</h3>
+    <p class="dash-nota">Dias entre o primeiro anúncio de cada oportunidade e a data de referência vigente naquele momento:
+      o <strong>fim das inscrições</strong> ou, nos eventos sem inscrição, o <strong>início do evento</strong>.
+      Oportunidades sem prazo de encerramento (fluxo contínuo ou prazo ainda não definido) são contadas à parte.</p>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Até o fim das inscrições</div><div class="kpi-val" id="d-antec-media">—</div><div class="kpi-sub" id="d-antec-media-sub"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Menos de 7 dias</div><div class="kpi-val" id="d-antec-curta">—</div><div class="kpi-sub" id="d-antec-curta-sub"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Até o evento</div><div class="kpi-val" id="d-antec-evento">—</div><div class="kpi-sub" id="d-antec-evento-sub"></div></div>
+      <div class="kpi"><div class="kpi-lbl">Sem prazo de encerramento</div><div class="kpi-val" id="d-antec-semprazo">—</div><div class="kpi-sub" id="d-antec-semprazo-sub"></div></div>
+    </div>
+    <div class="dash-acoes"><button class="periodo-btn" id="btn-antec-csv" type="button">⬇ Baixar tabela (CSV)</button></div>
+    <div class="tabela-rolagem" id="antec-tabela"></div>
   </div>
 </div>
 
@@ -533,12 +591,24 @@ function calcNovidade(o) {
 
 // Eixo 2: URGÊNCIA — baseado no prazo de submissão
 function calcUrgencia(o) {
+  // Evento sem inscrição: não há prazo a vencer — só fica "Encerrado" depois que o evento termina
+  if (o.semInscricao) {
+    const datas = [...(o.dataEvento || '').matchAll(/(\d{1,2})\/(\d{1,2})\/(\d{4})/g)];
+    if (!datas.length) return '';
+    const u = datas[datas.length - 1];
+    const fim = new Date(+u[3], +u[2]-1, +u[1]);
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    return fim < hoje ? 'ENCERRADO' : '';
+  }
   const p = o.prazo || '';
   const vazio = !p || p==='' || p==='DD/MM/AAAA' || p.toLowerCase().includes('contínuo') || p.toLowerCase().includes('continuo') || p.toLowerCase().includes('fluxo');
   if (vazio) return 'FLUXO CONTÍNUO';
-  const pts = p.split('/');
-  if (pts.length !== 3) return 'FLUXO CONTÍNUO';
-  const prazoDate = new Date(+pts[2], +pts[1]-1, +pts[0]);
+  // Vale a ÚLTIMA data completa do texto: "24/07/2026 (Jornalismo: 15/09/2026)" encerra em 15/09;
+  // "26/07 a 01/08/2026" (evento) encerra em 01/08. A antecedência (dashboard) usa a primeira.
+  const datas = [...p.matchAll(/(\d{1,2})\/(\d{1,2})\/(\d{4})/g)];
+  if (!datas.length) return 'FLUXO CONTÍNUO';
+  const ult = datas[datas.length - 1];
+  const prazoDate = new Date(+ult[3], +ult[2]-1, +ult[1]);
   const hoje = new Date(); hoje.setHours(0,0,0,0);
   const diff = Math.round((prazoDate - hoje) / 86400000);
   if (diff < 0) return 'ENCERRADO';
@@ -654,10 +724,42 @@ function ordenarComEncerradoNoFim(lista) {
   return [...lista].sort((a,b)=>(a._urgencia==='ENCERRADO')-(b._urgencia==='ENCERRADO'));
 }
 
+// Código curto do edital — mesma função de ir.html e radar_sistema_dppge.html (não alterar sem alterar as três).
+function codigoEdital(titulo) {
+  const s = (titulo || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(36);
+}
+
+// Prazo e data de realização no card. Em Eventos, o prazo é sempre o fim das inscrições
+// (mesmos textos do boletim — textosPrazoEvento em radar_sistema_dppge.html).
+function dadosPrazoHTML(o) {
+  const dado = txt => `<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${txt}</strong></span>`;
+  if (o._cat !== 'evento') {
+    return o.prazo && o._urgencia !== 'FLUXO CONTÍNUO' ? dado(o.prazo) : '';
+  }
+  let html = '';
+  if (o.semInscricao) html += dado('Não é necessária inscrição');
+  else if (o.prazo && o._urgencia !== 'FLUXO CONTÍNUO') html += dado(o.dataEvento ? `Inscrições até ${o.prazo}` : o.prazo);
+  if (o.dataEvento) html += dado(`Realização: ${o.dataEvento}`);
+  return html;
+}
+
+// Link do edital que passa por ir.html (registra o clique e redireciona).
+// Sem título não há como identificar o edital — aí vai direto ao link original.
+function linkRastreado(o) {
+  if (!o.titulo) return o.link;
+  return `ir.html?e=${codigoEdital(o.titulo)}&de=site`;
+}
+
 // Insere o link do edital dentro do texto do resumo (mesma lógica do boletim)
 function resumoLinkado(o) {
   if (o.link && o.titulo && o.resumo && o.resumo.includes(o.titulo)) {
-    return o.resumo.replace(o.titulo, `<a href="${o.link}" target="_blank" rel="noopener">${o.titulo}</a>`);
+    return o.resumo.replace(o.titulo, `<a href="${linkRastreado(o)}" target="_blank" rel="noopener">${o.titulo}</a>`);
   }
   return o.resumo || '';
 }
@@ -702,15 +804,15 @@ function oportCard(o) {
         ${o._urgencia ? badgeHTML(o._urgencia) : ''}
         ${o.origem?`<span class="oport-origem">${o.origem.toUpperCase()}</span>`:''}
       </div>
-      <div class="oport-titulo">${o.link?`<a href="${o.link}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
+      <div class="oport-titulo">${o.link?`<a href="${linkRastreado(o)}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
       <div class="oport-resumo">${resumoLinkado(o)}</div>
       <div class="oport-dados">
-        ${o.prazo&&o._urgencia!=='FLUXO CONTÍNUO'?`<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${o.prazo}</strong></span>`:''}
+        ${dadosPrazoHTML(o)}
         ${o.valor?`<span class="oport-dado"><img src="${IC.din}" alt=""><strong>${o.valor}</strong></span>`:''}
         ${o.publico?`<span class="oport-dado"><img src="${IC.pub}" alt=""><strong>${o.publico}</strong></span>`:''}
       </div>
     </div>
-    ${o.link?`<a href="${o.link}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
+    ${o.link?`<a href="${linkRastreado(o)}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
   </div>`;
 }
 
@@ -806,101 +908,334 @@ function filtrarCat() {
         ${o._urgencia ? badgeHTML(o._urgencia) : ''}
         ${o.origem?`<span class="oport-origem">${o.origem.toUpperCase()}</span>`:''}
       </div>
-      <div class="oport-titulo">${o.link?`<a href="${o.link}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
+      <div class="oport-titulo">${o.link?`<a href="${linkRastreado(o)}" target="_blank" rel="noopener">${o.titulo||''}</a>`:(o.titulo||'')}</div>
       <div class="oport-resumo" style="-webkit-line-clamp:4">${resumoLinkado(o)}</div>
       <div class="oport-dados">
-        ${o.prazo&&o._urgencia!=='FLUXO CONTÍNUO'?`<span class="oport-dado"><img src="${IC.cal}" alt=""><strong>${o.prazo}</strong></span>`:''}
+        ${dadosPrazoHTML(o)}
         ${o.valor?`<span class="oport-dado"><img src="${IC.din}" alt=""><strong>${o.valor}</strong></span>`:''}
         ${o.publico?`<span class="oport-dado"><img src="${IC.pub}" alt=""><strong>${o.publico}</strong></span>`:''}
       </div>
     </div>
-    ${o.link?`<a href="${o.link}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
+    ${o.link?`<a href="${linkRastreado(o)}" target="_blank" rel="noopener" class="oport-link">Acessar →</a>`:''}
   </div>`).join('');
 }
 
 // ═══════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════
-let dashPeriodo = 3;
+let dashPeriodo = 'ano'; // abre em "Este ano" (primeiro botão)
+
+// Endereço do App da Web do Apps Script (planilha de cliques) — o mesmo de ir.html.
+const METRICAS_URL = 'https://script.google.com/macros/s/AKfycbxkXkXr8pj3pIPyE4SuDUThur2S14JMW6GgpobOonmr82qldCwau7r59KZUDt5Yt4Oe7Q/exec';
+// Cores dos canais validadas para daltonismo (verde/azul/magenta, ΔE ≥ 8 em todos os pares)
+const CANAIS = { site:{label:'Site',cor:'#196d1e'}, boletim:{label:'Boletim (e-mail)',cor:'#0149AF'}, whatsapp:{label:'WhatsApp',cor:'#C2195A'} };
+let indiceEdicoes = null, cliquesDados = null, erroCliques = '', antecExport = [];
+
+// "DD/MM/AAAA" no início do texto → Date (ou null)
+function dataBR(texto) {
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec((texto || '').trim());
+  return m ? new Date(+m[3], +m[2]-1, +m[1]) : null;
+}
+// Início de um evento: "DD/MM/AAAA", "DD/MM a DD/MM/AAAA" ou "DD a DD/MM/AAAA" (mesma regra do editor)
+function inicioDoEvento(texto) {
+  const t = (texto || '').trim();
+  let m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+  m = /^(\d{1,2})\/(\d{1,2})\s*(?:a|até|-|–|e)\s*\d{1,2}\/\d{1,2}\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+  m = /^(\d{1,2})\s*(?:a|até|-|–|e)\s*\d{1,2}\/(\d{1,2})\/(\d{4})/.exec(t);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+  return null;
+}
+// Data do primeiro anúncio (itens anteriores ao campo usam dataCadastro)
+function dataDivulgacao(o) { return dataBR(o.primeiraDivulgacao) || dataBR(o.dataCadastro); }
+
+function noPeriodo(data, periodo) {
+  if (!data) return false;
+  if (periodo === 'ano') return data.getFullYear() === new Date().getFullYear();
+  const corte = new Date(); corte.setHours(0,0,0,0);
+  corte.setMonth(corte.getMonth() - periodo);
+  return data >= corte;
+}
+
+// Texto do intervalo exibido no painel: "01/01/2026 a 14/10/2026"
+function intervaloPeriodo(periodo) {
+  const fmt = d => d.toLocaleDateString('pt-BR');
+  const hoje = new Date();
+  const inicio = periodo === 'ano' ? new Date(hoje.getFullYear(), 0, 1) : (() => { const c = new Date(); c.setMonth(c.getMonth() - periodo); return c; })();
+  return `${fmt(inicio)} a ${fmt(hoje)}`;
+}
 
 function filtrarPorPeriodo(lista, periodo) {
-  if (periodo === 'ano') {
-    const anoAtual = new Date().getFullYear();
-    return lista.filter(o=>{
-      const p=(o.dataCadastro||'').split('/');
-      return p.length===3 && +p[2]===anoAtual;
-    });
-  }
-  const cutoff = new Date();
-  cutoff.setMonth(cutoff.getMonth()-periodo);
-  return lista.filter(o=>{
-    const p=(o.dataCadastro||'').split('/');
-    if(p.length!==3) return true;
-    const d=new Date(+p[2],+p[1]-1,+p[0]);
-    return d>=cutoff;
-  });
+  return lista.filter(o => noPeriodo(dataDivulgacao(o), periodo));
 }
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+function pct(v, total) { return total ? Math.round(v / total * 100) + '%' : ''; }
+function plural(n, um, varios) { return n + ' ' + (n === 1 ? um : varios); }
 
 document.getElementById('dash-periodo').addEventListener('click', e=>{
   const b=e.target.closest('.periodo-btn'); if(!b) return;
-  document.querySelectorAll('#dash-periodo .periodo-btn').forEach(x=>x.classList.remove('ativo'));
+  document.querySelectorAll('#dash-periodo .periodo-btn').forEach(x=>{ x.classList.remove('ativo'); x.setAttribute('aria-pressed','false'); });
   b.classList.add('ativo');
+  b.setAttribute('aria-pressed','true');
   dashPeriodo = b.dataset.p==='ano' ? 'ano' : +b.dataset.p;
   renderDash();
 });
 
-function renderDash() {
-  const base=todas().filter(o=>o._urgencia!=='ENCERRADO');
-  const t=filtrarPorPeriodo(base, dashPeriodo);
-  document.getElementById('d-total').textContent=t.length;
-  document.getElementById('d-novas').textContent=t.filter(o=>o._nova).length;
-  document.getElementById('d-urgentes').textContent=t.filter(o=>o._urgencia==='ÚLTIMOS DIAS').length;
-  document.getElementById('dash-sub').textContent=dados?.atualizadoEm ? 'Atualizado em '+dados.atualizadoEm+' · '+t.length+' oportunidades no período selecionado' : '';
+function escreve(id, valor) { document.getElementById(id).textContent = valor; }
 
-  const byCat={}; Object.keys(CATS).forEach(k=>byCat[k]=0);
-  const byStatus={'NOVO':0,'PRAZO PRÓXIMO':0,'ÚLTIMOS DIAS':0,'FLUXO CONTÍNUO':0};
-  const byOrigem={};
-  const byMonth={};
-  t.forEach(o=>{
-    if(byCat[o._cat]!==undefined) byCat[o._cat]++;
-    const statusUnico = o._nova ? 'NOVO' : o._urgencia;
-    if(byStatus[statusUnico]!==undefined) byStatus[statusUnico]++;
-    if(o.origem){ byOrigem[o.origem]=(byOrigem[o.origem]||0)+1; }
-    const p=(o.dataCadastro||'').split('/');
-    if(p.length===3){ const key=p[1]+'/'+p[2]; byMonth[key]=(byMonth[key]||0)+1; }
-  });
-
-  const topCat=Object.entries(byCat).sort((a,b)=>b[1]-a[1])[0];
-  if(topCat&&topCat[1]>0){
-    document.getElementById('d-top-cat').textContent=CATS[topCat[0]]?.label||topCat[0];
-    document.getElementById('d-top-cat-n').textContent=topCat[1]+' oportunidade(s)';
-  }
-
-  const catColors=['#4A368F','#0149AF','#C2195A','#A03B11','#7A5B00','#006A5C'];
-  rc('ch-cat','doughnut',Object.keys(CATS).map(k=>CATS[k].label),Object.values(byCat),catColors);
-  rc('ch-status','bar',Object.keys(byStatus),Object.values(byStatus),['#1B5E20','#F57F17','#C41E3A','#1565C0']);
-  const orKeys=Object.keys(byOrigem).sort((a,b)=>byOrigem[b]-byOrigem[a]).slice(0,8);
-  rc('ch-origem','bar',orKeys,orKeys.map(k=>byOrigem[k]),['#196d1e'],true);
-  const monthKeys=Object.keys(byMonth).sort();
-  rc('ch-evolucao','bar',monthKeys,monthKeys.map(k=>byMonth[k]),['#196d1e']);
-  const fluxo=t.filter(o=>!o._nova && o._urgencia==='FLUXO CONTÍNUO').length;
-  rc('ch-fluxo','doughnut',['Fluxo contínuo','Prazo definido'],[fluxo,t.length-fluxo],['#1565C0','#0c420b']);
+// Agrupa pares [rótulo, valor] em ordem decrescente; acima de "max" itens, o resto vira "Outras"
+function topComOutras(contagem, max, rotuloOutras) {
+  const ord = Object.entries(contagem).sort((a, b) => b[1] - a[1]);
+  if (ord.length <= max) return ord;
+  const resto = ord.slice(max - 1).reduce((s, [, v]) => s + v, 0);
+  return [...ord.slice(0, max - 1), [rotuloOutras, resto]];
 }
 
-function rc(id,type,labels,data,colors,horiz=false){
-  if(charts[id]) charts[id].destroy();
-  const ctx=document.getElementById(id).getContext('2d');
-  charts[id]=new Chart(ctx,{
-    type,
-    data:{labels,datasets:[{data,backgroundColor:colors.length===data.length?colors:colors[0],borderWidth:0}]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      indexAxis:horiz?'y':'x',
-      plugins:{legend:{display:type==='doughnut',position:'bottom',labels:{font:{size:11},boxWidth:12}}},
-      scales:type!=='doughnut'?{
-        x:{ticks:{font:{size:10},maxRotation:horiz?0:40},grid:{display:false}},
-        y:{ticks:{font:{size:10}},grid:{color:'#f0f0f0'}}
-      }:{},
+function renderDash() {
+  // Abertas E encerradas — o dashboard mostra tudo o que foi divulgado no período
+  const t = filtrarPorPeriodo(todas(), dashPeriodo);
+  const total = t.length;
+  const abertas = t.filter(o => o._urgencia !== 'ENCERRADO').length;
+  const encerradas = total - abertas;
+  escreve('d-total', total);
+  escreve('d-abertas', abertas);
+  escreve('d-abertas-sub', total ? pct(abertas, total) + ' das divulgadas' : '');
+  escreve('d-encerradas', encerradas);
+  escreve('d-encerradas-sub', total ? pct(encerradas, total) + ' das divulgadas' : '');
+  escreve('d-novas', t.filter(o => o._nova).length);
+  escreve('d-urgentes', t.filter(o => o._urgencia === 'ÚLTIMOS DIAS').length);
+  document.getElementById('periodo-intervalo').innerHTML = `<strong>${intervaloPeriodo(dashPeriodo)}</strong> · ${plural(total, 'oportunidade divulgada', 'oportunidades divulgadas')}`;
+  escreve('dash-sub', dados?.atualizadoEm ? `Atualizado em ${dados.atualizadoEm} · ${plural(total, 'oportunidade divulgada', 'oportunidades divulgadas')} no período selecionado` : '');
+
+  // Categoria (barras: nome escrito em cada barra — as cores das categorias não se distinguem bem para daltônicos)
+  const porCat = {}; Object.keys(CATS).forEach(k => porCat[k] = 0);
+  const porOrigem = {}, porMes = {};
+  t.forEach(o => {
+    if (porCat[o._cat] !== undefined) porCat[o._cat]++;
+    if (o.origem) porOrigem[o.origem] = (porOrigem[o.origem] || 0) + 1;
+    const d = dataDivulgacao(o);
+    if (d) { const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; porMes[k] = (porMes[k] || 0) + 1; }
+  });
+  const cats = Object.keys(CATS).filter(k => porCat[k] > 0).sort((a, b) => porCat[b] - porCat[a]);
+  grafico('ch-cat', { labels: cats.map(k => CATS[k].label), valores: cats.map(k => porCat[k]), cores: cats.map(k => CATS[k].cor), horizontal: true, total });
+  escreve('b-cat', `Base: ${plural(total, 'oportunidade', 'oportunidades')}`);
+
+  const origens = topComOutras(porOrigem, 8, 'Outras origens');
+  const totalOrigem = origens.reduce((s, [, v]) => s + v, 0);
+  grafico('ch-origem', { labels: origens.map(([k]) => k), valores: origens.map(([, v]) => v), cores: ['#196d1e'], horizontal: true, total: totalOrigem });
+  escreve('b-origem', `Base: ${plural(totalOrigem, 'oportunidade', 'oportunidades')}`);
+
+  const meses = Object.keys(porMes).sort();
+  grafico('ch-evolucao', { labels: meses.map(k => k.slice(5) + '/' + k.slice(0, 4)), valores: meses.map(k => porMes[k]), cores: ['#196d1e'], semPct: true });
+  escreve('b-evolucao', 'Quantidade de oportunidades divulgadas pela primeira vez em cada mês');
+
+  renderAntecedencia(t);
+  carregarExtrasDash().then(() => { renderBoletins(); renderCliques(); });
+}
+
+// Índice das edições (edicoes/indice.json, gerado pelo merge) e cliques (planilha) — carregados uma vez
+async function carregarExtrasDash(forcar = false) {
+  if (!indiceEdicoes || forcar) {
+    try { const r = await fetch('edicoes/indice.json?t=' + Date.now()); if (!r.ok) throw 0; indiceEdicoes = await r.json(); }
+    catch (e) { indiceEdicoes = { edicoes: [], avulsas: [], erro: true }; }
+  }
+  if (!cliquesDados || forcar) {
+    try {
+      const r = await fetch(METRICAS_URL + '?acao=dados');
+      if (!r.ok) throw 0;
+      cliquesDados = (await r.json()).cliques || [];
+      erroCliques = '';
+    } catch (e) {
+      cliquesDados = null;
+      erroCliques = 'Os dados de cliques estão temporariamente indisponíveis. Tente novamente mais tarde.';
+    }
+  }
+}
+
+function renderBoletins() {
+  if (indiceEdicoes.erro) { escreve('d-boletins', '—'); escreve('d-boletins-sub', 'índice indisponível'); return; }
+  const ed = indiceEdicoes.edicoes.filter(e => noPeriodo(dataBR(e.data), dashPeriodo));
+  escreve('d-boletins', ed.length);
+  escreve('d-boletins-sub', ed.length ? 'no período · ' + ed.map(e => '#' + e.numero).join(', ') : 'no período');
+}
+
+function renderCliques() {
+  const graficos = document.getElementById('cliques-graficos');
+  if (!cliquesDados) {
+    escreve('cliques-status', erroCliques);
+    ['d-cliques', 'd-cliques-top', 'd-cliques-canal'].forEach(id => escreve(id, '—'));
+    ['d-cliques-top-n', 'd-cliques-canal-n'].forEach(id => escreve(id, ''));
+    graficos.style.display = 'none';
+    return;
+  }
+  graficos.style.display = '';
+  const cl = cliquesDados.filter(c => noPeriodo(c.quando ? new Date(c.quando) : null, dashPeriodo));
+  const total = cl.length;
+  escreve('cliques-status', `${plural(cliquesDados.length, 'clique registrado', 'cliques registrados')} desde o início da medição · ${total} no período selecionado`);
+
+  const porEdital = {}, porCanal = {}, porCat = {}, porEdicao = {};
+  cl.forEach(c => {
+    const nome = c.edital || '(edital não identificado)';
+    porEdital[nome] = (porEdital[nome] || 0) + 1;
+    porCanal[c.canal] = (porCanal[c.canal] || 0) + 1;
+    porCat[c.categoria || ''] = (porCat[c.categoria || ''] || 0) + 1;
+    // "4" e "04" são a mesma edição (a planilha pode ter convertido números antigos)
+    const ed = /^\d+$/.test(c.edicao || '') ? String(c.edicao).padStart(2, '0') : c.edicao;
+    if (ed) porEdicao[ed] = (porEdicao[ed] || 0) + 1;
+  });
+
+  escreve('d-cliques', total);
+  const top = Object.entries(porEdital).sort((a, b) => b[1] - a[1]);
+  escreve('d-cliques-top', top[0] ? top[0][0] : '—');
+  escreve('d-cliques-top-n', top[0] ? `${plural(top[0][1], 'clique', 'cliques')} (${pct(top[0][1], total)})` : '');
+  const canalTop = Object.entries(porCanal).sort((a, b) => b[1] - a[1])[0];
+  escreve('d-cliques-canal', canalTop ? (CANAIS[canalTop[0]]?.label || canalTop[0]) : '—');
+  escreve('d-cliques-canal-n', canalTop ? `${plural(canalTop[1], 'clique', 'cliques')} (${pct(canalTop[1], total)})` : '');
+
+  const top10 = topComOutras(porEdital, 10, 'Outros editais');
+  grafico('ch-cl-editais', { labels: top10.map(([n]) => n), valores: top10.map(([, v]) => v), cores: ['#0c420b'], horizontal: true, total });
+  escreve('b-cl-editais', `Base: ${plural(total, 'clique', 'cliques')} no período`);
+
+  const canais = Object.keys(CANAIS).filter(k => porCanal[k]);
+  grafico('ch-cl-canal', { labels: canais.map(k => CANAIS[k].label), valores: canais.map(k => porCanal[k]), cores: canais.map(k => CANAIS[k].cor), horizontal: true, total });
+  escreve('b-cl-canal', `Base: ${plural(total, 'clique', 'cliques')}`);
+
+  const cats = Object.keys(porCat).sort((a, b) => porCat[b] - porCat[a]);
+  grafico('ch-cl-cat', { labels: cats.map(k => CATS[k]?.label || 'Sem categoria'), valores: cats.map(k => porCat[k]), cores: cats.map(k => CATS[k]?.cor || '#9E9E9E'), horizontal: true, total });
+  escreve('b-cl-cat', `Base: ${plural(total, 'clique', 'cliques')}`);
+
+  const eds = Object.keys(porEdicao).sort();
+  const totalEd = eds.reduce((s, k) => s + porEdicao[k], 0);
+  grafico('ch-cl-edicao', { labels: eds.map(k => 'Edição #' + k), valores: eds.map(k => porEdicao[k]), cores: ['#196d1e'], total: totalEd });
+  escreve('b-cl-edicao', `Base: ${plural(totalEd, 'clique vindo', 'cliques vindos')} do boletim e do WhatsApp (os cliques no site não pertencem a uma edição)`);
+}
+
+// ── Antecedência ──────────────────────────────────────────────
+// inscricao: prazo original começa por DD/MM/AAAA (com dois prazos vale o primeiro) — qualquer categoria
+// evento: evento sem inscrição (início de dataEvento) ou item antigo com prazo em intervalo ("26/07 a 01/08/2026")
+// fluxo / indefinido: sem prazo de encerramento — contados à parte
+const TIPO_REF = { inscricao:'Fim das inscrições', evento:'Início do evento', fluxo:'Fluxo contínuo', indefinido:'Prazo não definido' };
+
+function referenciaAntecedencia(o) {
+  if (o.semInscricao) {
+    const ini = inicioDoEvento(o.dataEvento);
+    return ini ? { tipo:'evento', data:ini, texto:o.dataEvento } : { tipo:'indefinido', data:null, texto:o.dataEvento || '' };
+  }
+  const p = o.prazoOriginal ?? o.prazo ?? '';
+  if (dataBR(p)) return { tipo:'inscricao', data:dataBR(p), texto:p };
+  if (inicioDoEvento(p)) return { tipo:'evento', data:inicioDoEvento(p), texto:p };
+  if (o.status === 'FLUXO CONTÍNUO' || /cont[ií]nuo|fluxo/i.test(p)) return { tipo:'fluxo', data:null, texto:'' };
+  return { tipo:'indefinido', data:null, texto:p };
+}
+
+function renderAntecedencia(t) {
+  const linhas = t.map(o => {
+    const ref = referenciaAntecedencia(o);
+    const div = dataDivulgacao(o);
+    const dias = ref.data && div ? Math.round((ref.data - div) / 86400000) : null;
+    return { o, ref, dias };
+  });
+  const ordem = { inscricao:0, evento:1, fluxo:2, indefinido:3 };
+  linhas.sort((a, b) => (ordem[a.ref.tipo] - ordem[b.ref.tipo]) || ((a.dias ?? 0) - (b.dias ?? 0)));
+
+  const inscr = linhas.filter(x => x.ref.tipo === 'inscricao' && x.dias !== null);
+  const event = linhas.filter(x => x.ref.tipo === 'evento' && x.dias !== null);
+  const fluxo = linhas.filter(x => x.ref.tipo === 'fluxo').length;
+  const indef = linhas.filter(x => x.ref.tipo === 'indefinido').length;
+  const media = arr => arr.length ? (arr.reduce((s, x) => s + x.dias, 0) / arr.length).toFixed(1).replace('.', ',') : '—';
+  const curtas = inscr.filter(x => x.dias < 7).length;
+
+  escreve('d-antec-media', media(inscr));
+  escreve('d-antec-media-sub', inscr.length ? `dias, em média · ${plural(inscr.length, 'oportunidade', 'oportunidades')}` : 'nenhuma no período');
+  escreve('d-antec-curta', curtas);
+  escreve('d-antec-curta-sub', inscr.length ? `${pct(curtas, inscr.length)} das que têm prazo de inscrição` : '');
+  escreve('d-antec-evento', media(event));
+  escreve('d-antec-evento-sub', event.length ? `dias antes do início · ${plural(event.length, 'evento', 'eventos')}` : 'nenhum no período');
+  escreve('d-antec-semprazo', fluxo + indef);
+  escreve('d-antec-semprazo-sub', `${fluxo} em fluxo contínuo · ${indef} com prazo não definido`);
+
+  const edicaoTxt = o => !o.primeiraEdicao ? '—' : (o.primeiraEdicao === 'avulsa' ? 'Inclusão avulsa' : 'Edição #' + o.primeiraEdicao);
+  document.getElementById('antec-tabela').innerHTML = linhas.length ? `<table class="tabela-antec">
+    <thead><tr><th>Oportunidade</th><th>Divulgada em</th><th>Data do anúncio</th><th>Referência</th><th style="text-align:right">Antecedência</th></tr></thead>
+    <tbody>${linhas.map(({ o, ref, dias }) => {
+      const alerta = ref.tipo === 'inscricao' && dias !== null && dias < 7;
+      return `<tr class="${dias === null ? 'sem-ref' : ''}">
+        <td>${esc(o.titulo)}</td>
+        <td>${esc(edicaoTxt(o))}</td>
+        <td class="num">${esc(o.primeiraDivulgacao || o.dataCadastro || '—')}</td>
+        <td>${esc(TIPO_REF[ref.tipo])}${ref.texto ? ': ' + esc(ref.texto) : ''}</td>
+        <td class="num${alerta ? ' alerta' : ''}">${dias === null ? '—' : plural(dias, 'dia', 'dias') + (alerta ? ' · alerta' : '')}</td>
+      </tr>`; }).join('')}</tbody></table>` : '<p class="dash-status" style="padding:16px;margin:0">Nenhuma oportunidade divulgada no período.</p>';
+
+  antecExport = linhas.map(({ o, ref, dias }) => [o.titulo, CATS[o._cat]?.label || o._cat, edicaoTxt(o),
+    o.primeiraDivulgacao || o.dataCadastro || '', TIPO_REF[ref.tipo], ref.texto, dias ?? '']);
+  document.getElementById('btn-antec-csv').style.display = linhas.length ? '' : 'none';
+}
+
+document.getElementById('btn-antec-csv').addEventListener('click', () => {
+  const cab = ['Oportunidade','Categoria','Divulgada em','Data do anúncio','Referência','Data de referência','Antecedência (dias)'];
+  const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const csv = '﻿' + [cab, ...antecExport].map(l => l.map(q).join(';')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+  a.download = 'radar_antecedencia_divulgacao.csv';
+  a.click();
+});
+
+// Escreve o valor (e o %) na ponta de cada barra, em tinta de texto — nunca na cor da série
+const rotulosValor = {
+  id: 'rotulosValor',
+  afterDatasetsDraw(chart, args, op) {
+    const { ctx } = chart, meta = chart.getDatasetMeta(0), dados = chart.data.datasets[0].data;
+    ctx.save();
+    ctx.font = "600 11px 'Segoe UI', Arial, sans-serif";
+    ctx.fillStyle = '#333333';
+    meta.data.forEach((barra, i) => {
+      const v = dados[i];
+      const texto = op.semPct || !op.total ? String(v) : `${v} (${pct(v, op.total)})`;
+      if (chart.options.indexAxis === 'y') { ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(texto, barra.x + 6, barra.y); }
+      else { ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.fillText(texto, barra.x, barra.y - 4); }
+    });
+    ctx.restore();
+  }
+};
+
+// Gráfico de barras com valor e % escritos. Barras horizontais crescem em altura conforme a quantidade de itens.
+function grafico(id, { labels, valores, cores, horizontal = false, total = 0, semPct = false }) {
+  if (charts[id]) charts[id].destroy();
+  const canvas = document.getElementById(id);
+  const wrap = canvas.parentElement;
+  wrap.style.height = horizontal ? Math.max(120, labels.length * 34 + 30) + 'px' : '230px';
+  const vazio = !valores.length;
+  wrap.dataset.vazio = vazio ? 'sim' : '';
+  if (vazio) { canvas.style.display = 'none'; if (!wrap.querySelector('.grafico-vazio')) wrap.insertAdjacentHTML('beforeend', '<p class="dash-status grafico-vazio">Sem dados no período.</p>'); return; }
+  canvas.style.display = '';
+  wrap.querySelector('.grafico-vazio')?.remove();
+  const maximo = Math.max(...valores);
+  charts[id] = new Chart(canvas.getContext('2d'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: valores, backgroundColor: cores.length === valores.length ? cores : cores[0],
+      borderWidth: 0, borderRadius: 4, borderSkipped: 'start', maxBarThickness: 26 }] },
+    plugins: [rotulosValor],
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      indexAxis: horizontal ? 'y' : 'x',
+      layout: { padding: horizontal ? { right: 78 } : { top: 22 } },
+      plugins: {
+        legend: { display: false },
+        rotulosValor: { total, semPct },
+        tooltip: { callbacks: { label: c => semPct || !total ? ` ${c.parsed[horizontal ? 'x' : 'y']}` : ` ${c.parsed[horizontal ? 'x' : 'y']} (${pct(c.parsed[horizontal ? 'x' : 'y'], total)})` } }
+      },
+      scales: {
+        [horizontal ? 'x' : 'y']: { beginAtZero: true, suggestedMax: maximo, ticks: { precision: 0, font: { size: 10 }, color: '#888' }, grid: { color: '#f0f0ee' }, border: { display: false } },
+        // Nomes longos abreviados no eixo; o nome completo aparece ao passar o mouse (tooltip)
+        [horizontal ? 'y' : 'x']: { ticks: { font: { size: 11 }, color: '#555', autoSkip: false,
+          callback(v) { const l = String(this.getLabelForValue(v)); return l.length > 46 ? l.slice(0, 44) + '…' : l; } }, grid: { display: false } }
+      }
     }
   });
 }
