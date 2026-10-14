@@ -929,7 +929,7 @@ let dashPeriodo = 'ano'; // abre em "Este ano" (primeiro botão)
 const METRICAS_URL = 'https://script.google.com/macros/s/AKfycbxkXkXr8pj3pIPyE4SuDUThur2S14JMW6GgpobOonmr82qldCwau7r59KZUDt5Yt4Oe7Q/exec';
 // Cores dos canais validadas para daltonismo (verde/azul/magenta, ΔE ≥ 8 em todos os pares)
 const CANAIS = { site:{label:'Site',cor:'#196d1e'}, boletim:{label:'Boletim (e-mail)',cor:'#0149AF'}, whatsapp:{label:'WhatsApp',cor:'#C2195A'} };
-let indiceEdicoes = null, cliquesDados = null, erroCliques = '', antecExport = [];
+let indiceEdicoes = null, cliquesDados = null, cliquesCarregadosEm = 0, erroCliques = '', antecExport = [];
 
 // "DD/MM/AAAA" no início do texto → Date (ou null)
 function dataBR(texto) {
@@ -1043,11 +1043,14 @@ async function carregarExtrasDash(forcar = false) {
     try { const r = await fetch('edicoes/indice.json?t=' + Date.now()); if (!r.ok) throw 0; indiceEdicoes = await r.json(); }
     catch (e) { indiceEdicoes = { edicoes: [], avulsas: [], erro: true }; }
   }
-  if (!cliquesDados || forcar) {
+  // Cliques mudam o tempo todo: busca de novo se o último resultado tiver mais de 30 s
+  // (ex.: a pessoa abriu o dashboard, clicou em editais em outra aba e voltou)
+  if (!cliquesDados || forcar || Date.now() - cliquesCarregadosEm > 30000) {
     try {
       const r = await fetch(METRICAS_URL + '?acao=dados');
       if (!r.ok) throw 0;
       cliquesDados = (await r.json()).cliques || [];
+      cliquesCarregadosEm = Date.now();
       erroCliques = '';
     } catch (e) {
       cliquesDados = null;
