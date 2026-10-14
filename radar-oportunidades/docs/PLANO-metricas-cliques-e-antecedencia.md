@@ -1,5 +1,9 @@
 # Plano de implementação — Métricas de cliques e antecedência de divulgação
 
+**✅ CONCLUÍDO E PUBLICADO em 14/10/2026** (commit `478b388`). Teste de ponta a ponta aprovado: 3 cliques reais no site público registrados na planilha com edital, categoria e canal. Este documento fica como registro das decisões; a referência atual de funcionamento é o `CLAUDE.md`.
+
+Lições do teste que ficaram no código: o parâmetro `c` é reservado pelo Google (a categoria vai em `cat`); o Apps Script grava tudo como texto (senão "04" vira 4 e códigos como "1e5" viram número).
+
 **Atualização (14/10/2026, tarde):** decidido e implementado — dashboard oficial passa a ser o do **site** (abertos + encerrados, valores e % nos gráficos, antecedência pública com CSV, boletins enviados); dashboard do sistema **removido**; Histórico lê `edicoes/indice.json`; verificação de títulos parecidos na curadoria (editor + botão "Revisar edição") e no merge; correção automática de maiúsculas; site lê prazos com várias datas (vale a última). Detalhes no `CLAUDE.md`.
 
 **Status (14/10/2026):** código escrito e testado localmente; **falta** atualizar o Apps Script, commit/push e teste de ponta a ponta. Já feito: planilha criada, Apps Script de teste implantado e acessível por "Qualquer pessoa", Python 3.12 instalado, `ir.html`, links do site/boletim/WhatsApp, campos novos no merge, preenchimento retroativo do `banco.json` e seções novas do dashboard.

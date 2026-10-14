@@ -10,10 +10,6 @@ O **Radar de Oportunidades** é um ecossistema de comunicação institucional da
 
 ---
 
-> **🚧 Trabalho em andamento (14/10/2026):** métricas de cliques nos editais e de antecedência de divulgação. Código **escrito e testado localmente, ainda não publicado** (falta atualizar o Apps Script, commit/push e o teste de ponta a ponta). Antes de qualquer tarefa relacionada, ler [`docs/PLANO-metricas-cliques-e-antecedencia.md`](docs/PLANO-metricas-cliques-e-antecedencia.md). Remover este aviso quando o teste de ponta a ponta passar.
-
----
-
 ## Arquivos e pastas do projeto
 
 | Caminho | Função |
