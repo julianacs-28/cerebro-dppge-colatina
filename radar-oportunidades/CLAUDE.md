@@ -63,8 +63,9 @@ Quando surge uma oportunidade urgente **depois** de uma edição já ter sido en
 1. Criar edicoes/avulsas/AAAA-MM-DD-slug-curto/dados.json
    contendo só "categorias": { ... } com o(s) card(s) novo(s)
    (mesma estrutura de card usada em edicoes/ed-XX — ver abaixo).
-   Campos "data" e "motivo" no topo do JSON são livres, só para
-   documentação (não são lidos pelo script de mesclagem).
+   Campos "data" (DD/MM/AAAA) e "motivo" no topo do JSON. A "data" é lida
+   pelo merge: vira a primeiraDivulgacao dos itens novos (antecedência).
+   O "motivo" é só documentação.
 2. Atualizar o site: python3 scripts/merge_edicao.py edicoes/avulsas/AAAA-MM-DD-slug-curto
 3. Registrar a inclusão em edicoes/avulsas/REGISTRO.md (uma linha na tabela)
 4. Commitar e fazer push
