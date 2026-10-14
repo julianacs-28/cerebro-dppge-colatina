@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radar de Oportunidades — o que mudou em outubro de 2026</title>
+<style>
+  :root {
+    --verde: #0c420b; --verde-m: #196d1e; --verde-claro: #eef5ee; --verde-borda: #cfe3cf;
+    --fundo: #f9f9f7; --branco: #ffffff; --borda: #e8e8e4;
+    --texto: #1a1a1a; --texto-2: #555555; --texto-3: #888888;
+    --alerta: #C41E3A; --alerta-fundo: #ffebee;
+    --atencao: #F57F17; --atencao-fundo: #fff8e1;
+    --info-fundo: #f5f5f5;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; line-height: 1.65; }
+  header { background: var(--verde); color: #fff; padding: 40px 16px 36px; }
+  .faixa { background: var(--verde-m); color: #fff; font-size: 13px; padding: 8px 16px; text-align: center; letter-spacing: .3px; }
+  .wrap { max-width: 820px; margin: 0 auto; }
+  header .rotulo { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #9fd29f; margin: 0 0 8px; }
+  header h1 { font-size: 30px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -.4px; }
+  header p { margin: 0; color: #d7ead7; font-size: 15px; }
+  main { padding: 32px 16px 56px; }
+  .card { background: var(--branco); border: 1px solid var(--borda); border-radius: 10px; padding: 28px 32px; margin-bottom: 20px; }
+  .card.destaque { border-left: 5px solid var(--verde); background: var(--verde-claro); border-color: var(--verde-borda); }
+  h2 { font-size: 21px; color: var(--verde); margin: 0 0 14px; letter-spacing: -.2px; line-height: 1.3; }
+  h2 .num { display: inline-block; min-width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; background: var(--verde); color: #fff; font-size: 14px; margin-right: 10px; vertical-align: 2px; }
+  h3 { font-size: 16px; color: var(--texto); margin: 22px 0 8px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  code { font-family: Consolas, 'Courier New', monospace; font-size: 13.5px; background: #f1f1ee; border: 1px solid var(--borda); border-radius: 4px; padding: 1px 5px; word-break: break-word; }
+  .porque { background: var(--verde-claro); border-left: 4px solid var(--verde-m); border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; }
+  .porque strong:first-child { color: var(--verde); }
+  .cuidado { background: var(--atencao-fundo); border-left: 4px solid var(--atencao); border-radius: 0 6px 6px 0; padding: 12px 16px; margin: 14px 0; }
+  .tabela { width: 100%; overflow-x: auto; margin: 6px 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--texto-3); border-bottom: 2px solid var(--borda); padding: 8px 10px; }
+  td { border-bottom: 1px solid var(--borda); padding: 9px 10px; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .nivel { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 12px; padding: 2px 10px; white-space: nowrap; }
+  .nivel.corrigir { background: var(--alerta-fundo); color: var(--alerta); }
+  .nivel.atencao { background: var(--atencao-fundo); color: #8a4d00; }
+  .nivel.info { background: var(--info-fundo); color: #555; }
+  .numeros { display: flex; gap: 12px; flex-wrap: wrap; margin: 14px 0 6px; }
+  .numero { flex: 1; min-width: 150px; background: var(--branco); border: 1px solid var(--verde-borda); border-radius: 8px; padding: 12px 16px; }
+  .numero b { display: block; font-size: 26px; color: var(--verde); line-height: 1.1; }
+  .numero span { font-size: 13px; color: var(--texto-2); }
+  .exemplo { background: #fafaf8; border: 1px dashed #cfcfc8; border-radius: 6px; padding: 10px 14px; margin: 8px 0 14px; font-size: 14.5px; }
+  .diagrama { margin: 8px 0 6px; }
+  .diagrama svg { width: 100%; height: auto; display: block; }
+  .legenda { font-size: 13px; color: var(--texto-3); margin-bottom: 14px; }
+  .checklist { list-style: none; padding-left: 0; }
+  .checklist li { padding-left: 30px; position: relative; }
+  .checklist li::before { content: ''; position: absolute; left: 0; top: 4px; width: 16px; height: 16px; border: 2px solid var(--verde-m); border-radius: 4px; }
+  footer { text-align: center; color: var(--texto-3); font-size: 13px; padding: 0 16px 40px; }
+  a { color: var(--verde-m); }
+  @media (max-width: 600px) {
+    header h1 { font-size: 24px; }
+    .card { padding: 20px 18px; }
+    h2 { font-size: 19px; }
+  }
+  @media print {
+    body { background: #fff; }
+    header, .faixa { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa">DPPGE · Ifes Campus Colatina · Radar de Oportunidades</div>
+<header>
+  <div class="wrap">
+    <p class="rotulo">Para a Luisa · 14/10/2026</p>
+    <h1>Radar de Oportunidades — o que mudou em outubro de 2026</h1>
+    <p>Tudo o que mudou no Radar e o motivo de cada mudança. Já está publicado e funcionando.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="card destaque">
+    <h2>Em resumo</h2>
+    <p>O Radar agora mede <strong>quantas vezes cada edital é clicado</strong> e <strong>com quantos dias de antecedência divulgamos cada oportunidade</strong>. Os dois números aparecem no dashboard do site, abertos a todos.</p>
+    <p>Na sua rotina, mudam quatro coisas:</p>
+    <ol>
+      <li><strong>A ordem de publicação:</strong> primeiro o merge e o push, depois o envio do boletim e do WhatsApp.</li>
+      <li><strong>Um botão novo no editor, "✔ Revisar edição":</strong> usar antes de fechar cada boletim.</li>
+      <li><strong>Os cards de Eventos têm campos novos:</strong> fim das inscrições, data do evento e a caixa "Não é necessária inscrição".</li>
+      <li><strong>O dashboard saiu do sistema interno:</strong> o oficial agora é o do site.</li>
+    </ol>
+    <p style="margin:0">O resto acontece sozinho. Ninguém precisa criar link, contar clique ou calcular nada.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">1</span>Nova ordem de publicação</h2>
+    <p>Agora o site é atualizado primeiro, e o anúncio vem depois:</p>
+    <ol>
+      <li>Montar e revisar a edição no sistema, como sempre.</li>
+      <li>Clicar em <strong>✔ Revisar edição</strong> e resolver os itens marcados "Corrigir".</li>
+      <li>Exportar o JSON e salvar em <code>edicoes/ed-XX/dados.json</code>.</li>
+      <li>Rodar o merge: <code>python scripts/merge_edicao.py edicoes/ed-XX</code>.</li>
+      <li>Fazer commit e push.</li>
+      <li>Esperar cerca de 1 minuto, o tempo de o GitHub Pages publicar.</li>
+      <li><strong>Só então</strong> clicar em "Gerar para Outlook" e "Gerar para WhatsApp" e enviar.</li>
+    </ol>
+    <div class="porque"><strong>Por quê:</strong> os links dos editais no boletim e no WhatsApp agora passam por uma página do próprio Radar (explicada na seção 2). Essa página procura o edital no <code>banco.json</code> <strong>publicado</strong> para saber para onde levar a pessoa. Se o boletim sair antes do merge e do push, o edital ainda não está no site. Nesse caso, o clique é contado, mas a pessoa cai na página inicial do Radar em vez de chegar ao edital.</div>
+    <p style="margin:0">Há uma vantagem extra: quem abre o boletim e vai ao site já encontra as oportunidades novas lá.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">2</span>Contagem de cliques nos editais</h2>
+    <p>Cada clique em um edital, seja no site, no boletim ou no WhatsApp, agora fica registrado numa planilha da DPPGE, sem identificar quem clicou.</p>
+
+    <div class="diagrama">
+      <svg viewBox="0 0 760 324" role="img" aria-label="Cada clique passa pelo Radar antes de chegar ao edital" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+        <defs><marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#9e9e94"/></marker></defs>
+        <text x="24" y="34" font-size="15" font-weight="700" fill="#1a1a1a">Cada clique passa pelo Radar antes de chegar ao edital</text>
+        <text x="25" y="62" font-size="11.5" fill="#555555">Onde a pessoa clica</text>
+        <g fill="none" stroke="#9e9e94" stroke-width="1.25">
+          <path d="M175 90H205V190"/><path d="M175 190H205"/>
+          <path d="M175 140H238" marker-end="url(#seta)"/>
+          <path d="M420 128H460V90H498" marker-end="url(#seta)"/>
+          <path d="M420 152H460V190H498" marker-end="url(#seta)"/>
+          <path d="M600 222V258" marker-end="url(#seta)"/>
+        </g>
+        <rect x="25" y="72" width="150" height="36" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="100" y="94" text-anchor="middle" fill="#1a1a1a">Site do Radar</text>
+        <rect x="25" y="122" width="150" height="36" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="100" y="144" text-anchor="middle" fill="#1a1a1a">Boletim (e-mail)</text>
+        <rect x="25" y="172" width="150" height="36" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="100" y="194" text-anchor="middle" fill="#1a1a1a">WhatsApp</text>
+        <rect x="240" y="108" width="180" height="64" rx="8" fill="#e8f2e8" stroke="#196d1e" stroke-width="2"/>
+        <text x="330" y="136" text-anchor="middle" font-weight="700" fill="#0c420b">Página de passagem</text>
+        <text x="330" y="154" text-anchor="middle" font-size="11.5" fill="#555555">ir.html, no site do Radar</text>
+        <rect x="500" y="66" width="200" height="48" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="600" y="86" text-anchor="middle" font-weight="700" fill="#1a1a1a">Edital original</text>
+        <text x="600" y="104" text-anchor="middle" font-size="11.5" fill="#555555">abre para a pessoa na hora</text>
+        <rect x="500" y="158" width="200" height="64" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="600" y="178" text-anchor="middle" font-weight="700" fill="#1a1a1a">Planilha de cliques</text>
+        <text x="600" y="196" text-anchor="middle" font-size="11.5" fill="#555555">data, edital, edição,</text>
+        <text x="600" y="212" text-anchor="middle" font-size="11.5" fill="#555555">categoria e canal</text>
+        <rect x="500" y="260" width="200" height="40" rx="8" fill="#fff" stroke="#9e9e94" stroke-width="1.25"/>
+        <text x="600" y="284" text-anchor="middle" font-weight="700" fill="#1a1a1a">Dashboard do site</text>
+      </svg>
+    </div>
+    <p class="legenda">A pessoa nem percebe a passagem: o registro e a abertura do edital acontecem ao mesmo tempo, em menos de um segundo.</p>
+
+    <h3>Como funciona</h3>
+    <ul>
+      <li>Os links de cada edital deixaram de apontar direto para o edital. Eles passam por <code>ir.html</code>, uma página do próprio Radar que registra o clique e abre o edital.</li>
+      <li>O link carrega três informações: o código do edital (calculado a partir do título), o canal (<code>site</code>, <code>boletim</code> ou <code>whatsapp</code>) e, no boletim e no WhatsApp, o número da edição. Exemplo: <code>ir.html?e=k1ntaw&amp;de=boletim&amp;ed=05</code>.</li>
+      <li><strong>Ninguém cria link à mão.</strong> O site monta esses links ao exibir os cards. O sistema os monta quando você clica em "Gerar para Outlook" e "Gerar para WhatsApp".</li>
+      <li>O registro vai para a planilha "RADAR-cliques-nos-editais" (aba Cliques), na conta institucional da Juliana, por meio de um pequeno programa do Google (Apps Script).</li>
+    </ul>
+    <div class="porque"><strong>Por quê:</strong> queríamos saber quais editais despertam mais interesse e por qual canal as pessoas chegam a eles. Antes só sabíamos quantas pessoas entravam no site como um todo.</div>
+    <p><strong>Privacidade:</strong> a planilha guarda só a data e a hora, o edital, a edição, a categoria e o canal. Nenhum nome, e-mail ou IP. Por isso o número é um <em>indicador de interesse</em>, e não uma contagem de pessoas: a mesma pessoa pode clicar mais de uma vez.</p>
+
+    <h3>Detalhes que você pode notar</h3>
+    <ul>
+      <li>Cliques vindos do site ficam com a coluna Edição vazia, porque o site não pertence a uma edição. É o comportamento correto.</li>
+      <li>Os antivírus de e-mail costumam "clicar" nos links para verificá-los. Esses cliques de robô não são contados.</li>
+      <li>Se o link de um edital for corrigido depois (no JSON, seguido do merge), até os boletins antigos passam a levar ao endereço novo.</li>
+      <li>As edições 01 a 04 foram enviadas com os links diretos, então cliques nelas não são contados. A contagem por edição começa na ed-05.</li>
+    </ul>
+    <p style="margin:0"><strong>O link curto da Comunicação continua.</strong> O <code>links.ifes.edu.br/radar</code> segue no rodapé do boletim e no fim da mensagem de WhatsApp, e ninguém precisa pedir outro. Ele mede as entradas no site; a planilha mede os cliques em cada edital. Uma medição completa a outra.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">3</span>Antecedência de divulgação</h2>
+    <p>Agora sabemos com quantos dias de antecedência cada oportunidade foi anunciada antes do fim das inscrições.</p>
+    <div class="numeros">
+      <div class="numero"><b>27,5 dias</b><span>de antecedência média hoje</span></div>
+      <div class="numero"><b>7</b><span>oportunidades divulgadas com menos de 7 dias</span></div>
+    </div>
+    <div class="porque"><strong>Por quê:</strong> a Juliana precisa desse número para os relatórios da DPPGE. É a resposta para a pergunta "estamos avisando a comunidade a tempo de ela se inscrever?".</div>
+    <p><strong>Como funciona:</strong> o merge grava três informações novas em cada oportunidade, só na <strong>primeira vez</strong> que ela aparece, e elas nunca mais mudam:</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Campo</th><th>O que guarda</th><th>Exemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>primeiraDivulgacao</code></td><td>A data de envio da edição em que a oportunidade apareceu pela primeira vez</td><td>06/10/2026</td></tr>
+        <tr><td><code>primeiraEdicao</code></td><td>O número dessa edição, ou "avulsa"</td><td>04</td></tr>
+        <tr><td><code>prazoOriginal</code></td><td>O prazo que valia naquele momento</td><td>26/10/2026</td></tr>
+      </tbody>
+    </table></div>
+    <p>O <code>prazoOriginal</code> existe porque, quando um prazo é prorrogado, o merge atualiza o campo <code>prazo</code> com a data nova. Sem guardar o prazo original, perderíamos a informação de quanto tempo as pessoas tinham quando avisamos.</p>
+    <p>As 37 oportunidades que já estavam no banco foram preenchidas de forma retroativa, reprocessando as edições 01 a 04 e as avulsas.</p>
+    <div class="cuidado"><strong>O cuidado que fica com você:</strong> a <strong>data de envio</strong> da edição (aba Edição do editor) precisa ser a data real do envio, no formato DD/MM/AAAA, porque é dela que sai a <code>primeiraDivulgacao</code>. O "Revisar edição" avisa se ela estiver vazia ou fora do formato.</div>
+    <h3>Como o cálculo trata cada caso</h3>
+    <ul style="margin:0">
+      <li>Com dois prazos (ex.: "24/07/2026 (Jornalismo: 15/09/2026)"), vale o primeiro.</li>
+      <li>Os eventos com inscrição contam pelo fim das inscrições, como qualquer edital.</li>
+      <li>Os eventos sem inscrição contam à parte, pelos dias até o início do evento.</li>
+      <li>Os itens de fluxo contínuo e os de prazo ainda não definido (ex.: EPLI) não têm antecedência. Eles aparecem num contador próprio, "Sem prazo de encerramento".</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">4</span>Cards de Eventos: fim das inscrições e data do evento</h2>
+    <p>Nos cards de <strong>Eventos &amp; Capacitações</strong>, o prazo passa a ser <strong>sempre o fim das inscrições</strong>, e a data em que o evento acontece ganhou um campo próprio.</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Campo no editor</th><th>Como preencher</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fim das inscrições</strong></td><td>A data-limite para se inscrever (DD/MM/AAAA)</td></tr>
+        <tr><td>☐ <strong>Não é necessária inscrição</strong></td><td>Marcar só se o evento for de acesso livre. O campo de prazo fica bloqueado.</td></tr>
+        <tr><td><strong>Data do evento</strong></td><td>Quando acontece: <code>23/09/2026</code>, <code>23 a 25/09/2026</code> ou <code>28/09 a 02/10/2026</code></td></tr>
+        <tr><td><strong>Local</strong></td><td>Já existia: onde acontece, ou "On-line"</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>O que o leitor vê</strong> no boletim, no site e no WhatsApp:</p>
+    <div class="exemplo">Com inscrição: <strong>Inscrições até 10/09/2026 · Realização: 23/09/2026</strong><br>Sem inscrição: <strong>Não é necessária inscrição · Realização: 23 a 25/09/2026</strong></div>
+    <div class="porque"><strong>Por quê:</strong> antes havia um único campo "Prazo / Data", e cada card o usava de um jeito. Na SBPC, por exemplo, estávamos usando a data do evento; no WorCAP, a das inscrições. Isso confundia o leitor, as etiquetas automáticas do site e o cálculo de antecedência.</div>
+    <div class="cuidado"><strong>Gratuito não é o mesmo que sem inscrição.</strong> O mais comum é o evento ser gratuito e exigir inscrição. Marque a caixa só quando não houver inscrição nenhuma. Na dúvida, informe o prazo.</div>
+    <p><strong>O editor ajuda:</strong> aparece um aviso em vermelho quando um evento fica sem prazo e sem a caixa marcada, quando está sem inscrição e sem data do evento, ou quando a data do evento está num formato que o sistema não entende.</p>
+    <p style="margin:0">No site, um evento sem inscrição não recebe etiqueta de urgência (Últimos dias, Prazo próximo). Ele passa a "Encerrado" quando o evento termina.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">5</span>Curadoria: verificação de títulos e o botão "Revisar edição"</h2>
+    <p>O editor agora aponta, enquanto você monta a edição, os problemas que antes só apareciam depois de publicar. Nenhum aviso bloqueia nada: a decisão é sempre sua.</p>
+    <div class="porque"><strong>Por quê isso importa:</strong> o Radar reconhece uma oportunidade pelo <strong>título</strong>. Se o mesmo edital volta numa edição com o título escrito de outro jeito, o sistema o trata como um edital novo. Ele ganha a etiqueta "Novo" outra vez, os cliques ficam divididos entre dois itens e a antecedência sai errada. O lugar certo para pegar isso é a curadoria, não a hora do merge.</div>
+
+    <h3>Aviso embaixo de cada título</h3>
+    <p>O editor compara o título com tudo o que já foi publicado no site:</p>
+    <ul>
+      <li><strong>ℹ Já divulgado (Edição #01, 10/07/2026):</strong> o título é idêntico ao de uma oportunidade já publicada. É uma republicação normal: ao publicar, o item é atualizado e mantém a data original.</li>
+      <li><strong>⚠ Parecido com: …</strong> o título lembra o de um edital já publicado. Se for o mesmo edital, copie aquele título exatamente igual. Se for outra chamada ou outro programa, pode manter.</li>
+    </ul>
+    <p>A regra considera parecidos os títulos com o mesmo número de edital do mesmo órgão (ex.: "28/2025" da Fapes), ou que compartilham a maior parte das palavras importantes. Testada nos 37 títulos atuais, ela aponta só dois pares, e os dois fazem sentido: a 3ª e a 4ª chamada da Fapes 28, e o PAEP e o PAEP-EB da CAPES. Chamadas diferentes de um mesmo edital continuam sendo itens diferentes, e isso está correto.</p>
+
+    <h3>Correção automática de maiúsculas</h3>
+    <p>Se um título estiver todo em MAIÚSCULAS, o editor o corrige sozinho quando você sai do campo. Ele mantém as siglas (Fapes, CNPq, CAPES, INPE…) e corrige o mesmo trecho dentro do resumo, para o link não sumir. Aparece a opção <strong>Desfazer</strong>, para o caso raro de um nome oficial que deva ficar em maiúsculas. A correção também acontece ao importar um JSON gerado pela IA.</p>
+    <div class="exemplo">"EDITAL FAPES Nº 28/2025 - PUBLICAÇÃO DE ARTIGOS…" → "Edital Fapes Nº 28/2025 - Publicação de Artigos…"</div>
+    <div class="porque"><strong>Por quê:</strong> o título da 4ª chamada da Fapes 28 entrou todo em maiúsculas e fora do padrão do Radar. Trocar maiúsculas por minúsculas não quebra nada, porque o Radar ignora essa diferença ao reconhecer o edital. Por isso a correção pode ser automática. Já o traço " - " virando travessão " — " mudaria a identidade do edital, então fica só como sugestão.</div>
+
+    <h3>Botão "✔ Revisar edição"</h3>
+    <p>Fica no topo do editor, ao lado de "Salvar Edição". Ele verifica todos os cards de uma vez e mostra a lista em três níveis:</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Nível</th><th>Exemplos</th></tr></thead>
+      <tbody>
+        <tr><td><span class="nivel corrigir">Corrigir</span></td><td>Resumo que não contém o título exato; link vazio; link encurtado ou do Radar no lugar do link original; evento sem prazo e sem a caixa marcada; data de envio vazia</td></tr>
+        <tr><td><span class="nivel atencao">Atenção</span></td><td>Título parecido com um já divulgado; título em maiúsculas; data do evento fora do formato</td></tr>
+        <tr><td><span class="nivel info">Informação</span></td><td>Oportunidade já divulgada (republicação); sugestão de travessão no título</td></tr>
+      </tbody>
+    </table></div>
+    <p>Use sempre antes de exportar o JSON e gerar o boletim.</p>
+    <p style="margin:0">No merge, o mesmo aviso de título parecido aparece no terminal, como última rede de segurança.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">6</span>Dashboard: agora o oficial é o do site</h2>
+    <p>O dashboard do sistema interno foi <strong>removido</strong>. O dashboard oficial do Radar é o do site público (menu <strong>Dashboard</strong>), aberto a todos.</p>
+    <div class="porque"><strong>Por quê:</strong> o dashboard do sistema era alimentado pelo histórico salvo no navegador. Cada computador mostrava números diferentes (o seu, o da Juliana), e tudo se perdia ao limpar o navegador. O do site lê o <code>banco.json</code> e a planilha de cliques, que são os mesmos para todo mundo e não se perdem. Ter dois dashboards também confundia.</div>
+    <h3>O que o dashboard do site mostra agora</h3>
+    <ul>
+      <li><strong>Painel de período</strong> em destaque, abrindo em "Este ano", com o intervalo por extenso (ex.: "01/01/2026 a 14/10/2026").</li>
+      <li><strong>Indicadores:</strong> Divulgadas, Abertas agora, Encerradas, Novas, Encerram em breve e Boletins enviados.</li>
+      <li><strong>Gráficos</strong> por categoria, por coordenadoria/núcleo e a evolução mês a mês, todos com a <strong>quantidade e o %</strong> escritos em cada barra.</li>
+      <li><strong>Cliques nos editais:</strong> os mais clicados, por canal, por categoria e por edição.</li>
+      <li><strong>Antecedência de divulgação:</strong> a média, os alertas de menos de 7 dias, a tabela completa e o botão "Baixar tabela (CSV)". Tudo público, por decisão da Juliana em favor da transparência.</li>
+    </ul>
+    <h3>Mudanças de critério que você pode notar</h3>
+    <ul style="margin:0">
+      <li>Todos os números contam as oportunidades <strong>abertas e encerradas</strong> divulgadas no período. Antes, o dashboard escondia as encerradas, e isso dava uma visão menor do trabalho feito.</li>
+      <li>O período segue a <strong>data do primeiro anúncio</strong> da oportunidade.</li>
+      <li>Os gráficos de "Status" e "Fluxo contínuo × prazo definido" saíram. Os indicadores do topo e o contador da antecedência já mostram essa informação.</li>
+      <li>O gráfico de categorias passou de rosca para <strong>barras com o nome escrito</strong>. Um teste de cores mostrou que, para quem tem daltonismo, as cores oficiais de Premiações e Eventos ficam praticamente iguais. Com o nome em cada barra, ninguém depende da cor.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">7</span>Histórico do sistema: as edições publicadas, iguais para todos</h2>
+    <p>O 📚 Histórico do sistema agora mostra, no topo, <strong>todas as edições já publicadas</strong>, lidas do site. Você e a Juliana veem a mesma lista em qualquer computador.</p>
+    <p>A tela tem três partes:</p>
+    <ol>
+      <li><strong>Edições publicadas:</strong> cada edição com a data de envio, o número de oportunidades e dois botões. <strong>Abrir no editor</strong> carrega a edição para consulta ou para servir de base à próxima; antes, o sistema pede confirmação, porque substitui o que estiver no editor. <strong>HTML</strong> mostra o boletim daquela edição.</li>
+      <li><strong>Inclusões avulsas:</strong> as oportunidades publicadas fora de uma edição.</li>
+      <li><strong>Rascunhos salvos neste navegador:</strong> o que você salvou com "💾 Salvar Edição", como antes. Eles continuam existindo, mas só aparecem no computador onde foram salvos.</li>
+    </ol>
+    <div class="porque"><strong>Por quê:</strong> antes o Histórico mostrava só o que tinha sido salvo naquele navegador. Cada uma via uma lista diferente, e trocar de computador ou limpar o navegador apagava tudo. A cópia oficial de cada edição sempre foi o arquivo <code>edicoes/ed-XX/dados.json</code>, e agora o Histórico lê justamente esses arquivos.</div>
+    <p><strong>Como a lista se atualiza:</strong> o merge gera sozinho o arquivo <code>edicoes/indice.json</code>, com a lista de edições e avulsas. Não é preciso fazer nada. O mesmo índice alimenta o indicador "Boletins enviados" do dashboard. O número da próxima edição, sugerido em "Nova Edição", também passou a considerar as edições publicadas.</p>
+    <div class="cuidado" style="margin-bottom:0"><strong>Um limite:</strong> o Histórico publicado e os avisos de título só funcionam com o sistema aberto pelo endereço do site (GitHub Pages). Se o arquivo do sistema for aberto direto do computador, o editor funciona normalmente, mas essas duas partes ficam indisponíveis, com um aviso explicando.</div>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">8</span>Correções no site e no merge</h2>
+    <p>Dois problemas que já existiam antes foram corrigidos.</p>
+    <h3>Prazos com mais de uma data</h3>
+    <p>O site só entendia o prazo no formato exato DD/MM/AAAA. Qualquer texto a mais o fazia concluir "fluxo contínuo". Por isso o Prêmio Fapes 17/2026 ("24/07/2026 (Jornalismo: 15/09/2026)") e a 78ª Reunião da SBPC ("26/07 a 01/08/2026") apareciam como abertos, embora já estivessem encerrados.</p>
+    <p>Agora o site usa a <strong>última data</strong> do prazo para decidir quando a oportunidade encerra: o Prêmio Fapes encerra em 15/09, e a SBPC em 01/08. Os dois já aparecem como "Encerrado". A antecedência usa a primeira data, porque mede quanto tempo antes do primeiro prazo divulgamos.</p>
+    <h3>Título atualizado em republicações</h3>
+    <p style="margin:0">Antes, quando uma oportunidade era republicada, o merge atualizava o resumo, mas mantinha o título antigo. Se o título fosse corrigido (por exemplo, de maiúsculas para minúsculas), o resumo novo deixaria de conter o título antigo, e o link no meio do texto sumiria no site. Agora o merge também atualiza o título, sem mexer na data original nem na antecedência.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">9</span>Regras novas para montar o JSON e para o prompt da IA</h2>
+    <p>O prompt do botão "📄 Modelo + Prompt IA" já foi atualizado com estas regras. Valem também para quem montar o JSON à mão.</p>
+    <ul style="margin:0">
+      <li><strong>Link:</strong> no campo <code>"link"</code>, sempre o endereço <strong>original</strong> do edital (a página ou o PDF da instituição). Nunca um link encurtado nem um link do Radar (<code>ir.html</code>, <code>links.ifes.edu.br</code>). O sistema gera o link rastreável sozinho. Um link errado aqui faria o clique ser contado errado ou levar a pessoa ao lugar errado. Para a Fapes, que não tem página própria por edital, continua valendo o endereço que usamos hoje.</li>
+      <li><strong>Título:</strong> nunca em maiúsculas. Maiúscula só no início das palavras principais e nas siglas. O padrão recomendado, mas não obrigatório, é <code>[Nome do programa] — [Instituição] (Edital NN/AAAA, Nª chamada)</code>, com o travessão " — " como separador.</li>
+      <li><strong>Republicação:</strong> repetir o título <strong>exatamente</strong> como na primeira vez em que a oportunidade foi divulgada. O aviso "ℹ Já divulgado" confirma que deu certo.</li>
+      <li><strong>Resumo:</strong> continua valendo a regra crítica: ele precisa conter o título exato, copiado e colado, para o link aparecer no meio do texto.</li>
+      <li><strong>Eventos:</strong> <code>"prazo"</code> = fim das inscrições; <code>"dataEvento"</code> = quando acontece; <code>"semInscricao": true</code> só quando não há inscrição nenhuma, e aí o prazo fica vazio.</li>
+      <li><strong>Data de envio:</strong> a data real de envio da edição, no formato DD/MM/AAAA. Ela vira a data de primeira divulgação das oportunidades novas.</li>
+    </ul>
+  </section>
+
+  <section class="card destaque">
+    <h2><span class="num">10</span>Checklist da próxima edição</h2>
+    <ul class="checklist" style="margin:0">
+      <li>Atualizar a pasta com o GitHub antes de começar (Fetch/Pull no GitHub Desktop)</li>
+      <li>Abrir o sistema pelo endereço do site, não pelo arquivo no computador</li>
+      <li>Montar a edição; nos Eventos, preencher fim das inscrições (ou marcar a caixa) e a data do evento</li>
+      <li>Conferir os avisos embaixo de cada título (ℹ já divulgado / ⚠ parecido com)</li>
+      <li>Clicar em <strong>✔ Revisar edição</strong> e resolver os itens "Corrigir"</li>
+      <li>Exportar o JSON para <code>edicoes/ed-XX/dados.json</code></li>
+      <li>Rodar <code>python scripts/merge_edicao.py edicoes/ed-XX</code> e ler os avisos do terminal</li>
+      <li>Commit e push</li>
+      <li>Esperar cerca de 1 minuto</li>
+      <li>Gerar para Outlook e para WhatsApp e enviar</li>
+      <li>Opcional: abrir o Dashboard do site nos dias seguintes para ver os cliques da edição</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="num">11</span>Onde encontrar mais detalhes</h2>
+    <ul style="margin:0">
+      <li><strong>Dashboard do site:</strong> <a href="https://links.ifes.edu.br/radar">links.ifes.edu.br/radar</a>, menu Dashboard.</li>
+      <li><strong>Planilha de cliques:</strong> "RADAR-cliques-nos-editais", na pasta <code>radar-oportunidades/metricas/</code> do Drive da Juliana. Peça acesso a ela, se precisar.</li>
+      <li><strong>Referência técnica completa:</strong> o arquivo <code>CLAUDE.md</code>, na pasta <code>radar-oportunidades</code> do repositório. Ele tem o fluxo atualizado, os campos novos e as regras.</li>
+      <li><strong>Histórico das decisões:</strong> <code>docs/PLANO-metricas-cliques-e-antecedencia.md</code>.</li>
+      <li><strong>Dúvidas:</strong> com a Juliana.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>Diretoria de Pesquisa, Pós-Graduação e Extensão · Ifes Campus Colatina · pesquisa.col@ifes.edu.br</footer>
+
+</body>
+</html>
