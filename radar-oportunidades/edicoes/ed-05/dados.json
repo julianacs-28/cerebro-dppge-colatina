@@ -1,0 +1,165 @@
+{
+  "numero": "05",
+  "mes": "Outubro 2026",
+  "dataEnvio": "27/10/2026",
+  "destaque": {
+    "status": "ÚLTIMOS DIAS",
+    "categoria": "extensao",
+    "origem": "Coord. de Extensão",
+    "titulo": "Edital de Chamada Interna PROEX/CGAEx/Paex nº 07/2026 – Bolsas de Iniciação à Extensão",
+    "link": "https://proex.ifes.edu.br/editais?start=1",
+    "resumo": "Edital de Chamada Interna PROEX/CGAEx/Paex nº 07/2026 – Bolsas de Iniciação à Extensão apoia programas e projetos de extensão do Ifes, destinado a coordenadores e futuros proponentes de ações de extensão. O prazo para submissão das propostas foi prorrogado para 30 de outubro de 2026.",
+    "prazo": "30/10/2026",
+    "valor": "Bolsas de iniciação à extensão conforme edital",
+    "publico": "Coordenadores e futuros proponentes de programas e projetos de extensão do Ifes",
+    "imagem": "",
+    "ctaTexto": "Acessar Edital PROEX/CGAEx/Paex 07/2026 →",
+    "institucional": false
+  },
+  "categorias": {
+    "pesquisa": [
+      {
+        "status": "NOVO",
+        "origem": "Núcleo de Incubação",
+        "titulo": "EDITAL FAPES Nº 10/2026 – DR. EMPREENDEDOR CAPIXABA",
+        "link": "https://fapes.es.gov.br/media/Portif%C3%B3lios/edital_fapes_no_10-2026_-_dr-_empreendedor_capixaba_-_1a_alteracao_.pdf",
+        "resumo": "EDITAL FAPES Nº 10/2026 – DR. EMPREENDEDOR CAPIXABA apoia a transformação de resultados de pesquisas científicas em soluções inovadoras e empreendimentos de base tecnológica, destinado a doutores vinculados ao Espírito Santo que atendam aos requisitos do edital. A segunda chamada recebe propostas até 15 de dezembro de 2026.",
+        "prazo": "15/12/2026",
+        "valor": "Conforme edital",
+        "publico": "Doutores vinculados ao Espírito Santo que atendam aos requisitos do edital",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "internac": [
+      {
+        "status": "NOVO",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "CHAMADA TRANSNACIONAL CONJUNTA FOREST 2026 (FOREST PATHWAYS)",
+        "link": "https://fapes.es.gov.br/",
+        "resumo": "CHAMADA TRANSNACIONAL CONJUNTA FOREST 2026 (FOREST PATHWAYS) apoia projetos internacionais de pesquisa e inovação relacionados às florestas e às transformações necessárias para um futuro sustentável, destinado a pesquisadores integrantes de consórcios transnacionais elegíveis. As pré-propostas da primeira fase devem ser apresentadas até 2 de dezembro de 2026.",
+        "prazo": "02/12/2026",
+        "valor": "Conforme chamada",
+        "publico": "Pesquisadores integrantes de consórcios transnacionais elegíveis",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "CHAMADA TRANSNACIONAL CONJUNTA BIODIVERSA+ (BIODIVFUTURE) 2026-2027",
+        "link": "https://fapes.es.gov.br/",
+        "resumo": "CHAMADA TRANSNACIONAL CONJUNTA BIODIVERSA+ (BIODIVFUTURE) 2026-2027 apoia pesquisas internacionais voltadas à biodiversidade e às mudanças transformadoras, destinado a pesquisadores integrantes de consórcios transnacionais que atendam às regras da chamada. As pré-propostas da primeira fase devem ser apresentadas até 10 de novembro de 2026.",
+        "prazo": "10/11/2026",
+        "valor": "Conforme chamada",
+        "publico": "Pesquisadores integrantes de consórcios transnacionais elegíveis",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "CHAMADA TRANSNACIONAL CONJUNTA CONFAP & WATER4ALL 2026",
+        "link": "https://fapes.es.gov.br/",
+        "resumo": "CHAMADA TRANSNACIONAL CONJUNTA CONFAP & WATER4ALL 2026 apoia projetos internacionais de pesquisa e inovação relacionados à segurança hídrica, destinado a pesquisadores integrantes de consórcios transnacionais elegíveis. As pré-propostas da primeira fase devem ser apresentadas até 10 de novembro de 2026.",
+        "prazo": "10/11/2026",
+        "valor": "Conforme chamada",
+        "publico": "Pesquisadores integrantes de consórcios transnacionais elegíveis",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "CHAMADA TRANSNACIONAL CONJUNTA DA PARCERIA DE ECONOMIA AZUL SUSTENTAVEL (SBEP) 2026",
+        "link": "https://fapes.es.gov.br/",
+        "resumo": "CHAMADA TRANSNACIONAL CONJUNTA DA PARCERIA DE ECONOMIA AZUL SUSTENTAVEL (SBEP) 2026 apoia projetos colaborativos internacionais voltados à economia azul sustentável, destinado a pesquisadores integrantes de consórcios transnacionais elegíveis. As pré-propostas da primeira fase devem ser apresentadas até 16 de novembro de 2026.",
+        "prazo": "16/11/2026",
+        "valor": "Conforme chamada",
+        "publico": "Pesquisadores integrantes de consórcios transnacionais elegíveis",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "NOVO",
+        "origem": "Núcleo de Rel. Internacionais",
+        "titulo": "Programa de Doutorado Sanduíche no Exterior (PDSE/CAPES)",
+        "link": "https://www.gov.br/capes/pt-br/assuntos/noticias/atencao-candidatos-ao-pdse-as-inscricoes-abrem-nesta-terca-20",
+        "resumo": "Programa de Doutorado Sanduíche no Exterior (PDSE/CAPES) oferece bolsas para estágio de doutorado no exterior, destinado a candidatos previamente selecionados pelas instituições de ensino superior participantes. As candidaturas no sistema da CAPES seguem até 18 de novembro de 2026, às 17h.",
+        "prazo": "18/11/2026",
+        "valor": "Bolsa e auxílios conforme edital",
+        "publico": "Doutorandos previamente selecionados pelas instituições de ensino superior participantes",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "bolsas": [
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Pesquisa",
+        "titulo": "Chamada CNPq nº 33/2026 - Bolsas de Produtividade do CNPq",
+        "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-33-2026/chamada-publica-cnpq-N-33-2026",
+        "resumo": "Chamada CNPq nº 33/2026 - Bolsas de Produtividade do CNPq oferece bolsas nas modalidades Produtividade em Desenvolvimento Tecnológico e Extensão Inovadora, Produtividade em Pesquisa e Produtividade em Pesquisa Sênior, destinado a pesquisadores que atendam aos critérios da chamada. As inscrições seguem até 7 de janeiro de 2027.",
+        "prazo": "07/01/2027",
+        "valor": "Bolsas DT, PQ e PQSr conforme chamada",
+        "publico": "Pesquisadores com produção científica, tecnológica ou de inovação que atendam aos critérios da chamada",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Coord. de Pós-Graduação",
+        "titulo": "EDITAL FAPES Nº 26/2026 – PROCAP MESTRADO",
+        "link": "https://fapes.es.gov.br/media/Editais/procap-2027-mestrado.pdf",
+        "resumo": "EDITAL FAPES Nº 26/2026 – PROCAP MESTRADO oferece bolsas de mestrado, destinado a programas de pós-graduação sediados no Espírito Santo que atendam aos requisitos institucionais do edital. São previstas 210 bolsas, com propostas até 16 de novembro de 2026, às 17h59.",
+        "prazo": "16/11/2026",
+        "valor": "210 bolsas de mestrado, conforme edital",
+        "publico": "Programas de pós-graduação sediados no Espírito Santo que atendam aos requisitos do edital",
+        "imagem": "",
+        "local": ""
+      },
+      {
+        "status": "ÚLTIMOS DIAS",
+        "origem": "Coord. de Pós-Graduação",
+        "titulo": "EDITAL FAPES Nº 27/2026 – PROCAP DOUTORADO",
+        "link": "https://fapes.es.gov.br/media/Editais/procap-2027-doutorado.pdf",
+        "resumo": "EDITAL FAPES Nº 27/2026 – PROCAP DOUTORADO oferece bolsas de doutorado, destinado a programas de pós-graduação sediados no Espírito Santo que atendam aos requisitos institucionais do edital. São previstas 125 bolsas, com propostas até 16 de novembro de 2026, às 17h59.",
+        "prazo": "16/11/2026",
+        "valor": "125 bolsas de doutorado, conforme edital",
+        "publico": "Programas de pós-graduação sediados no Espírito Santo que atendam aos requisitos do edital",
+        "imagem": "",
+        "local": ""
+      }
+    ],
+    "evento": [
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Pesquisa",
+        "titulo": "Chamada CNPq Nº 34/2026 - Auxílio à Promoção de Eventos Científicos, Tecnológicos e/ou de Inovação - ARC",
+        "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-34-2026/chamada-publica-cnpq-N-34-2026",
+        "resumo": "Chamada CNPq Nº 34/2026 - Auxílio à Promoção de Eventos Científicos, Tecnológicos e/ou de Inovação - ARC apoia a realização, no Brasil, de eventos científicos e tecnológicos de grande porte e abrangência nacional ou internacional, destinado a proponentes que atendam aos requisitos da chamada. As inscrições seguem até 4 de dezembro de 2026.",
+        "prazo": "04/12/2026",
+        "valor": "Conforme chamada",
+        "publico": "Proponentes elegíveis para realização de eventos científicos, tecnológicos ou de inovação de grande porte",
+        "imagem": "",
+        "local": "Brasil"
+      }
+    ],
+    "premiacoes": [],
+    "extensao": [
+      {
+        "status": "NOVO",
+        "origem": "Coord. de Extensão",
+        "titulo": "Chamada Pública CNPq/Petrobras N° 31/2026 - Projeto InspirAÇÃO",
+        "link": "https://www.gov.br/cnpq/pt-br/chamadas/todas-as-chamadas/chamadas-2026/chamada-no-31-2026/chamada-publica-cnpq-N-31-2026",
+        "resumo": "Chamada Pública CNPq/Petrobras N° 31/2026 - Projeto InspirAÇÃO apoia propostas para ampliar a participação de jovens mulheres negras em setores estratégicos da indústria de energia, destinado a Instituições Científicas, Tecnológicas e de Inovação e instituições de ensino superior. As inscrições seguem até 8 de dezembro de 2026.",
+        "prazo": "08/12/2026",
+        "valor": "Conforme chamada",
+        "publico": "Instituições Científicas, Tecnológicas e de Inovação e instituições de ensino superior",
+        "imagem": "",
+        "local": ""
+      }
+    ]
+  },
+  "informes": []
+}
