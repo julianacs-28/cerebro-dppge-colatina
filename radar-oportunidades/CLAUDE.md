@@ -49,7 +49,11 @@ O **Radar de Oportunidades** é um ecossistema de comunicação institucional da
 7. Commitar e fazer push → aguardar ~1 minuto até o GitHub Pages publicar
 8. SÓ ENTÃO: "Gerar para Outlook" → nova aba abre → Ctrl+A → Ctrl+C → colar no Outlook → enviar e-mail
    e "Gerar para WhatsApp" → enviar
+   Se aparecer a faixa amarela "Este gerador está diferente da versão publicada no site":
+   salvar a edição, recarregar a página (F5) e abrir a edição de novo antes de gerar.
 ```
+
+**⚠️ Aba antiga = boletim sem contagem de cliques (aconteceu na ed-05):** o Pull no GitHub Desktop atualiza o arquivo no computador, mas uma aba do gerador que já estava aberta continua rodando o código antigo até ser recarregada. Por isso o gerador compara o próprio código (o `<script id="codigo-gerador">`) com o publicado no site — ao abrir, ao voltar para a aba e antes de gerar — e mostra a faixa amarela/pergunta se forem diferentes. Logo depois de um push, a faixa pode aparecer por ~1 minuto até o GitHub Pages publicar; é esperado.
 
 **⚠️ A ordem importa (mudou em out/2026):** os links dos editais no boletim e no WhatsApp passam por `ir.html`, que procura o edital no `banco.json` **publicado**. Se o boletim for enviado antes do merge + push, o clique é registrado, mas a pessoa cai na página inicial do Radar em vez do edital.
 
@@ -399,6 +403,7 @@ Aplicação HTML standalone com:
 - **Verificação de títulos** (curadoria) — abaixo de cada título, compara com o `banco.json` publicado: "ℹ Já divulgado" (republicação) ou "⚠ Parecido com…" (possível mesmo edital escrito de outro jeito). Título em MAIÚSCULAS é corrigido sozinho ao sair do campo (siglas preservadas, mesmo trecho corrigido no resumo, com "Desfazer"); também ao importar um JSON.
 - **✔ Revisar edição** (botão no topo) — checklist de todos os cards antes de fechar o boletim: resumo sem o título exato, link vazio, títulos parecidos/já divulgados, maiúsculas, eventos sem prazo/sem caixa, data de envio. Nunca bloqueia.
 - **Histórico** — "Edições publicadas" (lidas de `edicoes/indice.json`, iguais para todos; botões Abrir no editor e HTML), "Inclusões avulsas" e, à parte, "Rascunhos salvos neste navegador" (localStorage, só naquele computador)
+- **Aviso de versão** — faixa amarela no topo quando o código da aba é diferente do `radar_sistema_dppge.html` publicado; "Gerar para Outlook/WhatsApp" pergunta antes de gerar. Sem internet: só uma linha cinza discreta. Nunca bloqueia. O `id="codigo-gerador"` do `<script>` principal é o que a comparação usa — não remover.
 - **Exportar JSON** → baixa o arquivo para subir no GitHub
 - **Importar JSON** → carrega edição anterior
 - **Modelo + Prompt IA** → prompt completo para gerar JSON via Claude

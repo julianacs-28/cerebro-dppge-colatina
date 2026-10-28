@@ -341,6 +341,13 @@
   .aviso-alerta { background: #fff8e1; color: #6d4c00; border-left: 3px solid #F57F17; }
   .aviso-titulo a { color: inherit; font-weight: 700; }
 
+  /* Aviso de versão do gerador (aba aberta antes de atualizar / cópia antiga do arquivo) */
+  .aviso-versao { padding: 10px 24px; font-size: 13px; line-height: 1.5; border-bottom: 1px solid var(--cinza-borda); }
+  .aviso-versao.alerta { background: #fff8e1; color: #6d4c00; border-left: 4px solid #F57F17; }
+  .aviso-versao.discreto { background: #f5f5f5; color: var(--texto-suave); font-size: 12px; padding: 6px 24px; }
+  .aviso-versao a { color: inherit; font-weight: 700; }
+  .aviso-versao-nota { display: block; font-size: 12px; opacity: .8; margin-top: 2px; }
+
   /* Revisar edição */
   .revisao-item { padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; line-height: 1.5; border-left: 4px solid; }
   .revisao-item strong { display: block; margin-bottom: 2px; }
@@ -468,6 +475,7 @@
       <button class="btn btn-primary btn-sm" id="btn-copiar-whatsapp">📱 Gerar para WhatsApp</button>
     </div>
   </div>
+  <div id="aviso-versao" class="aviso-versao" hidden></div>
 
   <!-- ── VIEW: EDITOR ── -->
   <div id="view-editor" class="view active">
@@ -758,7 +766,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<script>
+<script id="codigo-gerador">
 // ════════════════════════════════════════════════════════
 // CONSTANTES E CONFIGURAÇÕES
 // ════════════════════════════════════════════════════════
@@ -1669,6 +1677,56 @@ async function carregarDadosPublicados() {
   verificarTodosTitulos();
 }
 
+// ── Versão do gerador ──────────────────────────────────────────
+// Compara o código desta aba com o publicado no site. Uma aba aberta antes de um Pull (ou uma
+// cópia antiga do arquivo) continua rodando o código velho e gera o boletim sem os links
+// rastreáveis — foi o que aconteceu na ed-05. Nunca bloqueia: avisa e pergunta antes de gerar.
+// Funciona também aberto como arquivo (file://): o GitHub Pages permite a leitura de outra origem.
+let versaoGerador = 'conferindo'; // 'conferindo' | 'igual' | 'diferente' | 'erro'
+let ultimaConferenciaVersao = 0;
+const CODIGO_DESTA_ABA = normalizarCodigo(document.getElementById('codigo-gerador').textContent);
+
+function normalizarCodigo(s) {
+  return String(s || '').replace(/\r\n?/g, '\n').trim();
+}
+
+async function conferirVersaoGerador() {
+  ultimaConferenciaVersao = Date.now();
+  try {
+    const r = await fetch(RADAR_BASE_URL + 'radar_sistema_dppge.html?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw 0;
+    const publicado = new DOMParser().parseFromString(await r.text(), 'text/html').getElementById('codigo-gerador');
+    versaoGerador = publicado && normalizarCodigo(publicado.textContent) === CODIGO_DESTA_ABA ? 'igual' : 'diferente';
+  } catch (e) {
+    versaoGerador = 'erro';
+  }
+  mostrarAvisoVersao();
+}
+
+function mostrarAvisoVersao() {
+  const el = document.getElementById('aviso-versao');
+  if (versaoGerador === 'diferente') {
+    el.className = 'aviso-versao alerta';
+    el.innerHTML = `<strong>⚠ Este gerador está diferente da versão publicada no site.</strong> Os links do boletim podem sair sem a contagem de cliques.<br>
+      1. Salve a edição (💾) ou exporte o JSON &nbsp;·&nbsp; 2. Recarregue a página (F5) e abra a edição de novo (Histórico ou Importar JSON) &nbsp;·&nbsp; <a href="#" data-reconferir>Conferir de novo</a>
+      <span class="aviso-versao-nota">Logo depois de publicar (push), o site leva cerca de 1 minuto para atualizar — se for o caso, espere e clique em "Conferir de novo".</span>`;
+    el.hidden = false;
+  } else if (versaoGerador === 'erro') {
+    el.className = 'aviso-versao discreto';
+    el.innerHTML = `Não foi possível conferir a versão do gerador (sem internet?). <a href="#" data-reconferir>Tentar de novo</a>`;
+    el.hidden = false;
+  } else {
+    el.hidden = true;
+  }
+}
+
+// Chamado antes de gerar boletim/WhatsApp. Só pergunta quando a versão é comprovadamente diferente.
+function confirmarVersaoGerador() {
+  if (versaoGerador !== 'diferente') return true;
+  return confirm('Este gerador está diferente da versão publicada no site — o boletim pode sair sem a contagem de cliques.\n\n' +
+    'O recomendado é Cancelar, salvar a edição e recarregar a página (F5).\n\nGerar mesmo assim?');
+}
+
 function escHist(s) {
   return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 }
@@ -2050,6 +2108,7 @@ document.getElementById('btn-exportar-json').addEventListener('click', () => {
 
 // Gerar para Outlook — abre numa nova aba e mostra instruções
 document.getElementById('btn-copiar-html').addEventListener('click', () => {
+  if (!confirmarVersaoGerador()) return;
   const d = collectData();
   const html = generateHTML(d);
   // Salva no modal para uso posterior
@@ -2082,6 +2141,7 @@ document.getElementById('btn-fechar-html').addEventListener('click', () => {
 document.getElementById('btn-baixar-whatsapp-imagem').href = WHATSAPP_HEADER_IMG;
 
 document.getElementById('btn-copiar-whatsapp').addEventListener('click', () => {
+  if (!confirmarVersaoGerador()) return;
   const d = collectData();
   const texto = generateWhatsApp(d);
   document.getElementById('whatsapp-output').value = texto;
@@ -2175,6 +2235,17 @@ document.getElementById('d-institucional').addEventListener('change', verificarT
 updatePreview();
 renderHistorico();
 carregarDadosPublicados();
+
+conferirVersaoGerador();
+// Ao voltar para esta aba (ex.: depois de fazer Pull no GitHub Desktop), confere de novo.
+function reconferirVersaoAoVoltar() {
+  if (document.visibilityState === 'visible' && Date.now() - ultimaConferenciaVersao > 30000) conferirVersaoGerador();
+}
+window.addEventListener('focus', reconferirVersaoAoVoltar);
+document.addEventListener('visibilitychange', reconferirVersaoAoVoltar);
+document.getElementById('aviso-versao').addEventListener('click', e => {
+  if (e.target.closest('[data-reconferir]')) { e.preventDefault(); conferirVersaoGerador(); }
+});
 </script>
 </body>
 </html>
