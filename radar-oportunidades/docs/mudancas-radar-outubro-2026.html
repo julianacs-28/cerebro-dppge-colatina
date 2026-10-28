@@ -24,6 +24,10 @@
   main { padding: 32px 16px 56px; }
   .card { background: var(--branco); border: 1px solid var(--borda); border-radius: 10px; padding: 28px 32px; margin-bottom: 20px; }
   .card.destaque { border-left: 5px solid var(--verde); background: var(--verde-claro); border-color: var(--verde-borda); }
+  .card.novidade { border-left: 5px solid var(--atencao); }
+  .card.novidade .rotulo-novo { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #8a4d00; background: var(--atencao-fundo); border-radius: 12px; padding: 2px 10px; margin-bottom: 10px; }
+  .faixa-exemplo { background: var(--atencao-fundo); color: #6d4c00; border-left: 4px solid var(--atencao); padding: 10px 14px; font-size: 13.5px; line-height: 1.5; margin: 10px 0 14px; border-radius: 0 6px 6px 0; }
+  .faixa-exemplo small { display: block; font-size: 12px; opacity: .8; margin-top: 2px; }
   h2 { font-size: 21px; color: var(--verde); margin: 0 0 14px; letter-spacing: -.2px; line-height: 1.3; }
   h2 .num { display: inline-block; min-width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%; background: var(--verde); color: #fff; font-size: 14px; margin-right: 10px; vertical-align: 2px; }
   h3 { font-size: 16px; color: var(--texto); margin: 22px 0 8px; }
@@ -73,13 +77,39 @@
 <div class="faixa">DPPGE · Ifes Campus Colatina · Radar de Oportunidades</div>
 <header>
   <div class="wrap">
-    <p class="rotulo">Para a Luisa · 14/10/2026</p>
+    <p class="rotulo">Para a Luisa · 14/10/2026 · atualizado em 28/10/2026</p>
     <h1>Radar de Oportunidades — o que mudou em outubro de 2026</h1>
     <p>Tudo o que mudou no Radar e o motivo de cada mudança. Já está publicado e funcionando.</p>
   </div>
 </header>
 
 <main class="wrap">
+
+  <section class="card novidade">
+    <span class="rotulo-novo">Novo em 28/10/2026</span>
+    <h2>Recarregue o sistema (F5) antes de gerar o boletim</h2>
+    <p>O boletim da <strong>edição 05</strong> saiu com os links diretos para os editais, sem passar pela página de passagem do Radar. Por isso os cliques dessa edição, no e-mail e no WhatsApp, <strong>não foram contados</strong>. Os cliques pelo site continuaram sendo contados normalmente.</p>
+    <p>A ordem de publicação foi seguida. O problema está num detalhe do navegador que ninguém tinha previsto:</p>
+    <ol>
+      <li>O sistema é aberto para montar e revisar a edição, ainda na versão antiga.</li>
+      <li>Na hora do push, o GitHub Desktop pede o <strong>Pull</strong> antes, e o arquivo do sistema no computador é atualizado.</li>
+      <li>Mas a <strong>aba que já estava aberta</strong> não percebe a atualização. Ela continua rodando a versão antiga até a página ser recarregada.</li>
+      <li>"Gerar para Outlook", clicado nessa mesma aba, gera o boletim com a versão antiga, que não sabia criar os links rastreáveis.</li>
+    </ol>
+    <div class="porque"><strong>O que mudou no sistema:</strong> agora ele compara a versão aberta na aba com a versão publicada no site: ao abrir, ao voltar para a aba e antes de gerar o boletim e a mensagem de WhatsApp. Se forem diferentes, aparece esta faixa amarela no topo:</div>
+    <div class="faixa-exemplo"><strong>⚠ Este gerador está diferente da versão publicada no site.</strong> Os links do boletim podem sair sem a contagem de cliques.<br>
+      1. Salve a edição (💾) ou exporte o JSON · 2. Recarregue a página (F5) e abra a edição de novo (Histórico ou Importar JSON) · <u>Conferir de novo</u>
+      <small>Logo depois de publicar (push), o site leva cerca de 1 minuto para atualizar — se for o caso, espere e clique em "Conferir de novo".</small></div>
+    <p>Com a faixa visível, os botões "Gerar para Outlook" e "Gerar para WhatsApp" também perguntam <strong>"Gerar mesmo assim?"</strong> antes de continuar. O sistema nunca bloqueia: a decisão é sua.</p>
+    <h3>O que fazer se a faixa aparecer</h3>
+    <ol>
+      <li>Clique em <strong>💾 Salvar Edição</strong> ou em <strong>⬇ Exportar JSON</strong>. <strong>Não pule este passo:</strong> recarregar a página apaga o que está no editor.</li>
+      <li>Aperte <strong>F5</strong>.</li>
+      <li>Abra a edição de novo, pelo 📚 Histórico ou por 📥 Importar JSON.</li>
+      <li>Confira se a faixa sumiu e só então gere o boletim.</li>
+    </ol>
+    <div class="cuidado" style="margin-bottom:0"><strong>É normal ver a faixa logo depois do push:</strong> o site leva cerca de 1 minuto para publicar a versão nova. Espere e clique em "Conferir de novo". Se aparecer só uma linha cinza ("Não foi possível conferir a versão…"), é falta de internet: o sistema funciona, só não conseguiu comparar.</div>
+  </section>
 
   <section class="card destaque">
     <h2>Em resumo</h2>
@@ -104,6 +134,7 @@
       <li>Rodar o merge: <code>python scripts/merge_edicao.py edicoes/ed-XX</code>.</li>
       <li>Fazer commit e push.</li>
       <li>Esperar cerca de 1 minuto, o tempo de o GitHub Pages publicar.</li>
+      <li><strong>Recarregar o sistema (F5)</strong>, abrir a edição de novo e conferir se não há faixa amarela no topo (ver o quadro "Novo em 28/10/2026", no início).</li>
       <li><strong>Só então</strong> clicar em "Gerar para Outlook" e "Gerar para WhatsApp" e enviar.</li>
     </ol>
     <div class="porque"><strong>Por quê:</strong> os links dos editais no boletim e no WhatsApp agora passam por uma página do próprio Radar (explicada na seção 2). Essa página procura o edital no <code>banco.json</code> <strong>publicado</strong> para saber para onde levar a pessoa. Se o boletim sair antes do merge e do push, o edital ainda não está no site. Nesse caso, o clique é contado, mas a pessoa cai na página inicial do Radar em vez de chegar ao edital.</div>
@@ -163,7 +194,7 @@
       <li>Cliques vindos do site ficam com a coluna Edição vazia, porque o site não pertence a uma edição. É o comportamento correto.</li>
       <li>Os antivírus de e-mail costumam "clicar" nos links para verificá-los. Esses cliques de robô não são contados.</li>
       <li>Se o link de um edital for corrigido depois (no JSON, seguido do merge), até os boletins antigos passam a levar ao endereço novo.</li>
-      <li>As edições 01 a 04 foram enviadas com os links diretos, então cliques nelas não são contados. A contagem por edição começa na ed-05.</li>
+      <li>As edições 01 a 05 foram enviadas com os links diretos, então cliques nelas não são contados. A ed-05 deveria ter sido a primeira com contagem, mas o boletim foi gerado numa aba com a versão antiga do sistema (ver o quadro "Novo em 28/10/2026", no início). A contagem por edição começa na ed-06.</li>
     </ul>
     <p style="margin:0"><strong>O link curto da Comunicação continua.</strong> O <code>links.ifes.edu.br/radar</code> segue no rodapé do boletim e no fim da mensagem de WhatsApp, e ninguém precisa pedir outro. Ele mede as entradas no site; a planilha mede os cliques em cada edital. Uma medição completa a outra.</p>
   </section>
@@ -319,7 +350,9 @@
       <li>Rodar <code>python scripts/merge_edicao.py edicoes/ed-XX</code> e ler os avisos do terminal</li>
       <li>Commit e push</li>
       <li>Esperar cerca de 1 minuto</li>
+      <li><strong>Recarregar o sistema (F5)</strong>, abrir a edição de novo e conferir que <strong>não há faixa amarela</strong> no topo</li>
       <li>Gerar para Outlook e para WhatsApp e enviar</li>
+      <li>Opcional: clicar num edital do e-mail recebido e conferir se o endereço passa por <code>ir.html</code></li>
       <li>Opcional: abrir o Dashboard do site nos dias seguintes para ver os cliques da edição</li>
     </ul>
   </section>
