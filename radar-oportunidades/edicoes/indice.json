@@ -1,6 +1,13 @@
 {
   "edicoes": [
     {
+      "pasta": "edicoes/ed-06",
+      "data": "16/11/2026",
+      "oportunidades": 10,
+      "numero": "06",
+      "mes": "Novembro 2026"
+    },
+    {
       "pasta": "edicoes/ed-05",
       "data": "27/10/2026",
       "oportunidades": 12,
